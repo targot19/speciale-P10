@@ -1,4 +1,6 @@
-/*Import Tailwind*/
+/*Import Tailwind
+https://tailwindcss.com/docs/styling-with-utility-classes
+*/
 @import "tailwindcss";
 
 /*Import of our custom classes */
