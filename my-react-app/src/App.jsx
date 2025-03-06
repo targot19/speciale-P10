@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Task1 from "./pages/Task1";
-import './App.css'
+//mport './App.css'
 
 function App() {
 
