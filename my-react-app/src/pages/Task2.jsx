@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import BackButton from "../components/Backbutton";
-import NextButton from "../components/Nextbutton";
+import BackButton from "../components/BackButton";
+import NextButton from "../components/NextButton";
 
 const Task2 = () => {
     return (

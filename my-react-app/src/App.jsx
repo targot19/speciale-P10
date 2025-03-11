@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchChatGPTResponse } from "./api/openai";
 import Landing from "./pages/Landing";
 import Task1 from "./pages/Task1";
 import Task2 from "./pages/Task2";
@@ -7,6 +9,17 @@ import Task4 from "./pages/Task4";
 //import './App.css'
 
 function App() {
+
+  /*const [hasFetched, setHasFetched] = useState(false);
+
+  useEffect(() => {
+    if (!hasFetched) {
+      fetchChatGPTResponse("Hello, how are you?")
+        .then(response => console.log("ChatGPT says:", response))
+        .catch(error => console.error("API Error:", error));
+      setHasFetched(true);
+    }
+  }, [hasFetched]);*/
 
   return (
     <>
