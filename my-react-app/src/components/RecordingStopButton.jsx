@@ -1,9 +1,9 @@
-function NextButton() {
+function RecordingStopButton() {
     return (
         <button className="px-6 py-3 bg-[#264653] text-white font-semibold rounded-lg shadow-md hover:bg-[#1e3d46] transition">
-            Next
+            Stop Recording
         </button>
     );
 }
 
-export default NextButton;
+export default RecordingStopButton;
