@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchChatGPTResponse } from "./api/openai";
 import Landing from "./pages/Landing";
-import Task1 from "./pages/Task1";
-import Task2 from "./pages/Task2";
-import Task3 from "./pages/Task3";
-import Task4 from "./pages/Task4";
+import Music from "./pages/9Music";
+import Health from "./pages/10Health";
+import Geography from "./pages/11Geography";
+import Physics from "./pages/12Physics";
+import ExperimentSectionPage from "./pages/9ExperimentSectionPage";
 //import './App.css'
 
 function App() {
@@ -26,10 +27,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Landing />}/>
-          <Route path="/Task1" element={<Task1 />}/>
-          <Route path="/Task2" element={<Task2 />}/>
-          <Route path="/Task3" element={<Task3 />}/>
-          <Route path="/Task4" element={<Task4 />}/>
+          <Route path="/experimentsection" element={<ExperimentSectionPage />} />
+          <Route path="/Music" element={<Music />}/>
+          <Route path="/Health" element={<Health />}/>
+          <Route path="/Geography" element={<Geography />}/>
+          <Route path="/Pysics" element={<Physics />}/>
         </Routes>
       </Router>
     </>

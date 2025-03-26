@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import NextButton from "../components/NextButton";
 
-const Task3 = () => {
+const Geography = () => {
     return (
         <>
         <div>
-            <h1>Task 3</h1>
+            <h1>Geography</h1>
         </div>
         <Link to="/Task2" rel="noopener noreferrer"><BackButton>Back</BackButton></Link>
         <Link to="/Task4" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
@@ -14,4 +14,4 @@ const Task3 = () => {
     )
 }
 
-export default Task3;
+export default Geography;

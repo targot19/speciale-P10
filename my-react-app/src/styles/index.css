@@ -22,15 +22,11 @@ https://tailwindcss.com/docs/styling-with-utility-classes
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html, body {
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 320px;
+  height: 100;
   width: 100vw;
-  min-height: 100vh;
-  border: 2px red dotted;
+  background-color: #F4F4F4;
 }
 
 /*
