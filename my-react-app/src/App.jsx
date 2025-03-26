@@ -33,11 +33,11 @@ function App() {
           <Route path="/Task3" element={<Task3 />}/>
           <Route path="/Task4" element={<Task4 />}/>
           <Route path="/Demographics" element={<DemographicQuestionnaire />}/>
-          <Route path="GAAIS" element={<GAAISQuestionnaire />}/>
+          <Route path="/GAAIS" element={<GAAISQuestionnaire />}/>
         </Routes>
       </Router>
     </>
   )
 }
 
-export default App
+export default App;

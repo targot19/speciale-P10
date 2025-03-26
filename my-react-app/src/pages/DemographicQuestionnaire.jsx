@@ -64,7 +64,7 @@ const DemographicQuestionnaire = () => {
                 />
             </div>
             <ButtonContainer>
-            <Link to="/" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
+            <Link to="/GAAIS" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
             </ButtonContainer>
         </div>
     );
