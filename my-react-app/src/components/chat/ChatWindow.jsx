@@ -21,7 +21,7 @@ const ChatWindow = () => {
     // const [messageHistory, SetMessageHistory] = useState([]) // This will set whatever history we want to show, at this point - current or for the category.
 
     return (
-        <div className="flex flex-col justify-between h-full w-[60%] border-2 border-blue-400">
+        <div className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
             <ChatHistory messageHistory={testHistory} />
             <ChatInputField />
         </div>
