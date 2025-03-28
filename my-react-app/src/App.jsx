@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import { useEffect, useState } from "react";
 import { fetchChatGPTResponse } from "./api/openai";
 import Landing from "./pages/Landing";
@@ -26,6 +27,7 @@ function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Landing />}/>
           <Route path="/Task1" element={<Task1 />}/>
