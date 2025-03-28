@@ -7,17 +7,18 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-export default function RadioButtonsGroup({ question, options }) {
+export default function RadioButtonsGroup({ question, options, onChange }) {
   return (
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">{question}</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        name="radio-buttons-group"
-      >
-        {options.map((option, index) => (
-          <FormControlLabel key={index} value={option} control={<Radio />} label={option} />
-        ))}
+        <RadioGroup
+          aria-labelledby="demo-radio-buttons-group-label"
+          name="radio-buttons-group"
+          onChange={(event) => onChange(event.target.value)}
+        >
+          {options.map((option, index) => (
+            <FormControlLabel key={index} value={option} control={<Radio />} label={option}/>
+          ))}
       </RadioGroup>
     </FormControl>
   );
