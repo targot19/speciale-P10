@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import { fetchChatGPTResponse } from "./api/openai";
 import Landing from "./pages/Landing";
 import Music from "./pages/9Music";
-import Health from "./pages/10Health";
-import Geography from "./pages/11Geography";
-import Physics from "./pages/12Physics";
 import ExperimentSectionPage from "./pages/9ExperimentSectionPage";
 //import './App.css'
 
@@ -29,9 +26,6 @@ function App() {
           <Route path="/" element={<Landing />}/>
           <Route path="/experimentsection" element={<ExperimentSectionPage />} />
           <Route path="/Music" element={<Music />}/>
-          <Route path="/Health" element={<Health />}/>
-          <Route path="/Geography" element={<Geography />}/>
-          <Route path="/Pysics" element={<Physics />}/>
         </Routes>
       </Router>
     </>
