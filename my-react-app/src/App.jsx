@@ -7,6 +7,7 @@ import Task2 from "./pages/Task2";
 import Task3 from "./pages/Task3";
 import Task4 from "./pages/Task4";
 import Briefing from "./pages/4Briefing";
+import PerceivedTrust from "./pages/13PerceivedTrust";
 import ThankYou from "./pages/15ThankYou";
 //import './App.css'
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/Task3" element={<Task3 />}/>
           <Route path="/Task4" element={<Task4 />}/>
           <Route path="/4Briefing" element={<Briefing />} />
+          <Route path="/13PerceivedTrust" element={<PerceivedTrust />} />
           <Route path="/15ThankYou" element={<ThankYou />} />
         </Routes>
       </Router>

@@ -1,9 +1,12 @@
 import InfoBox from "../components/InfoBox";
 import NextButton from "../components/NextButton";
+import ConditionQuestionBox from "../components/ConditionQuestionBox";
+
 
 const Landing = () => {
+        
     return (
-        <div className="bg-[#F4F4F4] min-h-screen flex flex-col items-center">
+        <div className="min-h-screen flex flex-col items-center">
             <div className="flex-grow flex items-center justify-center">
                 <InfoBox>
                     <h1 className="text-2xl font-bold">Welcome</h1>

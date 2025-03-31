@@ -24,8 +24,8 @@ https://tailwindcss.com/docs/styling-with-utility-classes
 
 html, body {
   margin: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   background-color: #F4F4F4; /* Ensure our grey background spans the entire page */
 }
 
