@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RadioButtonsGroup from "../components/PreSurveyQuestionBox/RadioButtonsGroup";
+import RadioButtonsGroup from "../components/RadioButtonsGroup";
 import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextButton";
 import { Link } from "react-router-dom";
@@ -78,13 +78,13 @@ const DemographicQuestionnaire = () => {
             </div>
             <div className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
-                    question="I have often used or currently use AI systems often (e.g. ChatGPT, Copilot, Gemini, etc.) in my day-to-day life."
+                    question="How often do you use AI systems (e.g. ChatGPT, Copilot, Gemini, etc.)?"
                     options={[
-                        "Strongly agree",
-                        "Slightly agree",
-                        "Neither agree nor disagree",
-                        "Slightly disagree",
-                        "Strongly disagree"
+                        "Daily",
+                        "Weekly",
+                        "Monthly",
+                        "Rarely",
+                        "Never"
                     ]}
                     onChange={(answer) => handleResponses("aiUsage", answer)}
                 />
