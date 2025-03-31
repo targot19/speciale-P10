@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RadioButtonsGroup from "../components/PreSurveyQuestionBox/RadioButtonsGroup";
+import RadioButtonsGroup from "../components/RadioButtonsGroup";
 import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextButton";
 import { Link } from "react-router-dom";
