@@ -78,7 +78,7 @@ const DemographicQuestionnaire = () => {
             </div>
             <div className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
-                    question="I have used or currently use AI systems (e.g. ChatGPT, Copilot, Gemini, etc.) in my day-to-day life."
+                    question="I have often used or currently use AI systems often (e.g. ChatGPT, Copilot, Gemini, etc.) in my day-to-day life."
                     options={[
                         "Strongly agree",
                         "Slightly agree",
