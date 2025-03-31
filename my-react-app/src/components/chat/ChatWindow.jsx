@@ -11,7 +11,7 @@ const testHistory =
     { type: "answerCheck1" },
     { type: "message", role: "user", text: "Are you sure?" },
     { type: "message", role: "bot", text: "Yes, Lima is the capital of Peru." },
-    { type: "answerCheck2" },
+    { type: "answerCheck2" }
   ]
 
 // Should call ChatHistory + ChatInputField
