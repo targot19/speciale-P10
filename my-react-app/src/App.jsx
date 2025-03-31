@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import { useEffect, useState } from "react";
 import { fetchChatGPTResponse } from "./api/openai";
+<<<<<<< HEAD
 import Landing from "./pages/1Landing";
 import Task1 from "./pages/Task1";
 import Task2 from "./pages/Task2";
@@ -12,6 +13,11 @@ import GAAISQuestionnaire from "./pages/GAAISQuestionnaire";
 import Briefing from "./pages/4Briefing";
 import PerceivedTrust from "./pages/13PerceivedTrust";
 import ThankYou from "./pages/15ThankYou";
+=======
+import Landing from "./pages/Landing";
+import Music from "./pages/9Music";
+import ExperimentSectionPage from "./pages/9ExperimentSectionPage";
+>>>>>>> Experiment_section_page_UI
 //import './App.css'
 
 function App() {
@@ -33,6 +39,7 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Landing />}/>
+<<<<<<< HEAD
           <Route path="/Task1" element={<Task1 />}/>
           <Route path="/Task2" element={<Task2 />}/>
           <Route path="/Task3" element={<Task3 />}/>
@@ -42,6 +49,10 @@ function App() {
           <Route path="/4Briefing" element={<Briefing />} />
           <Route path="/13PerceivedTrust" element={<PerceivedTrust />} />
           <Route path="/15ThankYou" element={<ThankYou />} />
+=======
+          <Route path="/experimentsection" element={<ExperimentSectionPage />} />
+          <Route path="/Music" element={<Music />}/>
+>>>>>>> Experiment_section_page_UI
         </Routes>
       </Router>
     </>

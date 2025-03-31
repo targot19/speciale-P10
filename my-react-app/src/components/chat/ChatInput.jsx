@@ -1,8 +1,9 @@
 /* Used this link: https://www.tutkit.com/en/text-tutorials/1313-basic-ui-in-react-with-openai-api*/
 import { useEffect, useRef, useState } from "react";
-import { fetchChatGPTResponse } from "../api/openai";
+import { fetchChatGPTResponse } from "../../api/openai";
 
-const Chatinput = () => {
+
+const ChatInput = () => {
     const [answer, setAnswer] = useState("");
     const messageInput = useRef();
     const [userInput, setUserInput] = useState("");
@@ -25,14 +26,14 @@ const Chatinput = () => {
         <div>
             <div>
                 <input
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                ref={messageInput} 
-                type="text"
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    ref={messageInput} 
+                    type="text"
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
                 />
                 <button onClick={handleSubmit}>
-                Send
+                    Send
                 </button>
             </div>
             <div className="break-words">{answer}</div>
@@ -40,7 +41,7 @@ const Chatinput = () => {
     );
 }
 
-export default Chatinput;
+export default ChatInput;
 
 /*
 function Chatinput() {
