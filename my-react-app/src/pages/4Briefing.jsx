@@ -1,5 +1,6 @@
 import InfoBox from "../components/InfoBox";
 import NextButton from "../components/NextButton";
+import { Link } from 'react-router-dom';
 
 const Briefing = () => {
     return (
@@ -18,7 +19,7 @@ const Briefing = () => {
                 </InfoBox>
             </div>
             <div className="mb-10">
-                <NextButton />
+                <Link to="/briefing2" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
             </div>
         </div>
     );

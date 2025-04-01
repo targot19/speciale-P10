@@ -43,7 +43,7 @@ const GAAISQuestionnaire = () => {
             return;
         } else {
             console.log({ responses });
-            navigate("/briefing");
+            navigate("/briefing1");
         }
     };
 
