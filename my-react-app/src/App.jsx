@@ -30,12 +30,12 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Landing />}/>
+          <Route path="/demographics" element={<DemographicQuestionnaire />}/>
+          <Route path="/gaais" element={<GAAISQuestionnaire />}/>
+          <Route path="/briefing" element={<Briefing />} />
           <Route path="/experimentsection" element={<ExperimentSectionPage />} />
-          <Route path="/Demographics" element={<DemographicQuestionnaire />}/>
-          <Route path="/GAAIS" element={<GAAISQuestionnaire />}/>
-          <Route path="/4Briefing" element={<Briefing />} />
-          <Route path="/13PerceivedTrust" element={<PerceivedTrust />} />
-          <Route path="/15ThankYou" element={<ThankYou />} />
+          <Route path="/perceivedtrust" element={<PerceivedTrust />} />
+          <Route path="/thankyou" element={<ThankYou />} />
         </Routes>
       </Router>
     </>

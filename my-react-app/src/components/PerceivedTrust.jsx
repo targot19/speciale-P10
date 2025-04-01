@@ -38,7 +38,7 @@ const PerceivedTrust = () => {
             return;
         } else {
             console.log({ responses });
-            navigate("/");
+            navigate("/thankyou");
         }
     };
 

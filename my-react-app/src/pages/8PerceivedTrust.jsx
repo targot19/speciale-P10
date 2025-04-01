@@ -15,10 +15,6 @@ const PerceivedTrustPage = ({ category, questionNumber }) => {
                 <ChatWindow/>
                 <div className="h-full flex flex-col gap-16 justify-start w-[60%]">
                     <PerceivedTrust />
-                    <div className="flex gap-10 items-center justify-center">
-                        <Link to="/" rel="noopener noreferrer"><BackButton>Back</BackButton></Link>
-                        <Link to="/Task2" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
-                    </div>
                 </div>
             </div>
         </div>
