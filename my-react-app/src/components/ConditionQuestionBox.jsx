@@ -7,8 +7,8 @@ import FormLabel from "@mui/material/FormLabel";
 
 const ConditionQuestionBox = ({ question, options }) => {
   return (
-    <FormControl>
-      <FormLabel className="text-xl font-bold mb-4">{question}</FormLabel>
+    <FormControl className="flex flex-col items-center justify-center w-full">
+      <FormLabel className="text-xl font-bold mb-4 text-center">{question}</FormLabel>
       <RadioGroup
         row
         aria-labelledby="condition-question-label"

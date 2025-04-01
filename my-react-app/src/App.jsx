@@ -3,7 +3,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import { useEffect, useState } from "react";
 import { fetchChatGPTResponse } from "./api/openai";
 import Landing from "./pages/1Landing";
-import Music from "./pages/9Music";
 import ExperimentSectionPage from "./pages/7ExperimentSectionPage";
 import DemographicQuestionnaire from "./pages/2DemographicQuestionnaire";
 import GAAISQuestionnaire from "./pages/3GAAISQuestionnaire";
@@ -32,7 +31,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />}/>
           <Route path="/experimentsection" element={<ExperimentSectionPage />} />
-          <Route path="/Music" element={<Music />}/>
           <Route path="/Demographics" element={<DemographicQuestionnaire />}/>
           <Route path="/GAAIS" element={<GAAISQuestionnaire />}/>
           <Route path="/4Briefing" element={<Briefing />} />
