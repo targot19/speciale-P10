@@ -23,7 +23,7 @@ const ExperimentSectionPage = ({ category, questionNumber, question }) => {
                             </p>
                         <div className="flex gap-10 items-center justify-center border-1 border-black-500 rounded-lg">
                             <Link to="/" rel="noopener noreferrer"><BackButton>Back</BackButton></Link>
-                            <Link to="/Task2" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
+                            <Link to="/thankyou" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
                         </div>
                     </div>
             </div>

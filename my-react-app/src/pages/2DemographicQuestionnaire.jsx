@@ -33,15 +33,15 @@ const DemographicQuestionnaire = () => {
             return;
         } else {
             console.log({ responses });
-            navigate("/GAAIS");
+            navigate("/gaais");
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="pt-0">
         <div className="p-4 flex flex-col items-center">
-            <h1 className="text-2xl font-bold mb-4">Demographic Questionnaire</h1>
-            <div className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
+            <h1 className="text-2xl font-bold mb-4">Questionnaire: First Part</h1>
+            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
                     question="What is your age?"
                     options={["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]}
@@ -49,7 +49,7 @@ const DemographicQuestionnaire = () => {
                     onChange={(answer) => handleResponses("age", answer)}
                 />
             </div>
-            <div className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
+            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
                     question="What is your gender?"
                     options={["Female", "Male", "Non-binary", "Other", "Prefer not to say"]}
@@ -57,22 +57,22 @@ const DemographicQuestionnaire = () => {
                     onChange={(answer) => handleResponses("gender", answer)}
                 />
             </div>
-            <div className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
+            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
                     question="What is your highest level of education?"
                     options={[
                         "Primary and lower secondary education (Grundskole)",
                         "Upper secondary / high school or vocational education (Gymnasiale og erhvervsfaglige uddannelser)",
                         "Short-cycle higher education (Erhvervsakademi) - 1-2 years",
-                        "Medium-cycle higher education (Bachelor, professionsbachelor) - 3-3.5 years",
-                        "Long-cycle higher education (Kandidat) 5 years or more",
+                        "Medium-cycle higher education (Bachelor, professionsbachelor) - 3-3,5 years",
+                        "Long-cycle higher education (Kandidat) - 5 years or more",
                         "PhD and research education"
                     ]}
                     value={responses.education}
                     onChange={(answer) => handleResponses("education", answer)}
                 />
             </div>
-            <div className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
+            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
                     question="How would you rate your overall comfort with using digital technologies?"
                     options={["Very high", "Slightly high", "Neutral", "Slightly low", "Very low"]}
@@ -80,7 +80,7 @@ const DemographicQuestionnaire = () => {
                     onChange={(answer) => handleResponses("comfort", answer)}
                 />
             </div>
-            <div className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
+            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
                     question="How often do you use AI systems (e.g. ChatGPT, Copilot, Gemini, etc.)?"
                     options={[
@@ -94,12 +94,10 @@ const DemographicQuestionnaire = () => {
                     onChange={(answer) => handleResponses("aiUsage", answer)}
                 />
             </div>
-            <ButtonContainer>
-                <button type="submit">
+                <NextButton type="submit">
                     Next
-                </button>
-            </ButtonContainer>
-        </div>
+                </NextButton>
+            </div>
         </form>
     );
 }

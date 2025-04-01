@@ -7,7 +7,7 @@ const Briefing = () => {
             <div className="flex-grow flex items-center justify-center">
                 <InfoBox>
                     <h1 className="text-2xl font-bold">Briefing</h1>
-                    <p className="mt-4">Thank you for finishing the questionnaire. Now the experiment begins!<br />
+                    <p className="mt-4">Thank you for finishing the questionnaire. Now, <b>the experiment begins!</b><br />
                         <br />
                         The rest of the experiment goes as follows:<br />
                         <br />

@@ -22,7 +22,7 @@ const ChatWindow = () => {
     // const [messageHistory, SetMessageHistory] = useState([]) // This will set whatever history we want to show, at this point - current or for the category.
 
     return (
-        <div style={{ opacity: 0.5 }} className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
+        <div className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
             <ChatHistory messageHistory={testHistory} />
             <ChatInputField />
         </div>
@@ -30,3 +30,6 @@ const ChatWindow = () => {
 };
 
 export default ChatWindow;
+
+// tried to make styling below, but it went across experiment section as well
+// <div style={{ opacity: 0.5 }} className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
