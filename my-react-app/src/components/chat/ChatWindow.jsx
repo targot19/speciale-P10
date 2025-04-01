@@ -29,8 +29,4 @@ const ChatWindow = () => {
     );
 };
 
-export const ChatWindow1 = styled(ChatWindow)`
-    opacity: 0.25;
-`;
-
 export default ChatWindow;

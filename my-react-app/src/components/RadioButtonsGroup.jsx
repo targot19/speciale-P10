@@ -17,7 +17,12 @@ export default function RadioButtonsGroup({ question, options, onChange }) {
           onChange={(event) => onChange(event.target.value)}
         >
           {options.map((option, index) => (
-            <FormControlLabel key={index} value={option} control={<Radio />} label={option}/>
+            <FormControlLabel
+              key={index}
+              value={option.value}
+              control={<Radio />}
+              label={option}
+            />
           ))}
       </RadioGroup>
     </FormControl>
