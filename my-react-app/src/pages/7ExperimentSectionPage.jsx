@@ -18,22 +18,22 @@ const testHistory =
   ]
 
 // prompts: topic, question, stage...
-const ExperimentSectionPage = ({ category, questionNumber, question, messageHistory }) => {
+const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction }) => {
 
-    // const [responses, setResponses] = useState([])
+    // For testing purposes
 
     return (
         <div className="w-screen h-screen flex flex-col px-10 py-5">
             <div className="h-1/8 flex justify-between items-center">
-                <h2 className="text-3xl font-semibold">CATEGORY</h2> {/* Make dynamic - category prop */}
-                <p className="text-lg font-medium text-gray-600">?/20</p> {/* Make dynamic - question number prop */}
+                <h2 className="text-3xl font-semibold">{category}</h2> {/* Make dynamic - category prop */}
+                <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
             <div className="flex justify-between gap-10 h-7/8">
-                    <ChatWindow messageHistory={testHistory}/>
+                    <ChatWindow questionNumber={questionNumber} promptInstruction={promptInstruction}/>
                     <div className="flex flex-col justify-between w-[30%]">
                         <p className="bg-[#2E3B4E] text-white p-6 text-lg">
                             {/* Make dynamic - question prop */}
-                            This is where the question will go. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet imperdiet nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet imperdiet nulla.?
+                            {question}
                             </p>
                         <div className="flex gap-10 items-center justify-center border-1 border-black-500 rounded-lg">
                             <Link to="/" rel="noopener noreferrer"><BackButton>Back</BackButton></Link>

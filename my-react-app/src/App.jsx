@@ -30,7 +30,7 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Landing />}/>
-          <Route path="/experimentsection" element={<ExperimentSectionPage />} />
+          <Route path="/experimentsection" element={<ExperimentSectionPage category="Geography" questionNumber="4" question="What is the capital of Australia?" promptInstruction="Answer with enthusiasm"  />} />
           <Route path="/Demographics" element={<DemographicQuestionnaire />}/>
           <Route path="/GAAIS" element={<GAAISQuestionnaire />}/>
           <Route path="/4Briefing" element={<Briefing />} />
@@ -43,3 +43,4 @@ function App() {
 }
 
 export default App;
+

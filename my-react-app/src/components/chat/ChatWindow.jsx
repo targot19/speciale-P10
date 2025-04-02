@@ -1,17 +1,22 @@
 import { useState } from "react";
 import ChatHistory from "./ChatHistory";
 import ChatInputField from "./ChatInputField";
+import { useSession } from "../../context/SessionContext";
 
 // Should call ChatHistory + ChatInputField
-const ChatWindow = ({ messageHistory }) => {
+const ChatWindow = ({ questionNumber, promptInstruction }) => {
 
-    // We'll need to get the chat history dynamically, from somewhere (context, local store...)
-    // const [messageHistory, SetMessageHistory] = useState([]) // This will set whatever history we want to show, at this point - current or for the category.
+    //Access chatHistory from sessionHistory (Will listen for changes, and automatically re-render)
+    const { sessionHistory } = useSession();
+    const messageHistory = sessionHistory.chatHistory[questionNumber] || []; // If nothing is returned, return an empty array
 
     return (
         <div className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
             <ChatHistory messageHistory={messageHistory} />
-            <ChatInputField />
+            <ChatInputField  
+                questionNumber={questionNumber}
+                promptInstruction={promptInstruction}
+            />
         </div>
     )
 }
