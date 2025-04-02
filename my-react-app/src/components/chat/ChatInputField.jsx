@@ -17,7 +17,7 @@ const ChatInputField = () => {
                 />
                 <button
                     type="submit"
-                    className="absolute bottom-2 right-2 text-white px-1 py-1 rounded"
+                    className="absolute bottom-2 right-2 text-white px-1 py-1 rounded cursor-pointer"
                 >
                     <PaperAirplaneIcon className="w-5 h-5" />
                 </button>

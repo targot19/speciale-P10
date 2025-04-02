@@ -2,8 +2,8 @@ import ChatbotMessage from "./ChatbotMessage"
 import UserMessage from "./UserMessage"
 import { useRef, useEffect } from "react"
 
-// Takes a message history as it's prompt
-const ChatHistory = ({ messageHistory }) => {
+// Takes a message history as it's prop (default value is an empty array)
+const ChatHistory = ({ messageHistory = [] }) => {
 
     const scrollRef = useRef(null);
 
@@ -29,7 +29,7 @@ const ChatHistory = ({ messageHistory }) => {
                 }
                 if(msg.type === "answerCheck1") {
                     return (
-                        <div key={index} className="flex flex-col pl-10 gap-2 w-full">
+                        <form key={index} className="flex flex-col pl-10 gap-2 w-full">
                             <label className="flex items-center gap-2">
                                 <input type="radio" name={`answer-${index}`} value="option1" />
                                 I would like to use this answer
@@ -42,12 +42,12 @@ const ChatHistory = ({ messageHistory }) => {
                                 <input type="radio" name={`answer-${index}`} value="option3" />
                                 I would look at other sources to answer this question
                             </label>
-                        </div>
+                        </form>
                     )
                 }
                 if(msg.type === "answerCheck2") {
                     return (                        
-                        <div key={index} className="flex flex-col pl-10 gap-2 w-full">
+                        <form key={index} className="flex flex-col pl-10 gap-2 w-full">
                             <label className="flex items-center gap-2">
                                 <input type="radio" name={`answer-${index}`} value="option1" />
                                 I would like to use this answer
@@ -56,7 +56,7 @@ const ChatHistory = ({ messageHistory }) => {
                                 <input type="radio" name={`answer-${index}`} value="option2" />
                                 I would look at other sources to answer this question
                             </label>
-                        </div>
+                        </form>
                     )
                 }
                 return null;
