@@ -1,3 +1,5 @@
+/** SRC: https://www.dosystemsinc.com/blog/screen-recording-in-reactjs/ */
+
 import React from "react";
 import { Modal, ModalBody, ModalHeader, Button, Row } from "reactstrap";
 import RecordRTC from "recordrtc";
