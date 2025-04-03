@@ -1,56 +1,61 @@
 /* Used this link: https://www.tutkit.com/en/text-tutorials/1313-basic-ui-in-react-with-openai-api*/
 import { useEffect, useRef, useState } from "react";
 import { fetchChatGPTResponse } from "../../api/openai";
+import { useSession } from "../../context/SessionContext";
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 
 
-// Should be a input field, hooked up to send a call to the API.
+// To do: 
+// Add prompt instructions to the input
+// Get Question to show up on the screen
 
-const ChatInputField = () => {
+
+const ChatInputField = ({ questionNumber, promptInstruction }) => {
+    const [chatInput, setChatInput] = useState("");
+    const { addChatMessage } = useSession(); //Access necessary functions from context
+
+    // Function that sends user user input (+ promptInstructions) to the history + API
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!chatInput.trim()) return; //Make sure there's an input before running
+
+        // 1. Log message in SessionHistory:
+        const userMessage = { type: "message", role: "user", text: chatInput }
+        addChatMessage(questionNumber, userMessage); // Adds user input to SessionHistory
+        setChatInput(""); // reset input
+
+        // 2. Send userMessage + promptInstruction to API
+        const messages = [
+            { role: "system", content: promptInstruction },
+            { role: "user", content: chatInput }
+        ]
+
+        console.log("🧠 PromptInstruction:", promptInstruction);
+        console.log("📝 ChatInput:", chatInput);
+
+        const chatbotReply = await fetchChatGPTResponse(messages); // Fetch a response from API
+        const chatbotMessage = { type: "message", role: "bot", text: chatbotReply } // Format response for chatHitory
+        addChatMessage(questionNumber, chatbotMessage); // Add to chatHistory
+    }
 
     return (
-        <div className="h-1/4 w-full flex items-end">
+        <form onSubmit={handleSubmit} className="h-1/4 w-full flex items-end">
             <div className="relative w-full h-full">
                 <textarea
                     className="w-full h-full px-2 py-2 border rounded-lg bg-[#2e3b4e] text-white resize-none focus:outline-none"
                     placeholder="Ask your question here..."
+                    value={chatInput} // Connect to state
+                    onChange={(e) => setChatInput(e.target.value)}
                 />
                 <button
                     type="submit"
-                    className="absolute bottom-2 right-2 text-white px-1 py-1 rounded"
+                    className="absolute bottom-2 right-2 text-white px-1 py-1 rounded cursor-pointer"
                 >
                     <PaperAirplaneIcon className="w-5 h-5" />
                 </button>
             </div>
-        </div>
-    )
-}
-
-export default ChatInputField;
-
-
-/*
-        <div className="h-1/4 w-full flex flex-col items-end">
-            <textarea
-                className="h-4/5 w-full px-4 py-2 border rounded-lg bg-[#2e3b4e] text-white resize-none focus:outline-none"
-                placeholder="Ask your question here..."
-            />
-            <button className="bg-[#2e3b4e] text-white mt-3 px-3 py-1 rounded">
-                Send
-            </button>
-        </div>
-*/
-
-/*
-function Chatinput() {
-    return(
-        <form> 
-            <label>
-                <input name="Talk to Gippidy here:" />
-                <button />
-            </label>
         </form>
     )
 }
 
-export default Chatinput;*/
+export default ChatInputField;

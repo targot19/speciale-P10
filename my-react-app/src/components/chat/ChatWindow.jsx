@@ -2,7 +2,7 @@ import { useState } from "react";
 import ChatHistory from "./ChatHistory";
 import ChatInputField from "./ChatInputField";
 import { styled } from "@mui/material";
-
+import { useSession } from "../../context/SessionContext";
 
 // Bare for testing purposes - tænker den skal opbevares et andet sted, evt. i 
 const testHistory =
@@ -15,16 +15,21 @@ const testHistory =
     { type: "answerCheck2" }
   ]
 
-// Should call ChatHistory + ChatInputField
-const ChatWindow = () => {
 
-    // We'll need to get the chat history dynamically, from somewhere (context, local store...)
-    // const [messageHistory, SetMessageHistory] = useState([]) // This will set whatever history we want to show, at this point - current or for the category.
+// Should call ChatHistory + ChatInputField
+const ChatWindow = ({ questionNumber, promptInstruction }) => {
+
+    //Access chatHistory from sessionHistory (Will listen for changes, and automatically re-render)
+    const { sessionHistory } = useSession();
+    const messageHistory = sessionHistory.chatHistory[questionNumber] || []; // If nothing is returned, return an empty array
 
     return (
         <div className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
-            <ChatHistory messageHistory={testHistory} />
-            <ChatInputField />
+            <ChatHistory messageHistory={messageHistory} />
+            <ChatInputField  
+                questionNumber={questionNumber}
+                promptInstruction={promptInstruction}
+            />
         </div>
     );
 };

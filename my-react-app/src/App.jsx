@@ -19,13 +19,13 @@ function App() {
       <Router>
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<Landing />}/>
           <Route path="/demographics" element={<DemographicQuestionnaire />} />
           <Route path="/gaais" element={<GAAISQuestionnaire />} />
           <Route path="/briefing1" element={<Briefing1 />} />
           <Route path="/briefing2" element={<Briefing2 />} />
           <Route path="/category" element={<CategoryPage />} />
-          <Route path="/experimentsection" element={<ExperimentSectionPage />} />
+          <Route path="/experimentsection" element={<ExperimentSectionPage category="Geography" questionNumber="4" question="What is the capital of Australia?" promptInstruction="Answer with enthusiasm"  />} />
           <Route path="/perceivedtrust" element={<PerceivedTrust />} />
           <Route path="/thankyou" element={<ThankYou />} />
         </Routes>
@@ -35,3 +35,4 @@ function App() {
 }
 
 export default App;
+
