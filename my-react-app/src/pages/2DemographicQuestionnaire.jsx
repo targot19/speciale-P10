@@ -4,6 +4,7 @@ import RadioButtonsGroup from "../components/RadioButtonsGroup";
 import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextButton";
 import { Link } from "react-router-dom";
+import BackButton from "../components/BackButton";
 
 const DemographicQuestionnaire = () => {
     const [responses, setResponses] = useState({
@@ -94,9 +95,10 @@ const DemographicQuestionnaire = () => {
                     onChange={(answer) => handleResponses("aiUsage", answer)}
                 />
             </div>
-                <NextButton type="submit">
-                    Next
-                </NextButton>
+                    <ButtonContainer>
+                        <BackButton to="/" />
+                        <NextButton type="submit">Next</NextButton>
+                    </ButtonContainer>
             </div>
         </form>
     );

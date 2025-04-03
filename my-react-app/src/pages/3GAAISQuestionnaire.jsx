@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import RadioButtonsGroup from '../components/RadioButtonsGroup';
 import NextButton from '../components/NextButton';
 import BackButton from '../components/BackButton';
+import ButtonContainer from '../components/ButtonContainer';
 
 const GAAISQuestionnaire = () => {
     const [responses, setResponses] = useState({
@@ -107,9 +108,10 @@ const GAAISQuestionnaire = () => {
                     onChange={(answer) => handleResponses("neg19", answer)}
                 />
             </div>
-                <NextButton type="submit">
-                    Next
-                </NextButton>
+                <ButtonContainer>
+                    <BackButton to="/demographics" />
+                    <NextButton type="submit">Next</NextButton>
+                </ButtonContainer>
             </div>
         </form>
     );

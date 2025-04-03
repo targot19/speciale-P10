@@ -6,6 +6,7 @@ import DemographicQuestionnaire from "./pages/2DemographicQuestionnaire";
 import GAAISQuestionnaire from "./pages/3GAAISQuestionnaire";
 import Briefing1 from "./pages/4Briefing";
 import Briefing2 from "./pages/5Briefing";
+import CategoryPage from "./pages/6CategoryPage";
 import ExperimentSectionPage from "./pages/7ExperimentSectionPage";
 import PerceivedTrust from "./pages/8PerceivedTrust";
 import ThankYou from "./pages/9ThankYou";
@@ -23,6 +24,7 @@ function App() {
           <Route path="/gaais" element={<GAAISQuestionnaire />} />
           <Route path="/briefing1" element={<Briefing1 />} />
           <Route path="/briefing2" element={<Briefing2 />} />
+          <Route path="/category" element={<CategoryPage />} />
           <Route path="/experimentsection" element={<ExperimentSectionPage />} />
           <Route path="/perceivedtrust" element={<PerceivedTrust />} />
           <Route path="/thankyou" element={<ThankYou />} />
