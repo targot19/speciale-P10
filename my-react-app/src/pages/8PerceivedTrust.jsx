@@ -12,7 +12,9 @@ const PerceivedTrustPage = ({ category, questionNumber }) => {
                 <p className="text-lg font-medium text-gray-600">{questionNumber || "2/20"}</p>
             </div>
             <div className="flex justify-between h-7/8 items-start">
-                <ChatWindow/>
+                <div style={{ opacity: 0.5 }} className="flex justify-between h-7/8 items-start">
+                    <ChatWindow />
+                </div>
                 <div className="h-full flex flex-col gap-16 justify-start w-[60%]">
                     <PerceivedTrust />
                 </div>
