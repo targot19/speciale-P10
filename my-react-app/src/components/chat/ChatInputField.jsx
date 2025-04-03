@@ -12,7 +12,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 
 const ChatInputField = ({ questionNumber, promptInstruction }) => {
     const [chatInput, setChatInput] = useState("");
-    const { addChatMessage, sessionHistory } = useSession(); //Access necessary functions from context
+    const { addChatMessage } = useSession(); //Access necessary functions from context
 
     // Function that sends user user input (+ promptInstructions) to the history + API
     const handleSubmit = async (e) => {
@@ -32,7 +32,7 @@ const ChatInputField = ({ questionNumber, promptInstruction }) => {
 
         console.log("🧠 PromptInstruction:", promptInstruction);
         console.log("📝 ChatInput:", chatInput);
-        
+
         const chatbotReply = await fetchChatGPTResponse(messages); // Fetch a response from API
         const chatbotMessage = { type: "message", role: "bot", text: chatbotReply } // Format response for chatHitory
         addChatMessage(questionNumber, chatbotMessage); // Add to chatHistory
