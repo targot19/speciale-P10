@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ChatHistory from "./ChatHistory";
 import ChatInputField from "./ChatInputField";
+import { styled } from "@mui/material";
 
 
 // Bare for testing purposes - tænker den skal opbevares et andet sted, evt. i 
@@ -25,7 +26,10 @@ const ChatWindow = () => {
             <ChatHistory messageHistory={testHistory} />
             <ChatInputField />
         </div>
-    )
-}
+    );
+};
 
-export default ChatWindow
+export default ChatWindow;
+
+// tried to make styling below, but it went across experiment section as well
+// <div style={{ opacity: 0.5 }} className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
