@@ -36,7 +36,7 @@ export const SessionProvider = ({ children }) => {
                 ...answers // merge new answers into the existing ones
             }
         }));
-    }; //OBS: This doesn't affect
+    }; 
 
     const addChatMessage = (questionNumber, message) => {
         setSessionHistory(prev => ({
