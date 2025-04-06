@@ -44,8 +44,8 @@ const PerceivedTrust = () => {
 
     return (
         <form onSubmit={handleSubmit} className="pt-0">
-        <div className="flex items-center justify-center">
-            <div className="flex flex-col gap-7 w-full max-w-3xl items-center">
+        <div className="flex items-center justify-center overflow-auto">
+            <div className="flex flex-col gap-2 w-full max-w-3xl items-center">
             <div className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full" style={{ maxWidth: "600px" }}>
                 <ConditionQuestionBox
                     question="I believe that the chatbot would act in my best interest."
@@ -67,10 +67,12 @@ const PerceivedTrust = () => {
                     onChange={(answer) => handleResponses("effectivecompetent", answer)}
                     />
                 </div>
-                    <NextButton type="submit" className="flex justify-end">
-                        Next
-                    </NextButton>
                 </div>
+            </div>
+            <div className="flex justify-center mt-2">
+                <NextButton type="submit">
+                    Next
+                </NextButton>
             </div>
         </form>
         
