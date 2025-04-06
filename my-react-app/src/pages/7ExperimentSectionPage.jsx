@@ -20,6 +20,10 @@ const testHistory =
 // prompts: topic, question, stage...
 const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction }) => {
 
+
+    //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
+    const [currentChatHistory, setCurrentChatHistory] = useState({});
+
     // For testing purposes
 
     return (
