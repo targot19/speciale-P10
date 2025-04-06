@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextButton";
+import { useSession } from "../context/SessionContext";
 
 const PerceivedTrust = () => {
+    const { addSurveyAnswers } = useSession();
+    
     const [responses, setResponses] = useState({
         bestinterest: "",
         honest: "",
@@ -38,6 +41,7 @@ const PerceivedTrust = () => {
             return;
         } else {
             console.log({ responses });
+            addSurveyAnswers(responses);
             navigate("/thankyou");
         }
     };

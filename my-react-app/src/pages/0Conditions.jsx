@@ -2,10 +2,12 @@ import InfoBox from "../components/InfoBox";
 import NextButton from "../components/NextButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useSession } from "../context/SessionContext";
 
 const Conditions = () => {
     const [selectedLatinSquare, setSelectedLatinSquare] = useState("");
     const navigate = useNavigate();
+    const { addConditionToHistory, setSessionId } = useSession();
 
     const handleLatinSquareSelection = (latinSquare) => {
         setSelectedLatinSquare(latinSquare);
@@ -19,6 +21,8 @@ const Conditions = () => {
             return;
         } else {
             console.log({ selectedLatinSquare });
+            addConditionToHistory(selectedLatinSquare);
+            setSessionId();
             navigate("/"); // Navigate to the next page
         }
     };

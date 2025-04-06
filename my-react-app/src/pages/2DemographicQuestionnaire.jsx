@@ -5,8 +5,11 @@ import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextButton";
 import { Link } from "react-router-dom";
 import BackButton from "../components/BackButton";
+import { useSession } from "../context/SessionContext";
 
 const DemographicQuestionnaire = () => {
+    const { addSurveyAnswers } = useSession();
+    
     const [responses, setResponses] = useState({
         age: "",
         gender: "",
@@ -34,6 +37,7 @@ const DemographicQuestionnaire = () => {
             return;
         } else {
             console.log({ responses });
+            addSurveyAnswers(responses);
             navigate("/gaais");
         }
     };

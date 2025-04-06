@@ -1,12 +1,15 @@
 import React from "react";
 import { useRecording } from "../components/screenrecorder/RecordingContext";
 import InfoBox from "../components/InfoBox";
+import { useSession } from "../context/SessionContext";
 
 const ThankYou = () => {
   const { isRecording, stopRecording, recordedVideoUrl } = useRecording();
+  const { exportSessionHistory } = useSession();
 
   const handleStopRecording = () => {
     stopRecording();
+    exportSessionHistory();
   };
 
     return (

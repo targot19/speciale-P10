@@ -4,8 +4,11 @@ import RadioButtonsGroup from '../components/RadioButtonsGroup';
 import NextButton from '../components/NextButton';
 import BackButton from '../components/BackButton';
 import ButtonContainer from '../components/ButtonContainer';
+import { useSession } from "../context/SessionContext";
 
 const GAAISQuestionnaire = () => {
+    const { addSurveyAnswers } = useSession();
+    
     const [responses, setResponses] = useState({
         neg6: "",
         pos7: "",
@@ -44,6 +47,7 @@ const GAAISQuestionnaire = () => {
             return;
         } else {
             console.log({ responses });
+            addSurveyAnswers(responses);
             navigate("/briefing1");
         }
     };
