@@ -25,7 +25,7 @@ export const SessionProvider = ({ children }) => {
     const addConditionToHistory = (condition) => {
         setSessionHistory(prev => ({
             ...prev,
-            conditionOrder: condition,
+            conditionOrder: condition
         }));
     };
 
