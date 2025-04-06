@@ -20,7 +20,7 @@ const ChatWindow = ({ questionNumber, promptInstruction }) => {
 
     const { sessionHistory, addChatMessage  } = useSession(); // Session-wide history. Changes to sessionHistory = automatic re-render
     const [currentChatHistory, setCurrentChatHistory] = useState([]); // Temporary history for current conversation
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Loader, w. start value "false"
 
     const messageHistory = sessionHistory.chatHistory[questionNumber] || []; // If nothing is returned, return an empty array
 
@@ -29,38 +29,52 @@ const ChatWindow = ({ questionNumber, promptInstruction }) => {
     const handleSendMessage = async(inputText) => {
         if (!inputText.trim()) return; // Ignore empty input
 
-        // 1. Log user message in session-wide history (SessionHistory):
-        const userMessage = { type: "message", role: "user", text: inputText }; // Format input
-        addChatMessage(questionNumber, userMessage); // Adds user input to SessionHistory
+        setIsLoading(true); // Start loader in UI
 
-        // 2. Prepare and send userMessage + currentChatHistory + promptInstruction to API history
-        const messages = [
-            { role: "system", content: promptInstruction },
-            ...currentChatHistory, // Insert items from the currentHistory array.
-            { role: "user", content: inputText }
-        ]
+        try {
+            // 1. Log user message in session-wide history (SessionHistory):
+            const userMessage = { type: "message", role: "user", text: inputText }; // Format input
+            addChatMessage(questionNumber, userMessage); // Adds user input to SessionHistory
 
-        //console.log("PromptInstruction:", promptInstruction);
-        //console.log("ChatInput:", inputText);
-        console.log("Sendt til chatten: ", messages)
+            // 2. Prepare and send userMessage + currentChatHistory + promptInstruction to API history
+            const messages = [
+                { role: "system", content: promptInstruction },
+                ...currentChatHistory, // Insert items from the currentHistory array.
+                { role: "user", content: inputText }
+            ]
 
-        // Fetch a response from API
-        const chatbotReply = await fetchChatGPTResponse(messages);
+            //console.log("PromptInstruction:", promptInstruction);
+            //console.log("ChatInput:", inputText);
+            console.log("Sendt til chatten: ", messages)
 
-        // 3. Log chatBot message in session-wide history
-        const chatbotMessage = { type: "message", role: "bot", text: chatbotReply } // Format response for chatHistory
-        addChatMessage(questionNumber, chatbotMessage); // Add to chatHistory
+            // Fetch a response from API
+            const chatbotReply = await fetchChatGPTResponse(messages);
 
-        // 4. Update temporary currentChatHistory (with user input + bot response formatted for OpenAI)
-        setCurrentChatHistory(prev => [...prev, { role: "user", content: inputText }, { role: "assistant", content: chatbotReply }]);
+            // 3. Log chatBot message in session-wide history
+            const chatbotMessage = { type: "message", role: "bot", text: chatbotReply } // Format response for chatHistory
+            addChatMessage(questionNumber, chatbotMessage); // Add to chatHistory
+
+            // 4. Update temporary currentChatHistory (with user input + bot response formatted for OpenAI)
+            setCurrentChatHistory(prev => [...prev, { role: "user", content: inputText }, { role: "assistant", content: chatbotReply }]);
+
+        } catch {
+            console.error("💥 Error:", err);
+        } finally {
+            setIsLoading(false); // Done loading
+        }
+
     }
 
 
     return (
         <div className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
-            <ChatHistory messageHistory={messageHistory} />
+            <ChatHistory 
+                messageHistory={messageHistory} 
+                isLoading={isLoading}
+            />
             <ChatInputField  
                 onSend={handleSendMessage} /* Pass function that handles API call + logging to session history */
+                isLoading={isLoading}
             />
         </div>
     );

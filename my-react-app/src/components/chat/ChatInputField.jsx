@@ -7,7 +7,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 // Add prompt instructions to the input
 // Get Question to show up on the screen
 
-const ChatInputField = ({ onSend }) => {
+const ChatInputField = ({ onSend, isLoading }) => {
     const [chatInput, setChatInput] = useState(""); // Local state for storing user input
 
     // Function that takes input from UI, and passing it on to the proper functions
@@ -23,14 +23,18 @@ const ChatInputField = ({ onSend }) => {
         <form onSubmit={handleSubmit} className="h-1/4 w-full flex items-end">
             <div className="relative w-full h-full">
                 <textarea
-                    className="w-full h-full px-2 py-2 border rounded-lg bg-[#2e3b4e] text-white resize-none focus:outline-none"
+                    className={`w-full h-full px-2 py-2 border rounded-lg bg-[#2e3b4e] text-white resize-none focus:outline-none ${
+                        isLoading ? "cursor-not-allowed" : ""
+                    }`}
                     style={{ resize: "none" }} // attempt to forcing disable of resizing
                     placeholder="Ask your question here..."
                     value={chatInput} // Connect to state
                     onChange={(e) => setChatInput(e.target.value)}
+                    disabled={isLoading}
                 />
                 <button
                     type="submit"
+                    disabled={isLoading}
                     className="absolute bottom-2 right-2 text-white px-1 py-1 rounded cursor-pointer"
                 >
                     <PaperAirplaneIcon className="w-5 h-5" />

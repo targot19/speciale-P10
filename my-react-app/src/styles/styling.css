@@ -18,3 +18,31 @@
     justify-content: center;
     border: blue dotted 2px;
 }
+
+/* Typing dots animation */
+@keyframes typing {
+    0%, 80%, 100% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+  }
+  
+  .typing-dot {
+    width: 0.25rem;   /* w-1 in Tailwind */
+    height: 0.25rem;  
+    background-color: white;
+    border-radius: 9999px; /* fully rounded */
+    animation: typing 1.2s infinite ease-in-out;
+  }
+  
+  .typing-dot:nth-child(1) {
+    animation-delay: -0.3s;
+  }
+  .typing-dot:nth-child(2) {
+    animation-delay: -0.15s;
+  }
+  .typing-dot:nth-child(3) {
+    animation-delay: 0s;
+  }
