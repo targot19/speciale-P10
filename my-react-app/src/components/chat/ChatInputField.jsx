@@ -16,7 +16,7 @@ const ChatInputField = ({ questionNumber, promptInstruction }) => {
 
     // Function that sends user user input (+ promptInstructions) to the history + API
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         if (!chatInput.trim()) return; //Make sure there's an input before running
 
         // 1. Log message in SessionHistory:
@@ -36,7 +36,15 @@ const ChatInputField = ({ questionNumber, promptInstruction }) => {
         const chatbotReply = await fetchChatGPTResponse(messages); // Fetch a response from API
         const chatbotMessage = { type: "message", role: "bot", text: chatbotReply } // Format response for chatHitory
         addChatMessage(questionNumber, chatbotMessage); // Add to chatHistory
-    }
+    };
+
+    // Handles chat submit for pressing enter key
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault(); // Prevent default behavior of adding a new line
+            handleSubmit(); // Call the submit function
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="h-1/4 w-full flex items-end">
@@ -46,6 +54,7 @@ const ChatInputField = ({ questionNumber, promptInstruction }) => {
                     placeholder="Ask your question here..."
                     value={chatInput} // Connect to state
                     onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={handleKeyDown} // Checks for enter
                 />
                 <button
                     type="submit"

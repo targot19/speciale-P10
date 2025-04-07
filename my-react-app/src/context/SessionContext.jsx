@@ -1,15 +1,24 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const SessionContext = createContext();
 
 // Provider-component, som kan hente data fra denne context
 export const SessionProvider = ({ children }) => {
-    const [sessionHistory, setSessionHistory] = useState({
-        sessionId: "",
-        conditionOrder: "",
-        surveyHistory: {},
-        chatHistory: {}
+    const [sessionHistory, setSessionHistory] = useState(() => {
+        // Load the session history from localStorage on start
+        const savedSession = localStorage.getItem("sessionHistory");
+        return savedSession ? JSON.parse(savedSession) : {
+            sessionId: "",
+            conditionOrder: "",
+            surveyHistory: {},
+            chatHistory: {}
+        };
     });
+
+    // Save sessionHistory to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem("sessionHistory", JSON.stringify(sessionHistory));
+    }, [sessionHistory]);
 
     // Functions to perform different actions w. the session history
 
@@ -61,8 +70,18 @@ export const SessionProvider = ({ children }) => {
         downloadAnchorNode.remove();
     };
 
+    const clearSessionHistory = () => {
+        setSessionHistory({
+            sessionId: "",
+            conditionOrder: "",
+            surveyHistory: {},
+            chatHistory: {}
+        });
+        localStorage.removeItem("sessionHistory"); // Clear from localStorage as well
+    };
+
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, addConditionToHistory, addChatMessage, addSurveyAnswers, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, addConditionToHistory, addChatMessage, addSurveyAnswers, clearSessionHistory, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )
