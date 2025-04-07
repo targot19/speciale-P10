@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import Conditions from "../pages/0Conditions";
 
 const SessionContext = createContext();
 
@@ -33,7 +34,7 @@ export const SessionProvider = ({ children }) => {
     const addConditionToHistory = (condition) => {
         setSessionHistory(prev => ({
             ...prev,
-            condition
+            conditionOrder: condition
         }));
     };
 

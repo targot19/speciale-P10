@@ -12,6 +12,7 @@ import PerceivedTrust from "./pages/8PerceivedTrust";
 import ThankYou from "./pages/9ThankYou";
 import "bootstrap/dist/css/bootstrap.css";
 import { RecordingProvider } from "./components/screenrecorder/RecordingContext";
+import Conditions from "./pages/0Conditions";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       <Router>
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Landing />}/>
+          <Route path="/conditions" element={<Conditions />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/demographics" element={<DemographicQuestionnaire />} />
           <Route path="/gaais" element={<GAAISQuestionnaire />} />
           <Route path="/briefing1" element={<Briefing1 />} />

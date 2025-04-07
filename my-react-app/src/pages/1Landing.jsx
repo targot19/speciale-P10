@@ -24,7 +24,7 @@ const Landing = () => {
                 </InfoBox>
             </div>
             <div className="mb-10">
-            <Link to="/demographics" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
+                <NextButton to="/demographics">Next</NextButton>
             </div>
         </div>
     );

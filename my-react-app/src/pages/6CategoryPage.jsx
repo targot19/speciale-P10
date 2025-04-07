@@ -16,7 +16,7 @@ const CategoryPage = () => {
             </div>
             <ButtonContainer>
                 <BackButton to="/briefing2" />
-                <NextButton to="/experimentsection" />
+                <NextButton to="/experimentsection">Next</NextButton>
             </ButtonContainer>
             
         </div>

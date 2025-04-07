@@ -29,12 +29,24 @@ export const RecordingProvider = ({ children }) => {
       recorder.stopRecording(() => {
         const blob = recorder.getBlob();
         const videoUrl = URL.createObjectURL(blob);
-
+  
         setRecordedVideoUrl(videoUrl);
         setRecorder(null);
         setIsRecording(false);
       });
     }
+  };
+
+  const downloadRecordedVideo = () => {
+    if (!recordedVideoUrl) {
+      alert("No recorded video available to download.");
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = recordedVideoUrl;
+    link.download = "screen-recording.webm";
+    link.click();
   };
 
   return (
@@ -44,6 +56,7 @@ export const RecordingProvider = ({ children }) => {
         stopRecording,
         isRecording,
         recordedVideoUrl,
+        downloadRecordedVideo,
       }}
     >
       {children}

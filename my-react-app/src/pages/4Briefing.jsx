@@ -24,7 +24,7 @@ const Briefing = () => {
                 </InfoBox>
             </div>
             <div className="mb-10">
-                <Link to="/briefing2" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
+                <NextButton to="/briefing2">Next</NextButton>
             </div>
         </div>
     );

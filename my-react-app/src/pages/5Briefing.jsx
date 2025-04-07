@@ -19,9 +19,7 @@ const Briefing = () => {
                 Start Recording
                 </button>
             ) : (
-                <Link to="/category" rel="noopener noreferrer">
-                <NextButton>Next</NextButton>
-                </Link>
+                <NextButton to="/category">Next</NextButton>
             )}
             </div>
         </InfoBox>

@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecording } from "../components/screenrecorder/RecordingContext";
 import InfoBox from "../components/InfoBox";
+import { useSession } from "../context/SessionContext";
 
 const ThankYou = () => {
-  const { isRecording, stopRecording, recordedVideoUrl } = useRecording();
+  const { isRecording, stopRecording, downloadRecordedVideo, recordedVideoUrl } = useRecording();
+  const { exportSessionHistory } = useSession();
 
   const handleStopRecording = () => {
-    stopRecording();
+    stopRecording(); // Stop the recording
   };
+
+  useEffect(() => {
+    if (recordedVideoUrl) {
+      exportSessionHistory(); // Download the session history
+      downloadRecordedVideo(); // Download the recorded video
+    }
+  }, [recordedVideoUrl]); // Trigger when recordedVideoUrl changes
 
     return (
       <div className="bg-[#F4F4F4] min-h-screen flex flex-col items-center justify-center">
@@ -26,10 +35,7 @@ const ThankYou = () => {
                   Stop Recording
                   </button>
               ) : (
-                    <a href={recordedVideoUrl} download="screen-recording.webm" className="btn btn-primary mt-2">
-                        Download
-                    </a>
-                        
+                  <p className="text-green-500 mt-2">Recording stopped. Files downloaded.</p>   
                 )}
               </div>
           </InfoBox>
