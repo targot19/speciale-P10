@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextButton";
 
-const PerceivedTrust = () => {
+const PerceivedTrust = ({ onNext }) => {
     const [responses, setResponses] = useState({
         bestinterest: "",
         honest: "",
@@ -38,7 +38,7 @@ const PerceivedTrust = () => {
             return;
         } else {
             console.log({ responses });
-            navigate("/thankyou");
+            //navigate("/thankyou");
         }
     };
 
@@ -67,7 +67,7 @@ const PerceivedTrust = () => {
                     onChange={(answer) => handleResponses("effectivecompetent", answer)}
                     />
                 </div>
-                    <NextButton type="submit" className="flex justify-end">
+                    <NextButton type="submit" onClick={onNext} className="flex justify-end">
                         Next
                     </NextButton>
                 </div>

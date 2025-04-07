@@ -18,7 +18,7 @@ const testHistory =
   ]
 
 // prompts: topic, question, stage...
-const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction }) => {
+const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, onNext }) => {
 
 
     //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
@@ -40,8 +40,7 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                             {question}
                             </p>
                         <div className="flex gap-10 items-center justify-center">
-                            <Link to="/briefing2" rel="noopener noreferrer"><BackButton>Back</BackButton></Link>
-                            <Link to="/perceivedtrust" rel="noopener noreferrer"><NextButton>Next</NextButton></Link>
+                            <NextButton onClick={onNext}>Next</NextButton>
                         </div>
                     </div>
             </div>

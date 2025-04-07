@@ -16,13 +16,14 @@ const testHistory =
     { type: "answerCheck2" }
   ]
 
-const ChatWindow = ({ questionNumber, promptInstruction }) => {
+const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrideHistory }) => {
 
     const { sessionHistory, addChatMessage  } = useSession(); // Session-wide history. Changes to sessionHistory = automatic re-render
     const [currentChatHistory, setCurrentChatHistory] = useState([]); // Temporary history for current conversation
     const [isLoading, setIsLoading] = useState(false); // Loader, w. start value "false"
 
-    const messageHistory = sessionHistory.chatHistory[questionNumber] || []; // If nothing is returned, return an empty array
+    const messageHistory = overrideHistory ?? (sessionHistory.chatHistory[questionNumber] || []);
+    // If a history is passed as prop, use this. If not, use find sessionHistory through question number. If nothing is returned, return an empty array.
 
 
     // Function responsible for sending message to API + updating sessionHistory

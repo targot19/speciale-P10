@@ -12,6 +12,7 @@ import PerceivedTrust from "./pages/8PerceivedTrust";
 import ThankYou from "./pages/9ThankYou";
 import "bootstrap/dist/css/bootstrap.css";
 import { RecordingProvider } from "./components/screenrecorder/RecordingContext";
+import ExperimentController from "./pages/ExperimentController";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/experimentsection" element={<ExperimentSectionPage category="Geography" questionNumber="4" question="What is the capital of Australia?" promptInstruction="Answer with enthusiasm"  />} />
           <Route path="/perceivedtrust" element={<PerceivedTrust />} />
           <Route path="/thankyou" element={<ThankYou />} />
+          <Route path="/experiment/:step" element={<ExperimentController />} />
         </Routes>
       </Router>
     </RecordingProvider>
