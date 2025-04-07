@@ -7,7 +7,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 // Add prompt instructions to the input
 // Get Question to show up on the screen
 
-const ChatInputField = ({ onSend, isLoading }) => {
+const ChatInputField = ({ onSend, isLoading, isActive }) => {
     const [chatInput, setChatInput] = useState(""); // Local state for storing user input
 
     // Function that takes input from UI, and passing it on to the proper functions
@@ -20,7 +20,9 @@ const ChatInputField = ({ onSend, isLoading }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="h-1/4 w-full flex items-end">
+        <form onSubmit={handleSubmit} className={`w-full flex items-end ${
+            isActive ? "h-1/5" : "h-[60px]"
+          }`}>
             <div className="relative w-full h-full">
                 <textarea
                     className={`w-full h-full px-2 py-2 border rounded-lg bg-[#2e3b4e] text-white resize-none focus:outline-none ${
@@ -30,11 +32,11 @@ const ChatInputField = ({ onSend, isLoading }) => {
                     placeholder="Ask your question here..."
                     value={chatInput} // Connect to state
                     onChange={(e) => setChatInput(e.target.value)}
-                    disabled={isLoading}
+                    disabled={!isActive || isLoading}
                 />
                 <button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={!isActive || isLoading}
                     className="absolute bottom-2 right-2 text-white px-1 py-1 rounded cursor-pointer"
                 >
                     <PaperAirplaneIcon className="w-5 h-5" />

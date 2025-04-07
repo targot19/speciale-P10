@@ -27,14 +27,14 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
     // For testing purposes
 
     return (
-        <div className="w-screen h-screen flex flex-col px-10 py-5">
+        <div className="w-screen h-screen flex flex-col px-6 py-2">
             <div className="h-1/8 flex justify-between items-center">
                 <h2 className="text-3xl font-semibold">{category}</h2> {/* Make dynamic - category prop */}
                 <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
-            <div className="flex justify-between gap-10 h-7/8">
-                    <ChatWindow questionNumber={questionNumber} promptInstruction={promptInstruction}/>
-                    <div className="flex flex-col justify-between w-[30%]">
+            <div className="flex justify-between gap-8 h-7/8">
+                    <div className="w-[60%]"><ChatWindow questionNumber={questionNumber} promptInstruction={promptInstruction}/></div>
+                    <div className="flex flex-col justify-between w-[40%]">
                         <p className="bg-[#2E3B4E] text-white p-6 text-lg">
                             {/* Make dynamic - question prop */}
                             {question}

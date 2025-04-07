@@ -12,8 +12,8 @@ const PerceivedTrustPage = ({ category, questionNumber, onNext, chatHistory }) =
                 <p className="text-lg font-medium text-gray-600">{questionNumber || "2/20"}</p>
             </div>
             <div className="flex justify-between h-7/8 items-start">
-                <div style={{ opacity: 0.5 }} className="flex justify-between h-7/8 items-start">
-                    <ChatWindow messageHistory={chatHistory} />
+                <div style={{ opacity: 0.5 }} className="w-[40%] h-full">
+                    <ChatWindow messageHistory={chatHistory} isActive={false}/>
                 </div>
                 <div className="h-full flex flex-col gap-16 justify-start w-[60%]">
                     <PerceivedTrust onNext={onNext} />

@@ -16,7 +16,7 @@ const testHistory =
     { type: "answerCheck2" }
   ]
 
-const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrideHistory }) => {
+const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrideHistory, isActive = true }) => {
 
     const { sessionHistory, addChatMessage  } = useSession(); // Session-wide history. Changes to sessionHistory = automatic re-render
     const [currentChatHistory, setCurrentChatHistory] = useState([]); // Temporary history for current conversation
@@ -68,7 +68,7 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
 
 
     return (
-        <div className="flex flex-col justify-between h-full w-[70%] p-5 pt-0 bg-[#d9d9d9] rounded-lg">
+        <div className="flex flex-col justify-between h-full w-[100%] p-3 pt-0 bg-[#d9d9d9] rounded-lg">
             <ChatHistory 
                 messageHistory={messageHistory} 
                 isLoading={isLoading}
@@ -76,6 +76,7 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
             <ChatInputField  
                 onSend={handleSendMessage} /* Pass function that handles API call + logging to session history */
                 isLoading={isLoading}
+                isActive={isActive}
             />
         </div>
     );
