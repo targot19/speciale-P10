@@ -173,12 +173,12 @@ const getPromptInstruction = (condition) => {
     // Switch case, matching a prompt to A, B, C D.
     switch (condition) {
         case "A":
-            return "Respond with confidence and authority.";
+            return "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of certainty and confidence, like 'I am certain', 'I am sure', etc. Answer in only one sentence.";
         case "B":
-            return "Be casual and supportive, like a helpful friend.";
+            return "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of uncertainty and doubt. Use terms like 'i think' or 'i believe it might be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
         case "C":
-            return "Answer like I'm 5 years old";
+            return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Respond to this prompt using expressions of certainty and confidence. Answer in only one sentence.";
         default: 
-            return "Respond with enthusiasm, and use lots of emojis";
+            return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Use terms like 'The system has found that it might be' or 'the answer may be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
     }
 };

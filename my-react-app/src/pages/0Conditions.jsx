@@ -23,7 +23,7 @@ const Conditions = () => {
             console.log({ selectedLatinSquare });
             addConditionToHistory(selectedLatinSquare);
             setSessionId();
-            navigate("/"); // Navigate to the next page
+            navigate("/start"); // Navigate to the next page
         }
     };
 
