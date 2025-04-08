@@ -145,7 +145,7 @@ const buildExperimentSequence = (conditionOrder, questionsByCategory, categories
         const condition = conditionOrder[catIndex];
         const questions = questionsByCategory[category];
     
-        // 1. Add announcement before category
+        // 1. Add category-page before category
         sequence.push({ type: "category", category });
     
         // 2. Add 5 questions
