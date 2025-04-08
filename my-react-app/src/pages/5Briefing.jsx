@@ -19,7 +19,7 @@ const Briefing = () => {
                 Start Recording
                 </button>
             ) : (
-                <NextButton to="/category">Next</NextButton>
+                <NextButton to="/experiment/1">Next</NextButton>
             )}
             </div>
         </InfoBox>
