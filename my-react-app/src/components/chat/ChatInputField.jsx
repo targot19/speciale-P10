@@ -46,7 +46,8 @@ const ChatInputField = ({ onSend, isLoading, isActive }) => {
                 <button
                     type="submit"
                     disabled={!isActive || isLoading}
-                    className="absolute bottom-2 right-2 text-white px-1 py-1 rounded cursor-pointer"
+                    className={`absolute bottom-2 right-2 text-white px-1 py-1 rounded
+                        ${isLoading ? "cursor-not-allowed" : isActive ? "cursor-pointer" : "cursor-default"}`}
                 >
                     <PaperAirplaneIcon className="w-5 h-5" />
                 </button>

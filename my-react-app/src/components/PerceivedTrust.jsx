@@ -9,17 +9,21 @@ const PerceivedTrust = ({ onNext }) => {
     const { addSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
-        bestinterest: "",
-        honest: "",
-        effectivecompetent: "",
+        "I am confident in the AI. I feel that it works well.": "",
+        "The outputs of the AI are very predictable.": "",
+        "The AI is very reliable. I can count on it to be correct all the time.": "",
+        "I feel safe that when I rely on the AI I will get the right answers.": "",
+        "The AI is effcient in that it works very quickly.": "",
+        "The AI can perform the task better than a novice human user.": "",
+        "I like using the AI for decision making.": "",
     });
 
     const options = [
-        { value: "1", label: "Strongly agree" },
-        { value: "2", label: "Agree" },
-        { value: "3", label: "Neither agree nor disagree" },
-        { value: "4", label: "Disagree" },
-        { value: "5", label: "Strongly disagree" },
+        { value: "Strongly agree", label: "Strongly agree" },
+        { value: "Agree", label: "Agree" },
+        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
+        { value: "Disagree", label: "Disagree" },
+        { value: "Strongly disagree", label: "Strongly disagree" },
     ];
 
     const navigate = useNavigate();
@@ -30,6 +34,7 @@ const PerceivedTrust = ({ onNext }) => {
             ...prevResponses,
             [question]: answer,
         }));
+        //console.log(`Updated responses:`, { ...responses, [question]: answer });
     };
 
     /** Write responses to console.log as of now */
@@ -42,48 +47,35 @@ const PerceivedTrust = ({ onNext }) => {
         } else {
             console.log({ responses });
             addSurveyAnswers(responses);
+            if (onNext) onNext();
             //navigate("/thankyou");
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="pt-0">
-        <div className="flex items-center justify-center overflow-auto">
+          <div className="flex items-center justify-center overflow-auto">
             <div className="flex flex-col gap-2 w-full max-w-3xl items-center">
-            <div className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full" style={{ maxWidth: "600px" }}>
-                <ConditionQuestionBox
-                    question="I believe that the chatbot would act in my best interest."
+              {Object.keys(responses).map((question, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full"
+                  style={{ maxWidth: "600px" }}
+                >
+                  <ConditionQuestionBox
+                    question={question}
                     options={options}
-                    onChange={(answer) => handleResponses("bestinterest", answer)}
-                />
+                    onChange={(answer) => handleResponses(question, answer)}
+                  />
                 </div>
-                <div className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full" style={{ maxWidth: "600px" }}>
-                <ConditionQuestionBox
-                    question="I would characterize the chatbot as honest."
-                    options={options}
-                    onChange={(answer) => handleResponses("honest", answer)}
-                />
-                </div>
-                <div className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full" style={{ maxWidth: "600px" }}>
-                <ConditionQuestionBox
-                    question="The chatbot is competent and effective in providing answers."
-                    options={options}
-                    onChange={(answer) => handleResponses("effectivecompetent", answer)}
-                    />
-                </div>
-                    <NextButton type="submit" onClick={onNext} className="flex justify-end">
-                        Next
-                    </NextButton>
-                </div>
+              ))}
+              <NextButton type="submit" className="flex justify-end">
+                Next
+              </NextButton>
             </div>
-            {/*<div className="flex justify-center mt-2">
-                <NextButton type="submit">
-                    Next
-                </NextButton>
-            </div>*/}
+          </div>
         </form>
-        
-    );
-}
+      );
+    };
     
 export default PerceivedTrust;

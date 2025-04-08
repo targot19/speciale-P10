@@ -54,9 +54,9 @@ const ExperimentController = () => {
         return buildExperimentSequence(conditionOrder, questionsByCategory, categories);
       }, [conditionOrder, questionsByCategory]);
     
-      console.log("🧠 stepIndex:", stepIndex);
-      console.log("📋 Total steps:", experimentSequence.length);
-      console.log("🔎 currentStep:", experimentSequence[stepIndex]);
+      //console.log("🧠 stepIndex:", stepIndex);
+      //console.log("📋 Total steps:", experimentSequence.length);
+      //console.log("🔎 currentStep:", experimentSequence[stepIndex]);
     
     // 5. Keep track of what step we're currently on
     const currentStep = experimentSequence[stepIndex]
@@ -77,7 +77,7 @@ const ExperimentController = () => {
         }
     }
     }
-    console.log("🧾 Full chat history keys:", Object.keys(chatHistory));
+    //console.log("🧾 Full chat history keys:", Object.keys(chatHistory));
 
 
 
@@ -85,9 +85,9 @@ const ExperimentController = () => {
     const handleNext = () => {
         const nextStep = stepIndex + 2; // Go to the next step (1-based for URL)
       
-        console.log("🧭 Navigating from:", stepIndex + 1);
-        console.log("➡️ Attempting to go to:", nextStep);
-        console.log("🧮 Sequence length:", experimentSequence.length);
+        //console.log("🧭 Navigating from:", stepIndex + 1);
+        //console.log("➡️ Attempting to go to:", nextStep);
+        //console.log("🧮 Sequence length:", experimentSequence.length);
 
         // Stop *after* last step has been rendered
         if (nextStep <= experimentSequence.length) {
@@ -103,12 +103,12 @@ const ExperimentController = () => {
   // Dynamically render the correct page
   switch (currentStep.type) {
     case "category":
-      return <CategoryPage category={currentStep.category} onNext={handleNext} />;
+      return <CategoryPage category={capitalizeFirstLetter(currentStep.category)} onNext={handleNext} />;
 
     case "question":
       return (
         <ExperimentSectionPage
-          category={currentStep.category}
+          category={capitalizeFirstLetter(currentStep.category)}
           questionNumber={currentStep.questionIndex}
           question={currentStep.question.text}
           promptInstruction={getPromptInstruction(currentStep.condition)}
@@ -119,7 +119,7 @@ const ExperimentController = () => {
     case "survey":
       return (
         <PerceivedTrustPage
-          category={currentStep.category}
+          category={capitalizeFirstLetter(currentStep.category)}
           questionNumber={currentStep.questionIndex}
           onNext={handleNext}
           chatHistory={combinedHistory}
@@ -181,4 +181,8 @@ const getPromptInstruction = (condition) => {
         default: 
             return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Use terms like 'The system has found that it might be' or 'the answer may be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
     }
+};
+
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 };

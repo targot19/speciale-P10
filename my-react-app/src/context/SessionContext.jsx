@@ -6,37 +6,53 @@ const SessionContext = createContext();
 // Provider-component, som kan hente data fra denne context
 export const SessionProvider = ({ children }) => {
     const [sessionHistory, setSessionHistory] = useState(() => {
-        // Load the session history from localStorage on start
-        const savedSession = localStorage.getItem("sessionHistory");
+        // Load the session history from sessionStorage on start
+        const savedSession = sessionStorage.getItem("sessionHistory");
         return savedSession ? JSON.parse(savedSession) : {
             sessionId: "",
-            conditionOrder: "",
+            sessionEnd: "",
+            conditionOrder: [],
             surveyHistory: {},
             chatHistory: {}
         };
     });
 
-    // Save sessionHistory to localStorage whenever it changes
+    // Save sessionHistory to sessionStorage whenever it changes
     useEffect(() => {
-        localStorage.setItem("sessionHistory", JSON.stringify(sessionHistory));
+        sessionStorage.setItem("sessionHistory", JSON.stringify(sessionHistory));
     }, [sessionHistory]);
 
     // Functions to perform different actions w. the session history
 
     const setSessionId = () => {
-        const timestamp = new Date().toISOString(); // Date object, as string
+        const timestamp = new Date().toLocaleString("en-GB", { timeZone: "Europe/Copenhagen" }); // Date object, as string
         setSessionHistory(prev => ({
             ...prev,
             sessionId: timestamp
         }));
     };
 
-    const addConditionToHistory = (condition) => {
+    const setSessionEnd = () => {
+        const timestamp = new Date().toLocaleString("en-GB", { timeZone: "Europe/Copenhagen" }); // Date object, as string
         setSessionHistory(prev => ({
             ...prev,
-            conditionOrder: condition
+            sessionEnd: timestamp
         }));
     };
+
+    const addConditionToHistory = (condition) => {
+        const conditionArray = Array.isArray(condition)
+          ? condition
+          : condition.trim().split(" "); // split string like "A B D C"
+      
+        setSessionHistory((prev) => ({
+          ...prev,
+          conditionOrder: conditionArray // This replaces the array
+        }));
+
+        console.log("Condition order set to:", conditionArray); // Debugging line
+        
+      };
 
     const addSurveyAnswers = (answers) => {
         setSessionHistory(prev => ({
@@ -74,15 +90,16 @@ export const SessionProvider = ({ children }) => {
     const clearSessionHistory = () => {
         setSessionHistory({
             sessionId: "",
-            conditionOrder: "",
+            sessionEnd: "",
+            conditionOrder: [],
             surveyHistory: {},
             chatHistory: {}
         });
-        localStorage.removeItem("sessionHistory"); // Clear from localStorage as well
+        sessionStorage.removeItem("sessionHistory"); // Clear from sessionStorage as well
     };
 
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, addConditionToHistory, addChatMessage, addSurveyAnswers, clearSessionHistory, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addSurveyAnswers, clearSessionHistory, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )

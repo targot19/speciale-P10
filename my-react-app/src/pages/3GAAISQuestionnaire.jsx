@@ -10,22 +10,22 @@ const GAAISQuestionnaire = () => {
     const { addSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
-        neg6: "",
-        pos7: "",
-        neg10: "",
-        pos11: "",
-        pos12: "",
-        neg15: "",
-        pos17: "",
-        neg19: "",
+        "I think artificially intelligent systems make many errors.": "",
+        "I am interested in using artificially intelligent systems in my daily life.": "",
+        "I think Artificial Intelligence is dangerous.": "",
+        "Artificial Intelligence can have positive impacts on people’s wellbeing.": "",
+        "Artificial Intelligence is exciting.": "",
+        "I shiver with discomfort when I think about future uses of Artificial Intelligence.": "",
+        "Much of society will benefit from a future full of Artificial Intelligence.": "",
+        "People like me will suffer if Artificial Intelligence is used more and more.": "",
     });
 
     const options = [
-        { value: "1", label: "Strongly agree" },
-        { value: "2", label: "Agree" },
-        { value: "3", label: "Neither agree nor disagree" },
-        { value: "4", label: "Disagree" },
-        { value: "5", label: "Strongly disagree" },
+        { value: "Strongly agree", label: "Strongly agree" },
+        { value: "Agree", label: "Agree" },
+        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
+        { value: "Disagree", label: "Disagree" },
+        { value: "Strongly disagree", label: "Strongly disagree" },
     ];
 
     const navigate = useNavigate();
@@ -54,71 +54,27 @@ const GAAISQuestionnaire = () => {
 
     return (
         <form onSubmit={handleSubmit} className="pt-0">
-        <div className="p-4 flex flex-col items-center">
+            <div className="p-4 flex flex-col items-center">
             <h1 className="text-2xl font-bold mb-4">Questionnaire: Second Part</h1>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
+                {Object.keys(responses).map((question, index) => (
+                <div
+                    key={index}
+                    className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full"
+                    style={{ maxWidth: "600px" }}
+                >
                 <RadioButtonsGroup
-                    question="I think artificially intelligent systems make many errors."
+                    question={question}
                     options={options}
-                    onChange={(answer) => handleResponses("neg6", answer)}
+                    onChange={(answer) => handleResponses(question, answer)}
                 />
-            </div>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
-                <RadioButtonsGroup
-                    question="I am interested in using artificially intelligent systems in my daily life."
-                    options={options}
-                    onChange={(answer) => handleResponses("pos7", answer)}
-                />
-            </div>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
-                <RadioButtonsGroup
-                    question="I think Artificial Intelligence is dangerous."
-                    options={options}
-                    onChange={(answer) => handleResponses("neg10", answer)}
-                />
-            </div>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
-                <RadioButtonsGroup
-                    question="Artificial Intelligence can have positive impacts on people’s wellbeing."
-                    options={options}
-                    onChange={(answer) => handleResponses("pos11", answer)}
-                />
-            </div>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
-                <RadioButtonsGroup
-                    question="Artificial Intelligence is exciting."
-                    options={options}
-                    onChange={(answer) => handleResponses("pos12", answer)}
-                />
-            </div>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
-                <RadioButtonsGroup
-                    question="I shiver with discomfort when I think about future uses of Artificial Intelligence."
-                    options={options}
-                    onChange={(answer) => handleResponses("neg15", answer)}
-                />
-            </div>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
-                <RadioButtonsGroup
-                    question="Much of society will benefit from a future full of Artificial Intelligence."
-                    options={options}
-                    onChange={(answer) => handleResponses("pos17", answer)}
-                />
-            </div>
-            <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
-                <RadioButtonsGroup
-                    question="People like me will suffer if Artificial Intelligence is used more and more."
-                    options={options}
-                    onChange={(answer) => handleResponses("neg19", answer)}
-                />
-            </div>
-                <ButtonContainer>
-                    <BackButton to="/demographics" />
-                    <NextButton type="submit">Next</NextButton>
-                </ButtonContainer>
-            </div>
+                </div>
+                ))}
+                    <NextButton type="submit" className="flex justify-end">
+                        Next
+                    </NextButton>
+                </div>
         </form>
     );
-}
+};
 
 export default GAAISQuestionnaire;

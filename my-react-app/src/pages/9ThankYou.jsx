@@ -5,9 +5,10 @@ import { useSession } from "../context/SessionContext";
 
 const ThankYou = () => {
   const { isRecording, stopRecording, downloadRecordedVideo, recordedVideoUrl } = useRecording();
-  const { exportSessionHistory } = useSession();
+  const { exportSessionHistory, setSessionEnd } = useSession();
 
   const handleStopRecording = () => {
+    setSessionEnd();
     stopRecording(); // Stop the recording
   };
 
