@@ -5,7 +5,7 @@ import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextButton";
 import { useSession } from "../context/SessionContext";
 
-const PerceivedTrust = () => {
+const PerceivedTrust = ({ onNext }) => {
     const { addSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
@@ -42,7 +42,7 @@ const PerceivedTrust = () => {
         } else {
             console.log({ responses });
             addSurveyAnswers(responses);
-            navigate("/thankyou");
+            //navigate("/thankyou");
         }
     };
 
@@ -71,13 +71,16 @@ const PerceivedTrust = () => {
                     onChange={(answer) => handleResponses("effectivecompetent", answer)}
                     />
                 </div>
+                    <NextButton type="submit" onClick={onNext} className="flex justify-end">
+                        Next
+                    </NextButton>
                 </div>
             </div>
-            <div className="flex justify-center mt-2">
+            {/*<div className="flex justify-center mt-2">
                 <NextButton type="submit">
                     Next
                 </NextButton>
-            </div>
+            </div>*/}
         </form>
         
     );

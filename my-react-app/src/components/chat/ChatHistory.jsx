@@ -1,9 +1,10 @@
 import ChatbotMessage from "./ChatbotMessage"
 import UserMessage from "./UserMessage"
+import TypingDots from "./TypingDots"
 import { useRef, useEffect } from "react"
 
 // Takes a message history as it's prop (default value is an empty array)
-const ChatHistory = ({ messageHistory = [] }) => {
+const ChatHistory = ({ isLoading, messageHistory = [] }) => {
 
     const scrollRef = useRef(null);
 
@@ -61,7 +62,15 @@ const ChatHistory = ({ messageHistory = [] }) => {
                 }
                 return null;
             })}
-        </div>)
+
+            {/* Typing/loading indicator */}
+            {isLoading && (
+                <ChatbotMessage>
+                    <TypingDots />
+                </ChatbotMessage>
+            )}
+        </div>
+    )
 }
 
 export default ChatHistory;
