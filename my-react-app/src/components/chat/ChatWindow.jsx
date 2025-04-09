@@ -46,7 +46,7 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
 
             //console.log("PromptInstruction:", promptInstruction);
             //console.log("ChatInput:", inputText);
-            console.log("Sendt til chatten: ", messages)
+            //console.log("Sendt til chatten: ", messages)
 
             // Fetch a response from API
             const chatbotReply = await fetchChatGPTResponse(messages);

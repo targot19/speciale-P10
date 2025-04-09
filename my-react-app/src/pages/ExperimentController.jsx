@@ -23,7 +23,10 @@ Controller is responsible for:
 const ExperimentController = () => {
     // Access chat history (for perceived trust page)
     const { sessionHistory } = useSession();
-    const { chatHistory } = sessionHistory;
+    const { chatHistory, conditionOrder } = sessionHistory;
+    console.log(conditionOrder)
+
+    //console.log("From sessionStorage:", sessionStorage.getItem("sessionHistory"));
 
     // 1. Get step number from url
     const { step } = useParams(); // Access url value (/experiment/:step)
@@ -34,12 +37,6 @@ const ExperimentController = () => {
     if (isNaN(stepIndex) || stepIndex < 0) {
         return <Navigate to="/start" />;
       }
-
-    // 2. Get condition order (Temporary setup to have something to test on w. fallback)
-    const { 
-        conditionOrder: sessionConditionOrder,
-      } = useSession();
-    const conditionOrder = sessionConditionOrder || ["A", "B", "C", "D"];
 
     // 3. Setup categories, in order
     const categories = ["music", "health", "geography", "physics"];
@@ -89,7 +86,7 @@ const ExperimentController = () => {
         //console.log("➡️ Attempting to go to:", nextStep);
         //console.log("🧮 Sequence length:", experimentSequence.length);
 
-        // Stop *after* last step has been rendered
+        // Navigate to next step of the sequence, Or /thankyou
         if (nextStep <= experimentSequence.length) {
         navigate(`/experiment/${nextStep}`);
         } else {

@@ -50,7 +50,7 @@ export const SessionProvider = ({ children }) => {
           conditionOrder: conditionArray // This replaces the array
         }));
 
-        console.log("Condition order set to:", conditionArray); // Debugging line
+        console.log("Condition order set to: ", conditionArray); // Debugging line
         
       };
 
