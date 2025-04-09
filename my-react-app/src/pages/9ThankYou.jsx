@@ -5,19 +5,29 @@ import { useSession } from "../context/SessionContext";
 
 const ThankYou = () => {
   const { isRecording, stopRecording, downloadRecordedVideo, recordedVideoUrl } = useRecording();
-  const { exportSessionHistory, setSessionEnd } = useSession();
+  const { sessionHistory, exportSessionHistory, setSessionEnd } = useSession();
 
   const handleStopRecording = () => {
-    setSessionEnd();
-    stopRecording(); // Stop the recording
+    stopRecording();
   };
+
+  // Set session end when the page renders
+  useEffect(() => {
+    setSessionEnd();
+  }, []);
+
+  // Export session history after sessionEnd is updated
+  useEffect(() => {
+    if (sessionHistory.sessionEnd) {
+      exportSessionHistory(); // Export session history after sessionEnd is set
+    }
+  }, [sessionHistory.sessionEnd]); // Trigger when sessionEnd is updated
 
   useEffect(() => {
     if (recordedVideoUrl) {
-      exportSessionHistory(); // Download the session history
-      downloadRecordedVideo(); // Download the recorded video
+      downloadRecordedVideo();
     }
-  }, [recordedVideoUrl]); // Trigger when recordedVideoUrl changes
+  }, [recordedVideoUrl]);
 
     return (
       <div className="bg-[#F4F4F4] min-h-screen flex flex-col items-center justify-center">

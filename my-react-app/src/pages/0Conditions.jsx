@@ -3,6 +3,7 @@ import NextButton from "../components/NextButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSession } from "../context/SessionContext";
+import UserInput from "../components/userinput/UserInput";
 
 const Conditions = () => {
     const [selectedLatinSquare, setSelectedLatinSquare] = useState("");
