@@ -2,7 +2,7 @@ import ConditionQuestionBox from "../components/ConditionQuestionBox";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ButtonContainer from "../components/ButtonContainer";
-import NextButton from "../components/NextButton";
+import NextButton from "./NextButton";
 import { useSession } from "../context/SessionContext";
 
 const PerceivedTrust = ({ onNext }) => {
