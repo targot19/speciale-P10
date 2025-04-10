@@ -30,4 +30,4 @@ const lifelinesByCategory = {
     
   }
   
-  export default questionsByCategory;
+  export default lifelinesByCategory;
