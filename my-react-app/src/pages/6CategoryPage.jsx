@@ -1,6 +1,5 @@
 import InfoBox from "../components/InfoBox";
 import ButtonContainer from "../components/ButtonContainer";
-import BackButton from "../components/BackButton";
 import NextButton from "../components/NextButton";
 
 const CategoryPage = ({ category, onNext }) => {
