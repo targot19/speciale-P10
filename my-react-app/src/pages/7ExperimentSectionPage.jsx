@@ -1,8 +1,4 @@
 import NextButton from "../components/NextButton"
-import BackButton from "../components/BackButton"
-import TaskContainer from "../components/TaskContainer"
-import { Link } from "react-router-dom"
-import ButtonContainer from "../components/ButtonContainer"
 import ChatWindow from "../components/chat/ChatWindow"
 import { useState } from "react"
 

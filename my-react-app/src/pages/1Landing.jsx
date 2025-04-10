@@ -1,6 +1,5 @@
 import InfoBox from "../components/InfoBox";
 import NextButton from "../components/NextButton";
-import { Link } from "react-router-dom";
 
 
 const Landing = () => {

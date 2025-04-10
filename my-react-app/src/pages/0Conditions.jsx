@@ -1,5 +1,3 @@
-import InfoBox from "../components/InfoBox";
-import NextButton from "../components/NextButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSession } from "../context/SessionContext";

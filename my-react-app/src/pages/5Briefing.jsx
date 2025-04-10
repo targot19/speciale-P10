@@ -1,7 +1,6 @@
 import React from "react";
 import { useRecording } from "../components/screenrecorder/RecordingContext";
 import NextButton from "../components/NextButton";
-import { Link } from "react-router-dom";
 import InfoBox from "../components/InfoBox";
 
 const Briefing = () => {
