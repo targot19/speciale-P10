@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RadioButtonsGroup from '../components/RadioButtonsGroup';
-import NextButton from '../components/NextButton';
-import BackButton from '../components/BackButton';
+import NextButton from '../components/NextBtn';
+import BackButton from '../components/BackBtn';
 import ButtonContainer from '../components/ButtonContainer';
 import { useSession } from "../context/SessionContext";
 

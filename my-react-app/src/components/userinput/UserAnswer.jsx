@@ -1,29 +1,25 @@
-import ConditionQuestionBox from "../components/ConditionQuestionBox";
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ButtonContainer from "../components/ButtonContainer";
-import NextButton from "../components/NextBtn";
-import { useSession } from "../context/SessionContext";
+/** SRC from https://codesandbox.io/embed/4hp6wr?module=/src/Demo.tsx&fontsize=12 */
 
-const PerceivedTrust = ({ onNext }) => {
+import * as React from 'react';
+import RadioButtonsGroup from '../RadioButtonsGroup';
+import { useNavigate } from 'react-router-dom';
+import { useSession } from '../../context/SessionContext';
+import DiscreteSliderMarks from './Slider';
+import { useState } from "react"
+import NextButton from "../NextBtn"
+
+const UserAnswer = ({ onNext }) => {
     const { addSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
-        "I am confident in the AI. I feel that it works well.": "",
-        "The outputs of the AI are very predictable.": "",
-        "The AI is very reliable. I can count on it to be correct all the time.": "",
-        "I feel safe that when I rely on the AI I will get the right answers.": "",
-        "The AI is effcient in that it works very quickly.": "",
-        "The AI can perform the task better than a novice human user.": "",
-        "I like using the AI for decision making.": "",
+        "": "",
     });
 
+    const [showSlider, setShowSlider] = useState(false); // Control slider visibility
+
     const options = [
-        { value: "Strongly agree", label: "Strongly agree" },
-        { value: "Agree", label: "Agree" },
-        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
-        { value: "Disagree", label: "Disagree" },
-        { value: "Strongly disagree", label: "Strongly disagree" },
+        { value: "Yes", label: "Yes" },
+        { value: "No", label: "No" },
     ];
 
     const navigate = useNavigate();
@@ -34,6 +30,7 @@ const PerceivedTrust = ({ onNext }) => {
             ...prevResponses,
             [question]: answer,
         }));
+        setShowSlider(true);
         //console.log(`Updated responses:`, { ...responses, [question]: answer });
     };
 
@@ -42,7 +39,7 @@ const PerceivedTrust = ({ onNext }) => {
         event.preventDefault(); // Prevent default form submission behavior
 
         if (Object.values(responses).some((response) => response === "")) {
-            alert("Please answer all questions before proceeding.");
+            alert("Please answer before proceeding.");
             return;
         } else {
             console.log({ responses });
@@ -60,17 +57,18 @@ const PerceivedTrust = ({ onNext }) => {
                 <div
                   key={index}
                   className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full"
-                  style={{ maxWidth: "600px" }}
+                  style={{ maxWidth: "300px" }}
                 >
-                  <ConditionQuestionBox
+                  <RadioButtonsGroup
                     question={question}
                     options={options}
                     onChange={(answer) => handleResponses(question, answer)}
                   />
+                  {showSlider && <DiscreteSliderMarks />}
                 </div>
               ))}
               <NextButton type="submit" className="flex justify-end">
-                Next
+                Submit
               </NextButton>
             </div>
           </div>
@@ -78,4 +76,4 @@ const PerceivedTrust = ({ onNext }) => {
       );
     };
     
-export default PerceivedTrust;
+export default UserAnswer;

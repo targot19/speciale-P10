@@ -1,10 +1,11 @@
-import NextButton from "../components/NextButton"
-import BackButton from "../components/BackButton"
+import NextButton from "../components/NextBtn"
+import BackButton from "../components/BackBtn"
 import TaskContainer from "../components/TaskContainer"
 import { Link } from "react-router-dom"
 import ButtonContainer from "../components/ButtonContainer"
 import ChatWindow from "../components/chat/ChatWindow"
 import { useState } from "react"
+import UserAnswer from "../components/userinput/UserAnswer"
 
 // Bare for testing purposes - tænker den skal opbevares et andet sted, evt. i 
 const testHistory =
@@ -39,6 +40,7 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                             {/* Make dynamic - question prop */}
                             {question}
                             </p>
+                            <UserAnswer />
                         <div className="flex gap-10 items-center justify-center">
                             <NextButton onClick={onNext}>Next</NextButton>
                         </div>

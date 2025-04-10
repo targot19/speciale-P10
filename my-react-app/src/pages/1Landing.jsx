@@ -1,5 +1,5 @@
 import InfoBox from "../components/InfoBox";
-import NextButton from "../components/NextButton";
+import NextButton from "../components/NextBtn";
 import { Link } from "react-router-dom";
 
 

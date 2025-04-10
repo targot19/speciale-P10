@@ -1,5 +1,5 @@
-import NextButton from "../components/NextButton";
-import BackButton from "../components/BackButton";
+import NextButton from "../components/NextBtn";
+import BackButton from "../components/BackBtn";
 import { Link } from "react-router-dom";
 import ChatWindow from "../components/chat/ChatWindow";
 import PerceivedTrust from "../components/PerceivedTrust";
