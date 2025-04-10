@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 export default function RadioButtonsGroup({ question, options, value, onChange }) {
+  
   return (
     <FormControl className="flex flex-col justify-center w-full">
       <FormLabel id="demo-radio-buttons-group-label">{question}</FormLabel>
