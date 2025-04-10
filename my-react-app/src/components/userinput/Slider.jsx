@@ -4,14 +4,30 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-export default function Sliders() {
+const marks = [
+  {
+    value: 0,
+    label: '0',
+  },
+  {
+    value: 100,
+    label: '100',
+  },
+];
+
+function valuetext(value) {
+  return `${value}`;
+}
+
+export default function DiscreteSliderMarks() {
   return (
     <Box sx={{ width: 300 }}>
       <Slider
-        //size="small"
+        aria-label="Custom marks"
         defaultValue={50}
-        aria-label="Default"
+        getAriaValueText={valuetext}
         valueLabelDisplay="auto"
+        marks={marks}
       />
     </Box>
   );

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSession } from "../context/SessionContext";
 import UserInput from "../components/userinput/UserInput";
+import DiscreteSliderMarks from "../components/userinput/Slider";
 
 const Conditions = () => {
     const [selectedLatinSquare, setSelectedLatinSquare] = useState("");
