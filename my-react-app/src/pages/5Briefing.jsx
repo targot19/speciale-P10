@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecording } from "../components/screenrecorder/RecordingContext";
-import NextButton from "../components/NextButton";
+import NextButton from "../components/NextBtn";
 import InfoBox from "../components/InfoBox";
 
 const Briefing = () => {

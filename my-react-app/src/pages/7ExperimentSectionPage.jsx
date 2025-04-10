@@ -1,4 +1,4 @@
-import NextButton from "../components/NextButton"
+import NextButton from "../components/NextBtn"
 import ChatWindow from "../components/chat/ChatWindow"
 import { useState } from "react"
 

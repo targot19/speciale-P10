@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RadioButtonsGroup from '../components/RadioButtonsGroup';
-import NextButton from '../components/NextButton';
+import NextButton from '../components/NextBtn';
 import { useSession } from "../context/SessionContext";
 
 const GAAISQuestionnaire = () => {
