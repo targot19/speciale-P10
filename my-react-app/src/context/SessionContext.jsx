@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Conditions from "../pages/0Conditions";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase"; // adjust path if needed
 
 const SessionContext = createContext();
 
@@ -87,6 +89,15 @@ export const SessionProvider = ({ children }) => {
         downloadAnchorNode.remove();
     };
 
+    const saveSessionToFirebase = async () => {
+        try {
+            await addDoc(collection(db, "experiment_results"), sessionHistory);
+            console.log("Session data uploaded to Firebase");
+        } catch (error) {
+            console.error("Error saving session to Firebase:", error);
+        }
+    };
+
     const clearSessionHistory = () => {
         setSessionHistory({
             sessionId: "",
@@ -99,7 +110,7 @@ export const SessionProvider = ({ children }) => {
     };
 
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addSurveyAnswers, clearSessionHistory, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addSurveyAnswers, clearSessionHistory, saveSessionToFirebase, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )

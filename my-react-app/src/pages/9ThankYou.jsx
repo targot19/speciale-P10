@@ -5,7 +5,7 @@ import { useSession } from "../context/SessionContext";
 
 const ThankYou = () => {
   const { isRecording, stopRecording, downloadRecordedVideo, recordedVideoUrl } = useRecording();
-  const { exportSessionHistory, setSessionEnd } = useSession();
+  const { exportSessionHistory, setSessionEnd, saveSessionToFirebase } = useSession();
 
   const handleStopRecording = () => {
     setSessionEnd();
@@ -15,6 +15,7 @@ const ThankYou = () => {
   useEffect(() => {
     if (recordedVideoUrl) {
       exportSessionHistory(); // Download the session history
+      saveSessionToFirebase(); // Save to firebare database
       downloadRecordedVideo(); // Download the recorded video
     }
   }, [recordedVideoUrl]); // Trigger when recordedVideoUrl changes
