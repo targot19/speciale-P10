@@ -1,9 +1,7 @@
-import InfoBox from "../components/InfoBox";
 import NextButton from "../components/NextBtn"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSession } from "../context/SessionContext";
-import DiscreteSliderMarks from "../components/userinput/Slider";
 
 const Conditions = () => {
     const [selectedLatinSquare, setSelectedLatinSquare] = useState("");
@@ -51,7 +49,6 @@ const Conditions = () => {
                     Next
                 </button>
             </div>
-            <DiscreteSliderMarks />
         </div>
     );
 };
