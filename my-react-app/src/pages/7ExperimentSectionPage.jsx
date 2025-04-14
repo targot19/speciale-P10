@@ -40,9 +40,9 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                             {/* Make dynamic - question prop */}
                             {question}
                             </p>
-                            <UserAnswer />
+                            
                         <div className="flex gap-10 items-center justify-center">
-                            <NextButton onClick={onNext}>Next</NextButton>
+                            <UserAnswer question={question} onNext={onNext} />
                         </div>
                     </div>
             </div>
