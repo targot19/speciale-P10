@@ -28,7 +28,7 @@ const UserAnswer = ({ question, onNext }) => {
   // Restart survey process with every new question
   useEffect(() => {
     setResponses({
-      [question]: { answer: "", confidence: null },
+      [question]: { answer: "", confidence: null, source: "" }, // Add "source" for the second survey
     });
     setSecondSurveyResponse("");
     setShowSlider(false);
@@ -63,8 +63,10 @@ const UserAnswer = ({ question, onNext }) => {
   // Handle second survey response
   const handleSecondSurveyResponse = (answer) => {
     setSecondSurveyResponse(answer);
-    addSurveyAnswers(answer);
-    //console.log(`Second survey response:`, answer);
+    setResponses((prevResponses) => ({
+      ...prevResponses,
+      [question]: { ...prevResponses[question], source: answer }, // Add the second survey response to the same question
+    }));
   };
 
   const handleSubmit = (event) => {
