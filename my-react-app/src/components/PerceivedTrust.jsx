@@ -54,8 +54,12 @@ const PerceivedTrust = ({ onNext }) => {
 
     return (
         <form onSubmit={handleSubmit} className="pt-0">
-          <div className="flex items-center justify-center overflow-auto">
-            <div className="flex flex-col gap-2 w-full max-w-3xl items-center">
+          <div className="flex flex-col items-start justify-start overflow-hidden h-screen w-full">
+            <div className="flex flex-col gap-1 w-full max-w-3xl items-center overflow-y-auto"
+            style={{
+              maxHeight: "65vh", // Limit the height to 80% of the viewport
+              overflowX: "hidden",
+            }}>
               {Object.keys(responses).map((question, index) => (
                 <div
                   key={index}
@@ -69,7 +73,9 @@ const PerceivedTrust = ({ onNext }) => {
                   />
                 </div>
               ))}
-              <NextButton type="submit" className="flex justify-end">
+            </div>
+            <div className="flex justify-center w-full mt-4">
+              <NextButton type="submit" className="flex justify-center">
                 Next
               </NextButton>
             </div>
