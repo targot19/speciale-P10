@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Conditions from "../pages/0Conditions";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase"; // adjust path if needed
+import { setDoc, doc } from "firebase/firestore";
+import { db, auth } from "../firebase/firebase"; // adjust path if needed
 
 const SessionContext = createContext();
 
@@ -90,11 +91,22 @@ export const SessionProvider = ({ children }) => {
     };
 
     const saveSessionToFirebase = async () => {
+        const uid = auth.currentUser?.uid;
+
+        if (!uid) {
+          console.warn("User not authenticated. Session not saved.");
+          return;
+        }
+      
         try {
-            await addDoc(collection(db, "experiment_results"), sessionHistory);
-            console.log("Session data uploaded to Firebase");
+          await setDoc(doc(db, "experiment_results", uid), {
+            timestamp: Date.now(),
+            ...sessionHistory, // spread session data into the document
+          });
+      
+          console.log("Session data uploaded to Firebase for UID:", uid);
         } catch (error) {
-            console.error("Error saving session to Firebase:", error);
+          console.error("Error saving session to Firebase:", error);
         }
     };
 

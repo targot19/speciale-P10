@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useRecording } from "../components/screenrecorder/RecordingContext";
 import InfoBox from "../components/InfoBox";
 import { useSession } from "../context/SessionContext";
+import { resetFirebaseUser } from "../firebase/anonAuth";
 
 const ThankYou = () => {
   const { isRecording, stopRecording, downloadRecordedVideo, recordedVideoUrl } = useRecording();
   const { exportSessionHistory, setSessionEnd, saveSessionToFirebase } = useSession();
+  const hasSavedRef = useRef(false); 
 
   const handleStopRecording = () => {
     setSessionEnd();
@@ -15,11 +17,25 @@ const ThankYou = () => {
   useEffect(() => {
     if (recordedVideoUrl) {
       exportSessionHistory(); // Download the session history
-      saveSessionToFirebase(); // Save to firebare database
       downloadRecordedVideo(); // Download the recorded video
     }
   }, [recordedVideoUrl]); // Trigger when recordedVideoUrl changes
 
+  useEffect(() => {
+    const saveAndReset = async () => {
+      try {
+        console.log("Saving session to Firebase...");
+        await saveSessionToFirebase();
+        console.log("Resetting Firebase user...");
+        await resetFirebaseUser();
+        console.log("Session saved and user reset ✅");
+      } catch (error) {
+        console.error("Error inside saveAndReset:", error);
+      }
+    };
+  
+    saveAndReset();
+  }, []);
     return (
       <div className="bg-[#F4F4F4] min-h-screen flex flex-col items-center justify-center">
         <div className="flex-col flex items-center justify-center">
