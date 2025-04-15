@@ -19,11 +19,11 @@ const PerceivedTrust = ({ onNext }) => {
     });
 
     const options = [
-        { value: "Strongly agree", label: "Strongly agree" },
-        { value: "Agree", label: "Agree" },
-        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
-        { value: "Disagree", label: "Disagree" },
         { value: "Strongly disagree", label: "Strongly disagree" },
+        { value: "Disgree", label: "Disgree" },
+        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
+        { value: "Agree", label: "Agree" },
+        { value: "Strongly agree", label: "Strongly agree" },
     ];
 
     const navigate = useNavigate();
@@ -57,7 +57,7 @@ const PerceivedTrust = ({ onNext }) => {
           <div className="flex flex-col items-start justify-start overflow-hidden h-screen w-full">
             <div className="flex flex-col gap-1 w-full max-w-3xl items-center overflow-y-auto"
             style={{
-              maxHeight: "65vh", // Limit the height to 80% of the viewport
+              maxHeight: "65vh",
               overflowX: "hidden",
             }}>
               {Object.keys(responses).map((question, index) => (
