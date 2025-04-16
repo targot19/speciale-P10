@@ -13,14 +13,14 @@ const PerceivedTrust = ({ onNext }) => {
         "The outputs of the AI are very predictable.": "",
         "The AI is very reliable. I can count on it to be correct all the time.": "",
         "I feel safe that when I rely on the AI I will get the right answers.": "",
-        "The AI is effcient in that it works very quickly.": "",
+        "The AI is efficient in that it works very quickly.": "",
         "The AI can perform the task better than a novice human user.": "",
         "I like using the AI for decision making.": "",
     });
 
     const options = [
         { value: "Strongly disagree", label: "Strongly disagree" },
-        { value: "Disgree", label: "Disgree" },
+        { value: "Disagree", label: "Disagree" },
         { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
         { value: "Agree", label: "Agree" },
         { value: "Strongly agree", label: "Strongly agree" },

@@ -37,8 +37,7 @@ const ThankYou = () => {
             <p className="mt-4">
                 You have finished the experiment.<br /><br />
                 <b>1)</b> Click "Stop Recording" below to stop the screen recording.<br />
-                <b>2)</b> Click "Download", so we can save the recording to the computer.<br />
-                <b>3)</b> Leave the room, so we can ask you some final questions.
+                <b>2)</b> Leave the room, so we can ask you some final questions.
             </p>
             <div className="mt-2">
               {isRecording ? (
