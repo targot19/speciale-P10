@@ -5,15 +5,17 @@ import { useSession } from "../context/SessionContext";
 import { resetFirebaseUser } from "../firebase/anonAuth";
 
 const ThankYou = () => {
-  const { isRecording, stopRecording, downloadRecordedVideo, recordedVideoUrl } = useRecording();
+  const { isRecording, stopRecording, downloadRecordedVideo, recordedVideoUrl, uploadRecordedVideo, recordedBlob } = useRecording();
   const { exportSessionHistory, setSessionEnd, saveSessionToFirebase } = useSession();
-  const hasSavedRef = useRef(false); 
+  const isSavingRef = useRef(false);
+  const hasSavedRef = useRef(false);
 
   const handleStopRecording = () => {
     setSessionEnd();
     stopRecording(); // Stop the recording
   };
 
+  // Download video + data as json.
   useEffect(() => {
     if (recordedVideoUrl) {
       exportSessionHistory(); // Download the session history
@@ -21,21 +23,33 @@ const ThankYou = () => {
     }
   }, [recordedVideoUrl]); // Trigger when recordedVideoUrl changes
 
+  // Save data + video to database
   useEffect(() => {
     const saveAndReset = async () => {
+      if(hasSavedRef.current || isSavingRef.current || !recordedBlob) return // If hasSaved or isSaving is true OR video doesn't exist, don't run
+      
+      isSavingRef.current = true; // Saving in process
+
       try {
-        console.log("Saving session to Firebase...");
-        await saveSessionToFirebase();
-        console.log("Resetting Firebase user...");
+        // REMOVE COMMENTS TO UPLOAD VIDEO
+        //const videoURL = await uploadRecordedVideo(); // get video as recordedBlob
+        //console.log("Download URL:", videoURL); // Check to see if there's access to URL
+
+
+        await saveSessionToFirebase(videoURL);
+        hasSavedRef.current = true; // Save successful
         await resetFirebaseUser();
         console.log("Session saved and user reset ✅");
       } catch (error) {
         console.error("Error inside saveAndReset:", error);
+      } finally {
+        isSavingRef.current = false; // Saving process done
       }
     };
   
     saveAndReset();
-  }, []);
+  }, [recordedBlob]); // Wait until video is ready before saving/uploading
+
     return (
       <div className="bg-[#F4F4F4] min-h-screen flex flex-col items-center justify-center">
         <div className="flex-col flex items-center justify-center">

@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Conditions from "../pages/0Conditions";
 import { collection, addDoc } from "firebase/firestore";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, Timestamp } from "firebase/firestore";
 import { db, auth } from "../firebase/firebase"; // adjust path if needed
 
 const SessionContext = createContext();
@@ -90,7 +90,7 @@ export const SessionProvider = ({ children }) => {
         downloadAnchorNode.remove();
     };
 
-    const saveSessionToFirebase = async () => {
+    const saveSessionToFirebase = async (videoURL = null) => {
         const uid = auth.currentUser?.uid;
 
         if (!uid) {
@@ -100,7 +100,8 @@ export const SessionProvider = ({ children }) => {
       
         try {
           await setDoc(doc(db, "experiment_results", uid), {
-            timestamp: Date.now(),
+            timestamp: Timestamp.now(),
+            videoURL,
             ...sessionHistory, // spread session data into the document
           });
       

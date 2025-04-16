@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 import RecordRTC from "recordrtc";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { auth, storage } from "../../firebase/firebase"
 
 const RecordingContext = createContext();
 
@@ -9,6 +11,8 @@ export const RecordingProvider = ({ children }) => {
   const [recorder, setRecorder] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState(null);
+  const [recordedBlob, setRecordedBlob] = useState(null);
+
 
   const startRecording = async () => {
     try {
@@ -31,6 +35,7 @@ export const RecordingProvider = ({ children }) => {
         const videoUrl = URL.createObjectURL(blob);
   
         setRecordedVideoUrl(videoUrl);
+        setRecordedBlob(blob); // store blob (for DB)
         setRecorder(null);
         setIsRecording(false);
       });
@@ -49,6 +54,35 @@ export const RecordingProvider = ({ children }) => {
     link.click();
   };
 
+  const uploadRecordedVideo = async () => {
+    if (!recordedBlob) {
+      console.warn("No recorded video blob to upload.");
+      return null;
+    }
+  
+    const uid = auth.currentUser?.uid;
+    if (!uid) {
+      console.warn("User not authenticated.");
+      return null;
+    }
+  
+    const filename = `experiment_${Date.now()}.webm`;
+    const storageRef = ref(storage, `videos/${uid}/${filename}`);
+  
+    try {
+      const snapshot = await uploadBytes(storageRef, recordedBlob, {
+        contentType: "video/webm",
+      });
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      console.log("🎥 Video uploaded successfully:", downloadURL);
+      return downloadURL;
+    } catch (error) {
+      console.error("Error uploading video:", error);
+      return null;
+    }
+  };
+  
+
   return (
     <RecordingContext.Provider
       value={{
@@ -56,7 +90,9 @@ export const RecordingProvider = ({ children }) => {
         stopRecording,
         isRecording,
         recordedVideoUrl,
+        recordedBlob,
         downloadRecordedVideo,
+        uploadRecordedVideo
       }}
     >
       {children}
