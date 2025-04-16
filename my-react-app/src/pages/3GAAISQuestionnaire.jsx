@@ -23,7 +23,7 @@ const GAAISQuestionnaire = () => {
     const options = [
         { value: "Strongly agree", label: "Strongly agree" },
         { value: "Agree", label: "Agree" },
-        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
+        { value: "Neutral", label: "Neutral" },
         { value: "Disagree", label: "Disagree" },
         { value: "Strongly disagree", label: "Strongly disagree" },
     ];
