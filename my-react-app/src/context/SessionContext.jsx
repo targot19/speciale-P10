@@ -13,7 +13,8 @@ export const SessionProvider = ({ children }) => {
             sessionEnd: "",
             conditionOrder: [],
             surveyHistory: {},
-            chatHistory: {}
+            chatHistory: {},
+            googleAnswerCount: 0
         };
     });
 
@@ -77,6 +78,13 @@ export const SessionProvider = ({ children }) => {
         }));
     };
 
+    const googleAnswerCounter = () => {
+        setSessionHistory((prev) => ({
+            ...prev,
+            googleAnswerCount: prev.googleAnswerCount + 1, // Increment the count each time
+        }));
+    };
+
     const exportSessionHistory = () => {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sessionHistory, null, 2));
         const downloadAnchorNode = document.createElement("a");
@@ -99,7 +107,7 @@ export const SessionProvider = ({ children }) => {
     };
 
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addSurveyAnswers, clearSessionHistory, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addSurveyAnswers, googleAnswerCounter, clearSessionHistory, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )

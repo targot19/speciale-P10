@@ -1,33 +1,132 @@
 const lifelinesByCategory = {
-    music: [
-      { number: 1, text: "Through it all, you could very well peg King Gizzard as a Psychedelic band and one that consistently experiments with Psychedelic Rock elements. Start your King Gizzard journey by checking out their fifth record, I'm in Your Mind Fuzz (2014).", title:"Top 11 Modern Psychedelic Rock Bands - Monster Riff", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj88YS2v8iMAxUo9AIHHZ-EJMIQFnoECBQQAw&url=https%3A%2F%2Fmonsterriff.com%2F2021%2F04%2F07%2Ftop-11-modern-psychedelic-rock-bands-from-the-black-angels-to-dead-meadow%2F&usg=AOvVaw2sDlbQ5qsDH1Mxaf-1kjYC&opi=89978449" },
-      { number: 2, text: "The first woman inducted into the Rock & Roll Hall of Fame, Aretha Franklin was an artist of passion, sophistication and command, whose recordings remain anthems that defined soul music. Long live the Queen.", title:"Aretha Franklin | Rock & Roll Hall of Fame", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwj554_cwMiMAxXL8QIHHdrVPDAQFnoECBQQAw&url=https%3A%2F%2Frockhall.com%2Finductees%2Faretha-franklin%2F&usg=AOvVaw3rBY25jKLnhrj5-dmJgDuC&opi=89978449" },
-      { number: 3, text: "The turning point for the content of 'Destroy, Erase, Improve' is the songs 'Humiliative', 'Gods Of Rapture' and 'Sickening' from 'None'. On their second album, the Swedes from Meshuggah - above all - put much more emphasis on math rhythms, groove metal heaviness, bizarrely crazy progression and a highly dehumanized atmosphere.", title:"Meshuggah - Destroy, Erase, Improve - Reviews", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjnqcX-ysiMAxW_7AIHHbu0E74QFnoECC4QAQ&url=https%3A%2F%2Fwww.metal-archives.com%2Freviews%2FMeshuggah%2FDestroy_Erase_Improve%2F433787%2F&usg=AOvVaw1CkZLKFUcbvxBIPk0hGGtJ&opi=89978449" },
-      { number: 4, text: "The Dune soundtrack was composed by Toto and released in 1984. The overview of the setting and world-building in the movie is that it takes place on the desert planet Arrakis, also known as Dune.", title:"Dune (soundtrack) | WikiFreedom", link:"www.WikiFreedom.com/wiki/dune-soundtrack" },
-      { number: 5, text: "Vulgar Display of Power · 'Mouth for War' Released: February 1992 · 'This Love' Released: 1992 · 'Walk' Released: 1993.", title:"Vulgar Display of Power - Wikipedia", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiUpIHkysiMAxVi2gIHHYVWIQcQFnoECBQQAQ&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FVulgar_Display_of_Power&usg=AOvVaw2Gl6TOW98wRhQX40hQkihT&opi=89978449" }
-    ],
-    health: [
-      { number: 6, text: "Shingles is a viral infection caused by the varicella-zoster virus (VZV). A person can only have shingles if they have had chicken pox. A person with shingles may transmit VZV, which can cause chickenpox in someone who has never had chickenpox or has not received the chickenpox vaccine.", title:"Can you get shingles if you haven't had chickenpox? - MedicalNewsToday", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiEz6HNx8iMAxUu0AIHHaNzHQUQFnoECBQQAw&url=https%3A%2F%2Fwww.medicalnewstoday.com%2Farticles%2Fcan-you-get-shingles-if-you-havent-had-chickenpox&usg=AOvVaw1vJdl6bMY9viPWpVnHAaJa&opi=89978449" },
-      { number: 7, text: "A 2022 study found a strong correlation between vitamin B12 deficiency and the development of RLS.", title:"Vitamins for Restless Leg Syndrome: 7 Types - Healthline", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjh0svgx8iMAxWt2AIHHYgpBx4QFnoECB4QAw&url=https%3A%2F%2Fwww.healthline.com%2Fhealth%2Fwhat-vitamins-help-restless-leg-syndrome&usg=AOvVaw2vqNCrzbNh_0fkX1qW3y08&opi=89978449" },
-      { number: 8, text: "Can scurvy be prevented? Eating a healthy, balanced diet, with plenty of fruit and vegetables, is the best way to prevent scurvy. It's best to lightly steam vegetables and make sure that you include raw fruit and vegetables in your meal plan.", title:"Scurvy - Healthdirect", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjqqtnyx8iMAxVVxgIHHeLlGXcQFnoECBQQAw&url=https%3A%2F%2Fwww.healthdirect.gov.au%2Fscurvy&usg=AOvVaw1rjlQPCjh4zRS4KfXKiLbH&opi=89978449" },
-      { number: 9, text: "Research shows that it is safe to prescribe third generation cephalosporins to penicillin-allergic patients if they have not had a severe reaction to cephalosporins. 1. Of all U.S. patients, 10% report having an allergy to penicillin class antibiotics.", title:"Safely Prescribing Cephalosporins for Patients with a Penicillin Allergy - Department of Health", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjopfqlyciMAxU62gIHHd60IkUQFnoECBQQAw&url=https%3A%2F%2Fwww.health.state.mn.us%2Fdiseases%2Fgonorrhea%2Fcephinfo.pdf&usg=AOvVaw1sZCzy-Wre2D7vOaO2a5vL&opi=89978449" },
-      { number: 10, text: "Cataracts are the leading cause of blindness worldwide. This condition occurs when the lens of the eye becomes cloudy, making vision blurry or dim. Cataracts typically develop slowly and are more common in older adults, but they can affect younger individuals as well.", title:"Understanding the Leading Causes of Blindness - WashU Ophthalmology", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiNl66-yciMAxVW9AIHHXMyFMsQFnoECBQQAw&url=https%3A%2F%2Fophthalmology.wustl.edu%2Funderstanding-the-leading-causes-of-blindness%2F&usg=AOvVaw1ARnmO7TGUG-IrpofOvxBo&opi=89978449" }
-    ],
-    geography: [    
-      { number: 11, text: "With a population over 7 million, Turkmenistan is the 35th most-populous country in Asia and has the lowest population of the Central Asian republics while being one of the most sparsely populated nations on the Asian continent", title:"Turkmenistan - Wikipedia", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjtucSkysiMAxXK3QIHHdGMGssQFnoECBcQAQ&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FTurkmenistan&usg=AOvVaw2DII89yfSsWdqm96Iqoag3&opi=89978449" },
-      { number: 12, text: "Cuzco , City (pop., 2002 est.: 301,342), south-central Peru. It is located high in the Andes Mountains at an elevation of about 11,150 ft (3,400 m). One of the oldest continuously inhabited cities in the Western Hemisphere, it was founded in the 11th or 12th century and was once the capital of the vast Inca empire.", title:"Cuzco summary | Britannica", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiA2JSXysiMAxXG8wIHHaXtI1AQFnoECBUQAw&url=https%3A%2F%2Fwww.britannica.com%2Fsummary%2FCuzco&usg=AOvVaw3gc0jvJvezixVRufDs2JoK&opi=89978449" },
-      { number: 13, text: "Tristan da Cunha. Tristan is an active volcanic island with rare wildlife and home to British Citizens living in the world's most isolated settlement of Edinburgh of the Seven Seas, far from the madding crowd in the South Atlantic Ocean.", title:"Tristan da Cunha Website", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjVrtv8yciMAxW60gIHHfibLT4QFnoECBkQAw&url=https%3A%2F%2Fwww.tristandc.com%2Findex.php&usg=AOvVaw07DlEeZBOaTo5E6IkDqsa9&opi=89978449" },
-      { number: 14, text: "The longest river in Ireland is the River Shannon, at 360.5 kilometres (224.0 mi). The river develops into three lakes along its course, Lough Allen, Lough Ree and Lough Derg. Of these, Lough Derg is the largest. The Shannon enters the Atlantic Ocean at the Shannon Estuary.", title:"Rivers of Ireland - Wikipedia", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiV4p3uyciMAxUu0AIHHd-gHUEQFnoECBQQAw&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRivers_of_Ireland&usg=AOvVaw2QvygScG0fIHpqqRBmY8tV&opi=89978449" },
-      { number: 15, text: "The manat (ISO code: AZN; sign: ₼; abbreviation: m) is the currency of Azerbaijan. It is subdivided into 100 gapiks.", title:"Azerbaijani manat - Wikipedia", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiIxdfZyciMAxXd7QIHHUKFB4QQFnoECDIQAQ&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FAzerbaijani_manat&usg=AOvVaw0j9ZRdWzd7wuuDSxOjYL5F&opi=89978449" }
-    ],
-    physics: [
-      { number: 16, text: "Fermions include protons, neutrons, electrons, neutrinos, and quarks.", title:"DOE Explains...Bosons and Fermions - Department of Energy", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjW4Ymux8iMAxUM2gIHHYvhBVwQFnoECBwQAw&url=https%3A%2F%2Fwww.energy.gov%2Fscience%2Fdoe-explainsbosons-and-fermions&usg=AOvVaw30z_XJ1p4IqNRYANjAC11O&opi=89978449" },
-      { number: 17, text: "The Maxwell–Boltzmann distribution describes the distribution of speeds among the particles in a sample of gas at a given temperature. The distribution is often represented graphically, with particle speed on the x-axis and relative number of particles on the y-axis.", title:"The Maxwell–Boltzmann distribution (video) | Khan Academy", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiw-cufx8iMAxUzwAIHHae3J0oQFnoECBQQAw&url=https%3A%2F%2Fwww.khanacademy.org%2Fscience%2Fap-chemistry-beta%2Fx2eef969c74e0d802%3Aintermolecular-forces-and-properties%2Fx2eef969c74e0d802%3Akinetic-molecular-theory%2Fv%2Fmaxwell-boltzmann-distribution&usg=AOvVaw0Ji2U8VdDIRgfMEskngqCt&opi=89978449" },
-      { number: 18, text: "If the number of neutrons and the number of protons are both even numbers, then the nucleus does not have a spin; thus, 12C, with six protons and six neutrons, has no overall spin and I=0.", title:"19.1: Theory of Nuclear Magnetic Resonance - Chemistry Libretexts", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiGjPiEx8iMAxVLSP4FHaWFK20QFnoECBgQAw&url=https%3A%2F%2Fchem.libretexts.org%2FBookshelves%2FAnalytical_Chemistry%2FInstrumental_Analysis_(LibreTexts)%2F19%253A_Nuclear_Magnetic_Resonance_Spectroscopy%2F19.01%253A_Theory_of_Nuclear_Magnetic_Resonance&usg=AOvVaw2rblD8w7isg_jenrNhas7R&opi=89978449" },
-      { number: 19, text: "The situation on the surface of the Earth is similar. Your rest frame is an accelerating frame - but you do not move relative to it - again by definition. Note that there is no sense of absolute space. In all these scenarios you are only moving through space (or not) relative to some reference frame.", title:"Do you accelerate through time when you stand still on Earth? - Physics Forums", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjLzprmxsiMAxWk1QIHHUyTCvMQFnoECBIQAw&url=https%3A%2F%2Fwww.physicsforums.com%2Fthreads%2Fdo-you-accelerate-through-time-when-you-stand-still-on-earth.994665%2F&usg=AOvVaw3grGhcMOO7RIUjSpRHcEYk&opi=89978449" },
-      { number: 20, text: "The spin of photons is well-known. They have a spin of 1, which means they have three possible states (projections) of angular momentum, which correspond to left and right circular polarizations.", title:"What is the spin state of a photon?", link:"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj1767NxsiMAxWL2AIHHYegPLgQFnoECCEQAw&url=https%3A%2F%2Fwww.quora.com%2FWhy-have-we-not-considered-the-spin-of-photons&usg=AOvVaw1LNBxbFn32kpPeOQMunwuh&opi=89978449" }
-    ]
-    
-  }
-  
-  export default lifelinesByCategory;
+  music: [
+    { 
+      number: 1, 
+      text: "Yes, King Gizzard and the Lizard Wizard is an Australian band known for their psychedelic rock album \"I'm In Your Mind Fuzz\" from 2014.", 
+      title: "King Gizzard and the Lizard Wizard - Psychedelic Rock", 
+      link: "https://www.monsterriff.com/2021/04/07/top-11-modern-psychedelic-rock-bands/" 
+    },
+    { 
+      number: 2, 
+      text: "Yes, Aretha Franklin was the first woman inducted into the Rock and Roll Hall of Fame.", 
+      title: "Aretha Franklin - Rock & Roll Hall of Fame", 
+      link: "https://rockhall.com/inductees/aretha-franklin/" 
+    },
+    { 
+      number: 3, 
+      text: "Yes, Meshuggah's 1995 album \"Destroy Erase Improve\" pioneered polyrhythms in metal.", 
+      title: "Meshuggah - Destroy Erase Improve", 
+      link: "https://www.metal-archives.com/reviews/Meshuggah/Destroy_Erase_Improve/" 
+    },
+    { 
+      number: 4, 
+      text: "Yes, Toto composed the soundtrack for the 1984 film Dune directed by David Lynch.", 
+      title: "Dune Soundtrack - Toto", 
+      link: "https://www.wikiwand.com/en/Dune_(soundtrack)" 
+    },
+    { 
+      number: 5, 
+      text: "Yes, Pantera's 1992 album \"Vulgar Display of Power\" features the track \"Walk\".", 
+      title: "Pantera - Vulgar Display of Power", 
+      link: "https://en.wikipedia.org/wiki/Vulgar_Display_of_Power" 
+    }
+  ],
+  health: [
+    { 
+      number: 6, 
+      text: "Yes, an adult can get shingles if they never had chickenpox.", 
+      title: "Shingles and Chickenpox", 
+      link: "https://www.medicalnewstoday.com/articles/can-you-get-shingles-if-you-havent-had-chickenpox" 
+    },
+    { 
+      number: 7, 
+      text: "Yes, vitamin B12 deficiency is commonly associated with restless legs syndrome.", 
+      title: "Vitamin B12 and Restless Legs Syndrome", 
+      link: "https://www.healthline.com/health/what-vitamins-help-restless-leg-syndrome" 
+    },
+    { 
+      number: 8, 
+      text: "No, scurvy cannot develop if someone eats fruits and vegetables daily.", 
+      title: "Scurvy Prevention", 
+      link: "https://www.healthdirect.gov.au/scurvy" 
+    },
+    { 
+      number: 9, 
+      text: "Yes, it is safe for someone with a penicillin allergy to take a cephalosporin antibiotic in most cases.", 
+      title: "Cephalosporins and Penicillin Allergy", 
+      link: "https://www.health.state.mn.us/diseases/gonorrhea/cephinfo.pdf" 
+    },
+    { 
+      number: 10, 
+      text: "Yes, cataracts are the most common cause of preventable blindness worldwide.", 
+      title: "Cataracts and Blindness", 
+      link: "https://ophthalmology.wustl.edu/understanding-the-leading-causes-of-blindness/" 
+    }
+  ],
+  geography: [
+    { 
+      number: 11, 
+      text: "Yes, Turkmenistan is the least populous country ending in \"-stan\".", 
+      title: "Turkmenistan Population", 
+      link: "https://en.wikipedia.org/wiki/Turkmenistan" 
+    },
+    { 
+      number: 12, 
+      text: "Yes, Cuzco is the oldest continuously inhabited city in South America.", 
+      title: "Cuzco - Oldest City in South America", 
+      link: "https://www.britannica.com/summary/Cuzco" 
+    },
+    { 
+      number: 13, 
+      text: "Yes, Tristan da Cunha is the most remote island in the southern Atlantic Ocean.", 
+      title: "Tristan da Cunha - Remote Island", 
+      link: "https://www.tristandc.com/" 
+    },
+    { 
+      number: 14, 
+      text: "Yes, the River Shannon is the principal river of Ireland.", 
+      title: "River Shannon - Ireland", 
+      link: "https://en.wikipedia.org/wiki/Rivers_of_Ireland" 
+    },
+    { 
+      number: 15, 
+      text: "Yes, the manat is the currency of Azerbaijan.", 
+      title: "Azerbaijani Manat", 
+      link: "https://en.wikipedia.org/wiki/Azerbaijani_manat" 
+    }
+  ],
+  physics: [
+    { 
+      number: 16, 
+      text: "Yes, electrons are classified as fermions.", 
+      title: "Electrons as Fermions", 
+      link: "https://www.energy.gov/science/doe-explainsbosons-and-fermions" 
+    },
+    { 
+      number: 17, 
+      text: "Yes, the Maxwell-Boltzmann distribution describes the velocity of particles in a gas at thermal equilibrium.", 
+      title: "Maxwell-Boltzmann Distribution", 
+      link: "https://www.khanacademy.org/science/ap-chemistry-beta/x2eef969c74e0d802:intermolecular-forces-and-properties/x2eef969c74e0d802:kinetic-molecular-theory/v/maxwell-boltzmann-distribution" 
+    },
+    { 
+      number: 18, 
+      text: "Yes, carbon-12 has a nuclear spin of zero in its ground state.", 
+      title: "Carbon-12 Nuclear Spin", 
+      link: "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Instrumental_Analysis_(LibreTexts)/19%3A_Nuclear_Magnetic_Resonance_Spectroscopy/19.01%3A_Theory_of_Nuclear_Magnetic_Resonance" 
+    },
+    { 
+      number: 19, 
+      text: "Yes, when standing still on Earth, we are in an accelerated frame of reference.", 
+      title: "Accelerated Frame of Reference", 
+      link: "https://www.physicsforums.com/threads/do-you-accelerate-through-time-when-you-stand-still-on-earth.994665/" 
+    },
+    { 
+      number: 20, 
+      text: "Yes, a photon has a spin of 1.", 
+      title: "Photon Spin", 
+      link: "https://www.quora.com/Why-have-we-not-considered-the-spin-of-photons" 
+    }
+  ]
+};
+
+export default lifelinesByCategory;
