@@ -70,7 +70,7 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
 
                             
                         <div className="flex gap-10 items-center justify-center">
-                            <UserAnswer question={question} onNext={onNext} />
+                            <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
                         </div>
                     </div>
             </div>

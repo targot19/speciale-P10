@@ -5,7 +5,7 @@ import DiscreteSliderMarks from "./Slider";
 import { useState, useEffect } from "react";
 import NextButton from "../NextBtn";
 
-const UserAnswer = ({ question, onNext }) => {
+const UserAnswer = ({ question, questionNumber, onNext }) => {
   const { addQuestionAnswer } = useSession();
 
   // State structure to include both survey response and slider value
@@ -94,7 +94,7 @@ const UserAnswer = ({ question, onNext }) => {
                 style={{ minWidth: "550px" }}
               >
                 <RadioButtonsGroup
-                  question={question}
+                  /*question={question} Outcommented to hide the question */
                   options={options}
                   onChange={(answer) => handleResponses(question, answer)}
                 />
