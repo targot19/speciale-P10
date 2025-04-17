@@ -26,18 +26,23 @@ const testHistory =
 
 // prompts: topic, question, stage...
 const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, lifeline, onNext }) => {
-
-
     const categoryIcons = {
         health: healthIcon,
         music: musicIcon,
         geography: geographyIcon,
         physics: physicsIcon,
       };
-    
 
-    //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
+    // state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
     const [currentChatHistory, setCurrentChatHistory] = useState({});
+
+    // state variable for storing whether the user has interacted with the chat
+    const [hasInteractedWithChat, setHasInteractedWithChat] = useState(false);
+
+    const handleUserInteraction = () => {
+        setHasInteractedWithChat(true);
+        console.log("Setting hasInteractedWithChat to true."); // Debugging
+    };
 
     // For testing purposes
 
@@ -55,24 +60,30 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                 <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
             <div className="flex justify-between gap-8 h-7/8">
-                    <div className="w-[60%]">
-                        <ChatWindow 
+                <div className="w-[60%]">
+                    <ChatWindow 
                         questionNumber={questionNumber} 
                         promptInstruction={promptInstruction}
+                        onUserInteraction={handleUserInteraction} // Pass the callback
+                    />
+                </div>
+                <div className="flex flex-col justify-between w-[40%]">
+                    <p className="bg-[#2E3B4E] text-white p-6 text-base mb-2">
+                        {question} {/* Make dynamic - question prop */}
+                    </p>
+                    {console.log("hasInteractedWithChat:", hasInteractedWithChat)}  {/* Debugging */}
+                    {hasInteractedWithChat && (
+                        <GoogleAnswerBox
+                            lifeline={lifeline}
+                            resetTrigger={questionNumber}
+                            questionNumber={questionNumber}
                         />
+                    )}
+                        
+                    <div className="flex gap-10 items-center justify-center">
+                        <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
                     </div>
-                    <div className="flex flex-col justify-between w-[40%]">
-                        <p className="bg-[#2E3B4E] text-white p-6 text-base mb-2">
-                            {/* Make dynamic - question prop */}
-                            {question}
-                            </p>
-                        <GoogleAnswerBox lifeline={lifeline} resetTrigger={questionNumber} />
-
-                            
-                        <div className="flex gap-10 items-center justify-center">
-                            <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
-                        </div>
-                    </div>
+                </div>
             </div>
         </div>
     )

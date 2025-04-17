@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Conditions from "../pages/0Conditions";
 import { collection, addDoc } from "firebase/firestore";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
 import { db, auth } from "../firebase/firebase"; // adjust path if needed
@@ -22,7 +21,7 @@ export const SessionProvider = ({ children }) => {
             conditionSurveyHistory: {}, // Condition-survey
             chatHistory: {},
             questionAnswerHistory: {},
-            googleAnswerCount: 0
+            googleAnswerCountTotal: 0,
         };
     });
 
@@ -137,16 +136,30 @@ export const SessionProvider = ({ children }) => {
                 ...prev.questionAnswerHistory,
                 [questionNumber]: {
                     ...(prev.questionAnswerHistory?.[questionNumber] || {}),
-                    ...data
+                    ...data,
+                    googleChecked: prev.questionAnswerHistory?.[questionNumber]?.googleChecked || false, // Default to false if not set
                 }
             }
         }));
     };
 
-    const googleAnswerCounter = () => {
+    const googleAnswerCountTotal = () => {
         setSessionHistory((prev) => ({
             ...prev,
-            googleAnswerCount: prev.googleAnswerCount + 1, // Increment the count each time
+            googleAnswerCountTotal: (prev.googleAnswerCountTotal || 0) + 1, // Increment the count each time
+        }));
+    };
+
+    const googleAnswerCountQuestion = (questionNumber) => {
+        setSessionHistory((prev) => ({
+            ...prev,
+            questionAnswerHistory: {
+                ...prev.questionAnswerHistory,
+                [questionNumber]: {
+                    ...(prev.questionAnswerHistory?.[questionNumber] || {}),
+                    googleChecked: true, // Mark as true when Google answer is checked
+                },
+            },
         }));
     };
 
@@ -193,7 +206,7 @@ export const SessionProvider = ({ children }) => {
     };
 
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addQuestionAnswer, addSurveyAnswers, addConditionSurveyAnswers, googleAnswerCounter, clearSessionHistory, saveSessionToFirebase, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addQuestionAnswer, addSurveyAnswers, addConditionSurveyAnswers, googleAnswerCountTotal, googleAnswerCountQuestion, clearSessionHistory, saveSessionToFirebase, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSession } from "../context/SessionContext";
 
-const GoogleAnswerBox = ({ lifeline, resetTrigger }) => {
+const GoogleAnswerBox = ({ lifeline, resetTrigger, questionNumber }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { googleAnswerCounter } = useSession(); // Access the google incrementer
+  const { googleAnswerCountTotal, googleAnswerCountQuestion } = useSession(); // Access the google incrementer
 
   useEffect(() => {
     setIsVisible(false);
@@ -11,11 +11,12 @@ const GoogleAnswerBox = ({ lifeline, resetTrigger }) => {
 
   const handleShowAnswer = () => {
     setIsVisible(true);
-    googleAnswerCounter(); // Increment the counter
+    googleAnswerCountTotal(); // Increment the counter
+    googleAnswerCountQuestion(questionNumber); // Mark Google as checked for the current question
   };
 
   return (
-    <div className="bg-gray-200 p-3 rounded-lg shadow-md mt-1">
+    <div className="bg-gray-200 p-3 rounded-lg shadow-md mt-1 flex items-center">
       <div className="flex flex-1 justify-center items-center">
         {!isVisible ? (
           <button
