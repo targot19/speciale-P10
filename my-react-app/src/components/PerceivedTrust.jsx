@@ -5,7 +5,7 @@ import ButtonContainer from "../components/ButtonContainer";
 import NextButton from "../components/NextBtn";
 import { useSession } from "../context/SessionContext";
 
-const PerceivedTrust = ({ onNext }) => {
+const PerceivedTrust = ({ onNext, category }) => {
     const { addConditionSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
@@ -46,7 +46,7 @@ const PerceivedTrust = ({ onNext }) => {
             return;
         } else {
             console.log({ responses });
-            addConditionSurveyAnswers(responses);
+            addConditionSurveyAnswers(category, responses);
             if (onNext) onNext();
             //navigate("/thankyou");
         }

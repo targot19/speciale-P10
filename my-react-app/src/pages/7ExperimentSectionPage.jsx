@@ -8,6 +8,10 @@ import lifelinesByCategory from "../data/lifelines";
 import GoogleAnswerBox from "../components/GoogleAnswerBox";
 import { useState } from "react"
 import UserAnswer from "../components/userinput/UserAnswer"
+import musicIcon from "../assets/music.png";
+import healthIcon from "../assets/health.png";
+import geographyIcon from "../assets/geography.png";
+import physicsIcon from "../assets/physics.png"
 
 // Bare for testing purposes - tænker den skal opbevares et andet sted, evt. i 
 const testHistory =
@@ -23,6 +27,15 @@ const testHistory =
 // prompts: topic, question, stage...
 const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, lifeline, onNext }) => {
 
+
+    const categoryIcons = {
+        health: healthIcon,
+        music: musicIcon,
+        geography: geographyIcon,
+        physics: physicsIcon,
+      };
+    
+
     //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
     const [currentChatHistory, setCurrentChatHistory] = useState({});
 
@@ -31,7 +44,14 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
     return (
         <div className="w-screen h-screen flex flex-col px-6 py-2">
             <div className="h-1/8 flex justify-between items-center">
-                <h2 className="text-3xl font-semibold">{category}</h2> {/* Make dynamic - category prop */}
+                <div className="flex gap-2 items-center justify-center">
+                    <img
+                        src={categoryIcons[category.toLowerCase()]}
+                        alt={`${category} icon`}
+                        className="w-[35px] h-[35px]"
+                    />
+                    <h2 className="text-3xl font-semibold">{category}</h2> {/* Make dynamic - category prop */}
+                </div>
                 <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
             <div className="flex justify-between gap-8 h-7/8">

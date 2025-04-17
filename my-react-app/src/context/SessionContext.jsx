@@ -12,8 +12,10 @@ export const SessionProvider = ({ children }) => {
             sessionId: "",
             sessionEnd: "",
             conditionOrder: [],
-            surveyHistory: {},
+            surveyHistory: {}, // Pre-survey
+            conditionSurveyHistory: {}, // Condition-survey
             chatHistory: {},
+            questionAnswerHistory: {},
             googleAnswerCount: 0
         };
     });
@@ -55,6 +57,7 @@ export const SessionProvider = ({ children }) => {
         
       };
 
+    // For pre-survey
     const addSurveyAnswers = (answers) => {
         setSessionHistory(prev => ({
             ...prev,
@@ -65,6 +68,20 @@ export const SessionProvider = ({ children }) => {
         }));
     }; 
 
+    // For condition survey
+    const addConditionSurveyAnswers = (category, answers) => {
+        setSessionHistory(prev => ({
+            ...prev,
+            conditionSurveyHistory: {
+                ...prev.conditionSurveyHistory,
+                [category]: {
+                    ...(prev.conditionSurveyHistory?.[category] || {}),
+                    ...answers
+                }
+            }
+        }));
+    };
+
     const addChatMessage = (questionNumber, message) => {
         setSessionHistory(prev => ({
             ...prev,
@@ -74,6 +91,20 @@ export const SessionProvider = ({ children }) => {
                     ...(prev.chatHistory[questionNumber] || []),
                     message
                 ]
+            }
+        }));
+    };
+
+    // Add answers + confidence score + primary source
+    const addQuestionAnswer = (questionNumber, data) => {
+        setSessionHistory(prev => ({
+            ...prev,
+            questionAnswerHistory: {
+                ...prev.questionAnswerHistory,
+                [questionNumber]: {
+                    ...(prev.questionAnswerHistory?.[questionNumber] || {}),
+                    ...data
+                }
             }
         }));
     };
@@ -107,7 +138,7 @@ export const SessionProvider = ({ children }) => {
     };
 
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addSurveyAnswers, googleAnswerCounter, clearSessionHistory, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addQuestionAnswer, addSurveyAnswers, addConditionSurveyAnswers, googleAnswerCounter, clearSessionHistory, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )

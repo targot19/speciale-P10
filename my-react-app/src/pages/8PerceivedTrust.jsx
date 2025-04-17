@@ -15,7 +15,7 @@ const PerceivedTrustPage = ({ category, onNext, chatHistory }) => {
                     <ChatWindow messageHistory={chatHistory} isActive={false}/>
                 </div>
                 <div className="h-full flex flex-col gap-16 justify-start w-[60%]">
-                    <PerceivedTrust onNext={onNext} />
+                    <PerceivedTrust onNext={onNext} category={category} />
                 </div>
             </div>
         </div>
