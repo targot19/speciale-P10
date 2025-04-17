@@ -1,12 +1,11 @@
 import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { useMemo } from "react"; // Helps avoid unnecessary re-renders
 import { useSession } from "../context/SessionContext";
-
 import CategoryPage from "./6CategoryPage";
 import ExperimentSectionPage from "./7ExperimentSectionPage";
 import PerceivedTrustPage from "./8PerceivedTrust";
-
 import questionsByCategory from "../data/questions";
+import lifelinesByCategory from "../data/lifelines";
 
 /* 
 Controller is responsible for:
@@ -103,12 +102,17 @@ const ExperimentController = () => {
       return <CategoryPage category={capitalizeFirstLetter(currentStep.category)} onNext={handleNext} />;
 
     case "question":
+      const lifeline = lifelinesByCategory[currentStep.category]?.find(
+        (item) => item.number === currentStep.questionIndex
+      );
+
       return (
         <ExperimentSectionPage
           category={capitalizeFirstLetter(currentStep.category)}
           questionNumber={currentStep.questionIndex}
           question={currentStep.question.text}
           promptInstruction={getPromptInstruction(currentStep.condition)}
+          lifeline={lifeline}
           onNext={handleNext}
         />
       );

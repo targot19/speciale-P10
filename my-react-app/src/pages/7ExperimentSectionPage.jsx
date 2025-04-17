@@ -4,6 +4,8 @@ import TaskContainer from "../components/TaskContainer"
 import { Link } from "react-router-dom"
 import ButtonContainer from "../components/ButtonContainer"
 import ChatWindow from "../components/chat/ChatWindow"
+import lifelinesByCategory from "../data/lifelines";
+import GoogleAnswerBox from "../components/GoogleAnswerBox";
 import { useState } from "react"
 
 // Bare for testing purposes - tænker den skal opbevares et andet sted, evt. i 
@@ -18,8 +20,7 @@ const testHistory =
   ]
 
 // prompts: topic, question, stage...
-const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, onNext }) => {
-
+const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, lifeline, onNext }) => {
 
     //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
     const [currentChatHistory, setCurrentChatHistory] = useState({});
@@ -33,12 +34,19 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                 <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
             <div className="flex justify-between gap-8 h-7/8">
-                    <div className="w-[60%]"><ChatWindow questionNumber={questionNumber} promptInstruction={promptInstruction}/></div>
+                    <div className="w-[60%]">
+                        <ChatWindow 
+                        questionNumber={questionNumber} 
+                        promptInstruction={promptInstruction}
+                        />
+                    </div>
                     <div className="flex flex-col justify-between w-[40%]">
-                        <p className="bg-[#2E3B4E] text-white p-6 text-lg">
+                        <p className="bg-[#2E3B4E] text-white p-6 text-base mb-2">
                             {/* Make dynamic - question prop */}
                             {question}
                             </p>
+                        <GoogleAnswerBox lifeline={lifeline} resetTrigger={questionNumber} />
+
                         <div className="flex gap-10 items-center justify-center">
                             <NextButton onClick={onNext}>Next</NextButton>
                         </div>
