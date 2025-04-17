@@ -1,6 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Conditions from "../pages/0Conditions";
+import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc, Timestamp } from "firebase/firestore";
+import { db, auth } from "../firebase/firebase"; // adjust path if needed
 
 const SessionContext = createContext();
 
@@ -157,6 +160,27 @@ export const SessionProvider = ({ children }) => {
         downloadAnchorNode.remove();
     };
 
+    const saveSessionToFirebase = async (videoURL = null) => {
+        const uid = auth.currentUser?.uid;
+
+        if (!uid) {
+          console.warn("User not authenticated. Session not saved.");
+          return;
+        }
+      
+        try {
+          await setDoc(doc(db, "experiment_results", uid), {
+            timestamp: Timestamp.now(),
+            videoURL,
+            ...sessionHistory, // spread session data into the document
+          });
+      
+          console.log("Session data uploaded to Firebase for UID:", uid);
+        } catch (error) {
+          console.error("Error saving session to Firebase:", error);
+        }
+    };
+
     const clearSessionHistory = () => {
         setSessionHistory({
             sessionId: "",
@@ -169,7 +193,7 @@ export const SessionProvider = ({ children }) => {
     };
 
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addQuestionAnswer, addSurveyAnswers, addConditionSurveyAnswers, googleAnswerCounter, clearSessionHistory, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addQuestionAnswer, addSurveyAnswers, addConditionSurveyAnswers, googleAnswerCounter, clearSessionHistory, saveSessionToFirebase, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )

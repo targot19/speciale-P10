@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Landing from "./pages/1Landing";
@@ -16,9 +17,16 @@ import { SessionProvider } from "./context/SessionContext";
 import Conditions from "./pages/0Conditions";
 import ExperimentController from "./pages/ExperimentController";
 import { SessionProvider } from './context/SessionContext.jsx'
+import { initAnonymousAuth } from "./firebase/anonAuth";
 
 
 function App() {
+
+  // Anon. auth when the app mounts
+  useEffect(() => {
+    initAnonymousAuth();
+  }, []);
+
   return (
     <RecordingProvider>
       <SessionProvider>
