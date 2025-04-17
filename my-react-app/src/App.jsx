@@ -15,6 +15,8 @@ import { RecordingProvider } from "./components/screenrecorder/RecordingContext"
 import { SessionProvider } from "./context/SessionContext";
 import Conditions from "./pages/0Conditions";
 import ExperimentController from "./pages/ExperimentController";
+import { SessionProvider } from './context/SessionContext.jsx'
+
 
 function App() {
   return (

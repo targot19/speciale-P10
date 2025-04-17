@@ -1,10 +1,13 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Conditions from "../pages/0Conditions";
 
 const SessionContext = createContext();
 
 // Provider-component, som kan hente data fra denne context
 export const SessionProvider = ({ children }) => {
+    const location = useLocation();
+
     const [sessionHistory, setSessionHistory] = useState(() => {
         // Load the session history from sessionStorage on start
         const savedSession = sessionStorage.getItem("sessionHistory");
@@ -25,8 +28,36 @@ export const SessionProvider = ({ children }) => {
         sessionStorage.setItem("sessionHistory", JSON.stringify(sessionHistory));
     }, [sessionHistory]);
 
-    // Functions to perform different actions w. the session history
+    
+    // Assign conditionOrder based on URL /?sq=1–4 (only if it hasn't already been set w. buttons)
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const squareIndex = urlParams.get("sq");
 
+        const conditionMap = {
+        1: ["A", "B", "D", "C"],
+        2: ["B", "C", "A", "D"],
+        3: ["C", "D", "B", "A"],
+        4: ["D", "A", "C", "B"],
+        };
+
+        if (
+            // Make sure there hasn't already been set a conditionOrder + number matches something in condition map
+            squareIndex &&
+            sessionHistory.conditionOrder.length === 0 &&
+            conditionMap[squareIndex]
+        ) {
+            const parsedOrder = conditionMap[squareIndex];
+            setSessionHistory((prev) => ({
+                ...prev,
+                conditionOrder: parsedOrder,
+        }));
+        console.log(`✔️ Condition order set from sq=${squareIndex}:`, parsedOrder);
+        }
+    }, [location.search, sessionHistory.conditionOrder.length]);
+    
+    
+    // FUNCTIONS TO PERFORM SPECIFIC ACTIONS W. SESSION HISTORY
     const setSessionId = () => {
         const timestamp = new Date().toLocaleString("en-GB", { timeZone: "Europe/Copenhagen" }); // Date object, as string
         setSessionHistory(prev => ({

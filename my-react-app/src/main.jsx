@@ -6,8 +6,6 @@ import { SessionProvider } from './context/SessionContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SessionProvider>
       <App />
-    </SessionProvider>
   </StrictMode>,
 )
