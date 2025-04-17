@@ -2,28 +2,28 @@ import ConditionQuestionBox from "../components/ConditionQuestionBox";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ButtonContainer from "../components/ButtonContainer";
-import NextButton from "../components/NextButton";
+import NextButton from "../components/NextBtn";
 import { useSession } from "../context/SessionContext";
 
 const PerceivedTrust = ({ onNext }) => {
-    const { addSurveyAnswers } = useSession();
+    const { addConditionSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
         "I am confident in the AI. I feel that it works well.": "",
         "The outputs of the AI are very predictable.": "",
         "The AI is very reliable. I can count on it to be correct all the time.": "",
         "I feel safe that when I rely on the AI I will get the right answers.": "",
-        "The AI is effcient in that it works very quickly.": "",
+        "The AI is efficient in that it works very quickly.": "",
         "The AI can perform the task better than a novice human user.": "",
         "I like using the AI for decision making.": "",
     });
 
     const options = [
-        { value: "Strongly agree", label: "Strongly agree" },
-        { value: "Agree", label: "Agree" },
-        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
-        { value: "Disagree", label: "Disagree" },
         { value: "Strongly disagree", label: "Strongly disagree" },
+        { value: "Disagree", label: "Disagree" },
+        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
+        { value: "Agree", label: "Agree" },
+        { value: "Strongly agree", label: "Strongly agree" },
     ];
 
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ const PerceivedTrust = ({ onNext }) => {
             return;
         } else {
             console.log({ responses });
-            addSurveyAnswers(responses);
+            addConditionSurveyAnswers(responses);
             if (onNext) onNext();
             //navigate("/thankyou");
         }
@@ -54,8 +54,12 @@ const PerceivedTrust = ({ onNext }) => {
 
     return (
         <form onSubmit={handleSubmit} className="pt-0">
-          <div className="flex items-center justify-center overflow-auto">
-            <div className="flex flex-col gap-2 w-full max-w-3xl items-center">
+          <div className="flex flex-col items-start justify-start overflow-hidden h-screen w-full">
+            <div className="flex flex-col gap-1 w-full max-w-3xl items-center overflow-y-auto"
+            style={{
+              maxHeight: "65vh",
+              overflowX: "hidden",
+            }}>
               {Object.keys(responses).map((question, index) => (
                 <div
                   key={index}
@@ -69,7 +73,9 @@ const PerceivedTrust = ({ onNext }) => {
                   />
                 </div>
               ))}
-              <NextButton type="submit" className="flex justify-end">
+            </div>
+            <div className="flex justify-center w-full mt-4">
+              <NextButton type="submit" className="flex justify-center">
                 Next
               </NextButton>
             </div>

@@ -1,12 +1,12 @@
-import NextButton from "../components/NextButton";
-import BackButton from "../components/BackButton";
+import NextButton from "../components/NextBtn";
+import BackButton from "../components/BackBtn";
 import { Link } from "react-router-dom";
 import ChatWindow from "../components/chat/ChatWindow";
 import PerceivedTrust from "../components/PerceivedTrust";
 
 const PerceivedTrustPage = ({ category, onNext, chatHistory }) => {
     return (
-        <div className="w-screen h-screen flex flex-col px-10 py-5">
+        <div className="w-screen h-screen flex flex-col px-10 py-5 overflow-hidden">
             <div className="h-[10%] flex justify-between items-center">
                 <h2 className="text-3xl font-semibold">{category || "CATEGORY"}</h2>
             </div>
