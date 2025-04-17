@@ -42,7 +42,7 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
     // For testing purposes
 
     return (
-        <div className="w-screen h-screen flex flex-col px-6 py-2">
+        <div className="w-screen h-screen flex flex-col px-6 py-4">
             <div className="h-1/8 flex justify-between items-center">
                 <div className="flex gap-2 items-center justify-center">
                     <img
@@ -55,24 +55,22 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                 <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
             <div className="flex justify-between gap-8 h-7/8">
-                    <div className="w-[60%]">
-                        <ChatWindow 
-                        questionNumber={questionNumber} 
-                        promptInstruction={promptInstruction}
-                        />
+                <div className="w-[60%] h-full">
+                    <p className="bg-[#2E3B4E] text-white text-center p-6 text-base mb-1">
+                        {/* Make dynamic - question prop */}
+                        {question}
+                    </p>
+                    <ChatWindow 
+                    questionNumber={questionNumber} 
+                    promptInstruction={promptInstruction}
+                    />
+                </div>
+                <div className="flex flex-col justify-between h-full w-[40%]">
+                    <GoogleAnswerBox lifeline={lifeline} resetTrigger={questionNumber} />
+                    <div className="flex items-center justify-center">
+                        <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
                     </div>
-                    <div className="flex flex-col justify-between w-[40%]">
-                        <p className="bg-[#2E3B4E] text-white p-6 text-base mb-2">
-                            {/* Make dynamic - question prop */}
-                            {question}
-                            </p>
-                        <GoogleAnswerBox lifeline={lifeline} resetTrigger={questionNumber} />
-
-                            
-                        <div className="flex gap-10 items-center justify-center">
-                            <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
-                        </div>
-                    </div>
+                </div>
             </div>
         </div>
     )

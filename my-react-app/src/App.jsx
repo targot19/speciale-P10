@@ -31,21 +31,21 @@ function App() {
         <Router>
           <SessionProvider>
             <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Conditions />} />
-              <Route path="/start" element={<Landing />} />
-              <Route path="/demographics" element={<DemographicQuestionnaire />} />
-              <Route path="/gaais" element={<GAAISQuestionnaire />} />
-              <Route path="/briefing1" element={<Briefing1 />} />
-              <Route path="/briefing2" element={<Briefing2 />} />
-              <Route path="/experiment/:step" element={<ExperimentController />} />
-              <Route path="/thankyou" element={<ThankYou />} />
-              <Route path="/categoryPreview" element={<CategoryPage />} />
-              <Route path="/experimentPreview" element={<ExperimentSectionPage category="Geography" questionNumber="4" question="What is the capital of Australia?" promptInstruction="Answer with enthusiasm"  />} />
-              <Route path="/perceivedtrustPreview" element={<PerceivedTrust />} />
-          </Routes>
-        </SessionProvider>
-      </Router>
+              <Routes>
+                <Route path="/" element={<Conditions />} />
+                <Route path="/start" element={<Landing />} />
+                <Route path="/demographics" element={<DemographicQuestionnaire />} />
+                <Route path="/gaais" element={<GAAISQuestionnaire />} />
+                <Route path="/briefing1" element={<Briefing1 />} />
+                <Route path="/briefing2" element={<Briefing2 />} />
+                <Route path="/experiment/:step" element={<ExperimentController />} />
+                <Route path="/thankyou" element={<ThankYou />} />
+                <Route path="/categoryPreview" element={<CategoryPage />} />
+                <Route path="/experimentPreview" element={<ExperimentSectionPage category="Geography" questionNumber="4" question="What is the capital of Australia?" promptInstruction="Answer with enthusiasm"  />} />
+                <Route path="/perceivedtrustPreview" element={<PerceivedTrust />} />
+              </Routes>
+            </SessionProvider>
+        </Router>
     </RecordingProvider>
   );
 }
