@@ -83,24 +83,20 @@ const UserAnswer = ({ question, questionNumber, onNext }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="pt-4">
-      <div className="flex items-center justify-center overflow-auto">
-        <div className="flex flex-col gap-2 items-center justify-center">
+    <form onSubmit={handleSubmit} className="pt-6 w-full h-full">
+        <div className="flex flex-col gap-4 items-center justify-center w-full h-full">
           {/* Conditionally render the first survey */}
           {!showSecondSurvey && (
             <>
-              <div
-                className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full"
-                style={{ minWidth: "550px" }}
-              >
+              <div className="bg-gray-200 p-3 rounded-lg shadow-md w-full">
                 <RadioButtonsGroup
-                  /*question={question} Outcommented to hide the question */
+                  question="Please select your answer."
                   options={options}
                   onChange={(answer) => handleResponses(question, answer)}
                 />
                 {/* Conditionally render the slider for the current question */}
                 {showSlider && responses[question]?.answer && (
-                  <div className="flex justify-center items-center h-full">
+                  <div className="flex justify-center items-center">
                   <DiscreteSliderMarks
                     onChange={(value) => handleSliderChange(value)}
                   />
@@ -116,10 +112,7 @@ const UserAnswer = ({ question, questionNumber, onNext }) => {
           {/* Conditionally render the second survey */}
           {showSecondSurvey && (
             <>
-              <div
-                className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full"
-                style={{ minWidth: "550px" }}
-              >
+              <div className="bg-gray-200 p-3 rounded-lg shadow-md w-full">
                 <RadioButtonsGroup
                   question="What was your primary source?"
                   options={secondSurveyOptions}
@@ -141,7 +134,7 @@ const UserAnswer = ({ question, questionNumber, onNext }) => {
             </>
           )}
         </div>
-      </div>
+      
     </form>
   );
 };

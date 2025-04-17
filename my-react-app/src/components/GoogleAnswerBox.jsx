@@ -15,7 +15,7 @@ const GoogleAnswerBox = ({ lifeline, resetTrigger }) => {
   };
 
   return (
-    <div className="bg-gray-200 p-3 rounded-lg shadow-md mt-1">
+    <div className="bg-gray-200 p-3 rounded-lg shadow-md mt-0">
       <div className="flex flex-1 justify-center items-center">
         {!isVisible ? (
           <button
