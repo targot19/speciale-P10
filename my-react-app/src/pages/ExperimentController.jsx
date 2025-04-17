@@ -179,8 +179,11 @@ const getPromptInstruction = (condition) => {
             return "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of uncertainty and doubt. Use terms like 'i think' or 'i believe it might be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
         case "C":
             return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Respond to this prompt using expressions of certainty and confidence. Answer in only one sentence.";
-        default: 
+        case "D": 
             return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Use terms like 'The system has found that it might be' or 'the answer may be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
+        default:
+          console.warn("⚠️ Unknown condition received:", condition);
+          return "Fallback prompt...";
     }
 };
 

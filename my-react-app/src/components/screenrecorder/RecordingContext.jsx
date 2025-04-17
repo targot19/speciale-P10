@@ -28,7 +28,7 @@ export const RecordingProvider = ({ children }) => {
     }
   };
 
-  const stopRecording = () => {
+  /*const stopRecording = () => {
     if (recorder) {
       recorder.stopRecording(() => {
         const blob = recorder.getBlob();
@@ -40,6 +40,26 @@ export const RecordingProvider = ({ children }) => {
         setIsRecording(false);
       });
     }
+  };*/
+
+  const stopRecording = () => {
+    return new Promise((resolve) => {
+      if (recorder) {
+        recorder.stopRecording(() => {
+          const blob = recorder.getBlob();
+          const videoUrl = URL.createObjectURL(blob);
+  
+          setRecordedVideoUrl(videoUrl);
+          setRecordedBlob(blob); // store blob (for DB)
+          setRecorder(null);
+          setIsRecording(false);
+  
+          resolve(blob); // ✅ resolve with the blob
+        });
+      } else {
+        resolve(null); // nothing to stop
+      }
+    });
   };
 
   const downloadRecordedVideo = () => {
