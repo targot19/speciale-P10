@@ -94,6 +94,7 @@ export const SessionProvider = ({ children }) => {
         }));
     };
 
+    // Add answers + confidence score + primary source
     const addQuestionAnswer = (questionNumber, data) => {
         setSessionHistory(prev => ({
             ...prev,
