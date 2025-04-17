@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import NextButton from "../NextBtn";
 
 const UserAnswer = ({ question, onNext }) => {
-  const { addSurveyAnswers } = useSession();
+  const { addQuestionAnswer } = useSession();
 
   // State structure to include both survey response and slider value
   const [responses, setResponses] = useState({});
@@ -78,7 +78,7 @@ const UserAnswer = ({ question, onNext }) => {
       return;
     }
     console.log({ responses }); // Log final responses
-    addSurveyAnswers(responses); // Save responses to session history
+    addQuestionAnswer(questionNumber, responses); // Save responses to session history
     setShowSecondSurvey(true);
   };
 

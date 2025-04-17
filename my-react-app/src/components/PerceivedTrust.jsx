@@ -6,7 +6,7 @@ import NextButton from "../components/NextBtn";
 import { useSession } from "../context/SessionContext";
 
 const PerceivedTrust = ({ onNext }) => {
-    const { addSurveyAnswers } = useSession();
+    const { addConditionSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
         "I am confident in the AI. I feel that it works well.": "",
@@ -46,7 +46,7 @@ const PerceivedTrust = ({ onNext }) => {
             return;
         } else {
             console.log({ responses });
-            addSurveyAnswers(responses);
+            addConditionSurveyAnswers(responses);
             if (onNext) onNext();
             //navigate("/thankyou");
         }
