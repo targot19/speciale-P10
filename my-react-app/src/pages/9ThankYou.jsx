@@ -17,10 +17,16 @@ const ThankYou = () => {
   // Set session end when the page renders
   useEffect(() => {
     setSessionEnd();
-    stopRecording(); // Stop the recording
   }, []);
 
-  // Download video + data as json.
+  // Export session history after sessionEnd is updated
+  useEffect(() => {
+    if (sessionHistory.sessionEnd) {
+      exportSessionHistory(); // Export session history after sessionEnd is set
+    }
+  }, [sessionHistory.sessionEnd]); // Trigger when sessionEnd is updated
+
+  // Download video.
   useEffect(() => {
     if (recordedVideoUrl) {
       downloadRecordedVideo();
