@@ -39,23 +39,21 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
     // state variable for storing whether the user has interacted with the chat
     const [hasInteractedWithChat, setHasInteractedWithChat] = useState(false);
 
+    const [chatInput, setChatInput] = useState("");
+
     // Reset `hasInteractedWithChat` when the question changes
     useEffect(() => {
         setHasInteractedWithChat(false);
     }, [questionNumber]);
 
-
     const handleChatbotReply = () => {
         setHasInteractedWithChat(true);
     };
-    const [chatInput, setChatInput] = useState("");
 
     // Reset chat input whenever the question changes
     useEffect(() => {
         setChatInput(""); // Clear the input field
     }, [question]);
-
-    // For testing purposes
 
     return (
         <div className="w-screen h-screen flex flex-col px-6 py-4">
@@ -84,10 +82,17 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                     promptInstruction={promptInstruction}
                     chatInput={chatInput}
                     setChatInput={setChatInput}
+                    onChatbotReply={handleChatbotReply}
                     />
                 </div>
                 <div className="flex flex-col justify-between h-full w-[40%]">
-                    <GoogleAnswerBox lifeline={lifeline} resetTrigger={questionNumber} />
+                {hasInteractedWithChat && (
+                        <GoogleAnswerBox
+                            lifeline={lifeline}
+                            resetTrigger={questionNumber}
+                            questionNumber={questionNumber}
+                        />
+                    )}
                     <div className="flex items-center justify-center">
                         <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
                     </div>
