@@ -6,7 +6,7 @@ import ButtonContainer from "../components/ButtonContainer"
 import ChatWindow from "../components/chat/ChatWindow"
 import lifelinesByCategory from "../data/lifelines";
 import GoogleAnswerBox from "../components/GoogleAnswerBox";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import UserAnswer from "../components/userinput/UserAnswer"
 import musicIcon from "../assets/music.png";
 import healthIcon from "../assets/health.png";
@@ -38,6 +38,12 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
 
     //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
     const [currentChatHistory, setCurrentChatHistory] = useState({});
+    const [chatInput, setChatInput] = useState("");
+
+    // Reset chat input whenever the question changes
+    useEffect(() => {
+        setChatInput(""); // Clear the input field
+    }, [question]);
 
     // For testing purposes
 
@@ -56,13 +62,18 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
             </div>
             <div className="flex justify-between gap-8 h-7/8">
                 <div className="w-[60%] h-full">
-                    <p className="bg-[#2E3B4E] text-white text-center p-6 text-base mb-1">
+                    <p
+                        className="bg-[#2E3B4E] text-white text-center p-6 text-base mb-1 cursor-pointer"
+                        onClick={() => setChatInput(question)}
+                    >
                         {/* Make dynamic - question prop */}
                         {question}
                     </p>
                     <ChatWindow 
                     questionNumber={questionNumber} 
                     promptInstruction={promptInstruction}
+                    chatInput={chatInput}
+                    setChatInput={setChatInput}
                     />
                 </div>
                 <div className="flex flex-col justify-between h-full w-[40%]">

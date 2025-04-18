@@ -45,7 +45,7 @@ const GoogleAnswerBox = ({ lifeline, resetTrigger }) => {
 
               {/* Display the answer text */}
               <div
-                className="text-xs text-gray-700 bg-white p-4 rounded border border-gray-300 overflow-y-auto"
+                className="text-s text-gray-700 bg-white p-4 rounded border border-gray-300 w-lg overflow-y-auto"
                 style={{
                   maxHeight: "100px",
                   fontFamily: "'Roboto', sans-serif",

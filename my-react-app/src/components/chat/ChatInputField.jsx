@@ -7,8 +7,8 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 // Add prompt instructions to the input
 // Get Question to show up on the screen
 
-const ChatInputField = ({ onSend, isLoading, isActive }) => {
-    const [chatInput, setChatInput] = useState(""); // Local state for storing user input
+const ChatInputField = ({ onSend, isLoading, isActive, chatInput, setChatInput }) => {
+    //const [chatInput, setChatInput] = useState(""); // Local state for storing user input
 
     // Function that takes input from UI, and passing it on to the proper functions
     const handleSubmit = async (e) => {
