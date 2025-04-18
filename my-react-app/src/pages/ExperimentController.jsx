@@ -47,7 +47,7 @@ const ExperimentController = () => {
 
     // 4. Build a sequence for the experiment (only re-run again if input changes - avoid unneccessary rerenders)
     const experimentSequence = useMemo(() => {
-        return buildShortExperimentSequence(conditionOrder, questionsByCategory, categories);
+        return buildExperimentSequence(conditionOrder, questionsByCategory, categories);
       }, [conditionOrder, questionsByCategory]);
     
       //console.log("🧠 stepIndex:", stepIndex);
