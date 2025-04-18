@@ -12,11 +12,21 @@ export const RecordingProvider = ({ children }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState(null);
   const [recordedBlob, setRecordedBlob] = useState(null);
+  const [wasRecordingInterrupted, setRecordingInterrupted] = useState(false);
 
 
   const startRecording = async () => {
     try {
       const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+
+      // 🔍 Detect if user manually stops screen sharing
+      const videoTrack = screenStream.getVideoTracks()[0];
+      videoTrack.onended = () => {
+      console.warn("⚠️ User manually stopped screen sharing.");
+      // state flag like setRecordingInterrupted(true)
+      setRecordingInterrupted(true);
+    };
+
       const newRecorder = new RecordRTC(screenStream, { type: "video" });
       newRecorder.startRecording();
 
@@ -112,7 +122,8 @@ export const RecordingProvider = ({ children }) => {
         recordedVideoUrl,
         recordedBlob,
         downloadRecordedVideo,
-        uploadRecordedVideo
+        uploadRecordedVideo,
+        wasRecordingInterrupted
       }}
     >
       {children}

@@ -4,15 +4,15 @@ import InfoBox from "../components/InfoBox";
 import { useSession } from "../context/SessionContext";
 import { resetFirebaseUser } from "../firebase/anonAuth";
 
+
 const ThankYou = () => {
 
   const {
     isRecording,
     stopRecording,
-    downloadRecordedVideo,
-    recordedVideoUrl,
     uploadRecordedVideo,
     recordedBlob,
+    wasRecordingInterrupted
   } = useRecording();
 
   const {
@@ -21,7 +21,7 @@ const ThankYou = () => {
     saveSessionToFirebase,
   } = useSession();
 
-
+  // Mark session end as soon as this page loads (fires only once)
   useEffect(() => {
     setSessionEnd();
   }, []);
@@ -30,39 +30,59 @@ const ThankYou = () => {
   // Variable to keep track of progress
   const [submissionStatus, setSubmissionStatus] = useState("idle"); // "idle" | "saving" | "success" | "error"
 
-  // function to control flow for ending experiment / saving to database / exporting files
+  // function to handle submission and control flow for ending experiment / saving to database / exporting files locally
   const handleEndExperiment = async () => {
+
     setSubmissionStatus("saving");
 
     try {
       let blob = recordedBlob;
-  
-      if (isRecording) {
-        blob = await stopRecording(); // ✅ get the blob directly here
+      
+      // 1. Skip video handling completely if the recording was interrupted
+      if (wasRecordingInterrupted) {
+        console.warn("⚠️ Recording was interrupted. Skipping video upload and download.");
+        blob = null;
+      } else {
+        // If still recording, stop it and get the blob
+        if (isRecording) {
+          blob = await stopRecording();
+        }
       }
-  
+
+      //if (blob && !(blob instanceof Blob)) {
+      //  console.warn("⚠️ Blob is not valid. Skipping upload.");
+      //  blob = null;
+      //}
+
       let firebaseVideoURL = null;
   
+      // 2. If video exists, download + upload to firebase storage
       if (blob) {
         try {
-          firebaseVideoURL = await uploadRecordedVideo(blob); // this still uses state
-          // Optional: Local download
+          // Upload screen recording to Firebase Storage, with 1 min time-limit
+          firebaseVideoURL = await uploadRecordedVideo(blob)
+
+          // Save + download a local copy of the video 
           const blobUrl = URL.createObjectURL(blob);
           const link = document.createElement("a");
           link.href = blobUrl;
           link.download = "screen-recording.webm";
           link.click();
-          URL.revokeObjectURL(blobUrl);
+          URL.revokeObjectURL(blobUrl); //clean up memory
         } catch (uploadError) {
           console.warn("⚠️ Video upload failed. Proceeding without it.");
         }
       } else {
         console.warn("⚠️ No recordedBlob available. Skipping video upload.");
       }
-  
+      
+      // 3. Export session data locally (as .json)
       exportSessionHistory();
+      // 4. Save session data + video URL to Firestore (with or without video)
       await saveSessionToFirebase(firebaseVideoURL);
+      // 5. Reset user so next participant gets a new Firebase UID
       await resetFirebaseUser();
+
       setSubmissionStatus("success");
     } catch (err) {
       console.error("❌ Submission failed:", err);
@@ -97,6 +117,12 @@ const ThankYou = () => {
               </p>
             )}
 
+            {submissionStatus === "saving" && (
+              <p className="text-gray-800 mt-4 font-semibold">
+                Submission in progress, and this might take. Please do not close the browser.
+              </p>
+            )}
+
             {submissionStatus === "error" && (
               <p className="text-red-600 mt-4 font-semibold">
                 ❌ Something went wrong. Please try again or contact the team.
@@ -109,6 +135,16 @@ const ThankYou = () => {
 };
 
 export default ThankYou;
+
+
+const uploadWithTimeout = async (blob, timeout = 8000) => {
+  return Promise.race([
+    uploadRecordedVideo(blob), // your real upload call
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Video upload timed out")), timeout)
+    ),
+  ]);
+};
 
 /*
 const ThankYou = () => {
