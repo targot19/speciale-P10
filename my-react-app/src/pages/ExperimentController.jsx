@@ -47,7 +47,7 @@ const ExperimentController = () => {
 
     // 4. Build a sequence for the experiment (only re-run again if input changes - avoid unneccessary rerenders)
     const experimentSequence = useMemo(() => {
-        return buildExperimentSequence(conditionOrder, questionsByCategory, categories);
+        return buildShortExperimentSequence(conditionOrder, questionsByCategory, categories);
       }, [conditionOrder, questionsByCategory]);
     
       //console.log("🧠 stepIndex:", stepIndex);
@@ -169,6 +169,33 @@ const buildExperimentSequence = (conditionOrder, questionsByCategory, categories
       return sequence;
 
 }
+
+const buildShortExperimentSequence = (conditionOrder, questionsByCategory, categories) => {
+  const sequence = [];
+
+  const category = categories[0]; // just the first category
+  const condition = conditionOrder[0];
+  const questions = questionsByCategory[category].slice(0, 2); // only 2 questions
+
+  // 1. Category intro
+  sequence.push({ type: "category", category });
+
+  // 2. Two short questions
+  questions.forEach((question, qIndex) => {
+    sequence.push({
+      type: "question",
+      category,
+      condition,
+      question,
+      questionIndex: qIndex + 1,
+    });
+  });
+
+  // 3. One survey
+  sequence.push({ type: "survey", category, condition });
+
+  return sequence;
+};
 
 const getPromptInstruction = (condition) => {
     // Switch case, matching a prompt to A, B, C D.

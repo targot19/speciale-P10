@@ -21,6 +21,12 @@ const ThankYou = () => {
     saveSessionToFirebase,
   } = useSession();
 
+
+  useEffect(() => {
+    setSessionEnd();
+  }, []);
+      
+
   // Variable to keep track of progress
   const [submissionStatus, setSubmissionStatus] = useState("idle"); // "idle" | "saving" | "success" | "error"
 
@@ -29,38 +35,39 @@ const ThankYou = () => {
     setSubmissionStatus("saving");
 
     try {
-      setSessionEnd(); // Always mark end of session
-
-      // 1. Get recording:
-      if (isRecording) stopRecording(); // If recording, stop
-
-      let videoURL = null;
-
-      // Add a little waittime, for video-blob to become available.
-      // Wait until recordedBlob is ready (max 3 seconds, polling every 100ms)
-      let attempts = 0;
-      while (!recordedBlob && attempts < 30) {
-        await new Promise((res) => setTimeout(res, 100));
-        attempts++;
+      let blob = recordedBlob;
+  
+      if (isRecording) {
+        blob = await stopRecording(); // ✅ get the blob directly here
       }
-      if (recordedBlob) {
-        videoURL = await uploadRecordedVideo(); // Upload to firebase storage + get url
-        downloadRecordedVideo(); // Save to disk
+  
+      let firebaseVideoURL = null;
+  
+      if (blob) {
+        try {
+          firebaseVideoURL = await uploadRecordedVideo(blob); // this still uses state
+          // Optional: Local download
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          link.download = "screen-recording.webm";
+          link.click();
+          URL.revokeObjectURL(blobUrl);
+        } catch (uploadError) {
+          console.warn("⚠️ Video upload failed. Proceeding without it.");
+        }
       } else {
-        console.warn("recordedBlob was not available after waiting.")
+        console.warn("⚠️ No recordedBlob available. Skipping video upload.");
       }
-
-      // 2. Export data / upload data to database
-      exportSessionHistory(); // Export session to JSON locally
-      await saveSessionToFirebase(videoURL); // Save to Firestore (with or without video)
-      await resetFirebaseUser(); // Sign out + prepare for new user
+  
+      exportSessionHistory();
+      await saveSessionToFirebase(firebaseVideoURL);
+      await resetFirebaseUser();
       setSubmissionStatus("success");
-
-    } catch {
-      console.error("Submission error:", error);
+    } catch (err) {
+      console.error("❌ Submission failed:", err);
       setSubmissionStatus("error");
     }
-
   };
 
     return (

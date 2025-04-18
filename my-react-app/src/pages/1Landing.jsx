@@ -1,9 +1,15 @@
 import InfoBox from "../components/InfoBox";
 import NextButton from "../components/NextBtn";
 import { Link } from "react-router-dom";
-
+import { useSession } from "../context/SessionContext";
+import { useEffect } from "react";
 
 const Landing = () => {
+    const { setSessionId } = useSession();
+
+    useEffect(() => {
+      setSessionId();
+    }, []);
         
     return (
         <div className="min-h-screen flex flex-col items-center">

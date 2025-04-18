@@ -74,8 +74,8 @@ export const RecordingProvider = ({ children }) => {
     link.click();
   };
 
-  const uploadRecordedVideo = async () => {
-    if (!recordedBlob) {
+  const uploadRecordedVideo = async (blob) => {
+    if (!blob) {
       console.warn("No recorded video blob to upload.");
       return null;
     }
@@ -90,7 +90,7 @@ export const RecordingProvider = ({ children }) => {
     const storageRef = ref(storage, `videos/${uid}/${filename}`);
   
     try {
-      const snapshot = await uploadBytes(storageRef, recordedBlob, {
+      const snapshot = await uploadBytes(storageRef, blob, {
         contentType: "video/webm",
       });
       const downloadURL = await getDownloadURL(snapshot.ref);
