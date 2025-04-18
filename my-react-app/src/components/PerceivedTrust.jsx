@@ -9,13 +9,17 @@ const PerceivedTrust = ({ onNext, category }) => {
     const { addConditionSurveyAnswers } = useSession();
     
     const [responses, setResponses] = useState({
-        "I am confident in the AI. I feel that it works well.": "",
-        "The outputs of the AI are very predictable.": "",
-        "The AI is very reliable. I can count on it to be correct all the time.": "",
-        "I feel safe that when I rely on the AI I will get the right answers.": "",
-        "The AI is efficient in that it works very quickly.": "",
-        "The AI can perform the task better than a novice human user.": "",
-        "I like using the AI for decision making.": "",
+        "I believe that the chatbot would act in my best interest.": "",
+        "If I required help, the chatbot would do its best to help me.": "",
+        "The chatbot is interested in my well-being, not just completing tasks.": "",
+        "The chatbot is truthful in its interactions with me.": "",
+        "I would characterize the chatbot as honest.": "",
+        "The chatbot would keep its commitments.": "",
+        "The chatbot is sincere and genuine.": "",
+        "The chatbot is competent and effective in providing information or assistance.": "",
+        "The chatbot performs its role of assisting users very well.": "",
+        "Overall, the chatbot is a capable and proficient digital assistant.": "",
+        "In general, the chatbot is very knowledgeable.": "",
     });
 
     const options = [
