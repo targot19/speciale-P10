@@ -170,6 +170,33 @@ const buildExperimentSequence = (conditionOrder, questionsByCategory, categories
 
 }
 
+const buildShortExperimentSequence = (conditionOrder, questionsByCategory, categories) => {
+  const sequence = [];
+
+  const category = categories[0]; // just the first category
+  const condition = conditionOrder[0];
+  const questions = questionsByCategory[category].slice(0, 2); // only 2 questions
+
+  // 1. Category intro
+  sequence.push({ type: "category", category });
+
+  // 2. Two short questions
+  questions.forEach((question, qIndex) => {
+    sequence.push({
+      type: "question",
+      category,
+      condition,
+      question,
+      questionIndex: qIndex + 1,
+    });
+  });
+
+  // 3. One survey
+  sequence.push({ type: "survey", category, condition });
+
+  return sequence;
+};
+
 const getPromptInstruction = (condition) => {
     // Switch case, matching a prompt to A, B, C D.
     switch (condition) {
@@ -179,8 +206,11 @@ const getPromptInstruction = (condition) => {
             return "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of uncertainty and doubt. Use terms like 'i think' or 'i believe it might be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
         case "C":
             return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Respond to this prompt using expressions of certainty and confidence. Answer in only one sentence.";
-        default: 
+        case "D": 
             return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Use terms like 'The system has found that it might be' or 'the answer may be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
+        default:
+          console.warn("⚠️ Unknown condition received:", condition);
+          return "Fallback prompt...";
     }
 };
 

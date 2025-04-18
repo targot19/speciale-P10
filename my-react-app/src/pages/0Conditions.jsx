@@ -21,7 +21,7 @@ const Conditions = () => {
         } else {
             console.log({ selectedLatinSquare });
             addConditionToHistory(selectedLatinSquare);
-            setSessionId();
+            //setSessionId();
             navigate("/start"); // Navigate to the next page
         }
     };

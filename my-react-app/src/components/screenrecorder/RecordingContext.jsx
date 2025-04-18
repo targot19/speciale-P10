@@ -12,11 +12,21 @@ export const RecordingProvider = ({ children }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState(null);
   const [recordedBlob, setRecordedBlob] = useState(null);
+  const [wasRecordingInterrupted, setRecordingInterrupted] = useState(false);
 
 
   const startRecording = async () => {
     try {
       const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+
+      // 🔍 Detect if user manually stops screen sharing
+      const videoTrack = screenStream.getVideoTracks()[0];
+      videoTrack.onended = () => {
+      console.warn("⚠️ User manually stopped screen sharing.");
+      // state flag like setRecordingInterrupted(true)
+      setRecordingInterrupted(true);
+    };
+
       const newRecorder = new RecordRTC(screenStream, { type: "video" });
       newRecorder.startRecording();
 
@@ -28,7 +38,7 @@ export const RecordingProvider = ({ children }) => {
     }
   };
 
-  const stopRecording = () => {
+  /*const stopRecording = () => {
     if (recorder) {
       recorder.stopRecording(() => {
         const blob = recorder.getBlob();
@@ -40,6 +50,26 @@ export const RecordingProvider = ({ children }) => {
         setIsRecording(false);
       });
     }
+  };*/
+
+  const stopRecording = () => {
+    return new Promise((resolve) => {
+      if (recorder) {
+        recorder.stopRecording(() => {
+          const blob = recorder.getBlob();
+          const videoUrl = URL.createObjectURL(blob);
+  
+          setRecordedVideoUrl(videoUrl);
+          setRecordedBlob(blob); // store blob (for DB)
+          setRecorder(null);
+          setIsRecording(false);
+  
+          resolve(blob); // ✅ resolve with the blob
+        });
+      } else {
+        resolve(null); // nothing to stop
+      }
+    });
   };
 
   const downloadRecordedVideo = () => {
@@ -54,8 +84,8 @@ export const RecordingProvider = ({ children }) => {
     link.click();
   };
 
-  const uploadRecordedVideo = async () => {
-    if (!recordedBlob) {
+  const uploadRecordedVideo = async (blob) => {
+    if (!blob) {
       console.warn("No recorded video blob to upload.");
       return null;
     }
@@ -70,7 +100,7 @@ export const RecordingProvider = ({ children }) => {
     const storageRef = ref(storage, `videos/${uid}/${filename}`);
   
     try {
-      const snapshot = await uploadBytes(storageRef, recordedBlob, {
+      const snapshot = await uploadBytes(storageRef, blob, {
         contentType: "video/webm",
       });
       const downloadURL = await getDownloadURL(snapshot.ref);
@@ -92,7 +122,8 @@ export const RecordingProvider = ({ children }) => {
         recordedVideoUrl,
         recordedBlob,
         downloadRecordedVideo,
-        uploadRecordedVideo
+        uploadRecordedVideo,
+        wasRecordingInterrupted
       }}
     >
       {children}
