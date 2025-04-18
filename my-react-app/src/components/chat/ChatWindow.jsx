@@ -16,8 +16,7 @@ const testHistory =
     { type: "answerCheck2" }
   ]
 
-const ChatWindow = ({ questionNumber, promptInstruction, chatInput, setChatInput, messageHistory: overrideHistory, isActive = true }) => {
-
+const ChatWindow = ({ questionNumber, promptInstruction, chatInput, setChatInput, messageHistory: overrideHistory, isActive = true, onChatbotReply }) => {
     const { sessionHistory, addChatMessage  } = useSession(); // Session-wide history. Changes to sessionHistory = automatic re-render
     const [currentChatHistory, setCurrentChatHistory] = useState([]); // Temporary history for current conversation
     const [isLoading, setIsLoading] = useState(false); // Loader, w. start value "false"
@@ -57,6 +56,12 @@ const ChatWindow = ({ questionNumber, promptInstruction, chatInput, setChatInput
 
             // 4. Update temporary currentChatHistory (with user input + bot response formatted for OpenAI)
             setCurrentChatHistory(prev => [...prev, { role: "user", content: inputText }, { role: "assistant", content: chatbotReply }]);
+
+            // Notify parent component that the chatbot has replied
+            if (onChatbotReply) {
+                console.log("Chatbot replied. Triggering onChatbotReply callback."); // Debugging, we can remove
+                onChatbotReply();
+            }
 
         } catch {
             console.error("💥 Error:", err);

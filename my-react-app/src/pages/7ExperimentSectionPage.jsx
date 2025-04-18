@@ -26,18 +26,28 @@ const testHistory =
 
 // prompts: topic, question, stage...
 const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, lifeline, onNext }) => {
-
-
     const categoryIcons = {
         health: healthIcon,
         music: musicIcon,
         geography: geographyIcon,
         physics: physicsIcon,
       };
-    
 
-    //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
+    // state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
     const [currentChatHistory, setCurrentChatHistory] = useState({});
+
+    // state variable for storing whether the user has interacted with the chat
+    const [hasInteractedWithChat, setHasInteractedWithChat] = useState(false);
+
+    // Reset `hasInteractedWithChat` when the question changes
+    useEffect(() => {
+        setHasInteractedWithChat(false);
+    }, [questionNumber]);
+
+
+    const handleChatbotReply = () => {
+        setHasInteractedWithChat(true);
+    };
     const [chatInput, setChatInput] = useState("");
 
     // Reset chat input whenever the question changes
