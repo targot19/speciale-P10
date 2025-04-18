@@ -16,7 +16,7 @@ const testHistory =
     { type: "answerCheck2" }
   ]
 
-const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrideHistory, isActive = true, onUserInteraction }) => {
+const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrideHistory, isActive = true, onChatbotReply }) => {
     const { sessionHistory, addChatMessage  } = useSession(); // Session-wide history. Changes to sessionHistory = automatic re-render
     const [currentChatHistory, setCurrentChatHistory] = useState([]); // Temporary history for current conversation
     const [isLoading, setIsLoading] = useState(false); // Loader, w. start value "false"
@@ -35,12 +35,6 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
             // 1. Log user message in session-wide history (SessionHistory):
             const userMessage = { type: "message", role: "user", text: inputText }; // Format input
             addChatMessage(questionNumber, userMessage); // Adds user input to SessionHistory
-
-            // Notify parent component that the user has interacted with the chat so that GoogleAnswerBox later shows up
-            if (onUserInteraction) {
-                console.log("User interacted with the chat."); // Debugging
-                onUserInteraction();
-            }
 
             // 2. Prepare and send userMessage + currentChatHistory + promptInstruction to API history
             const messages = [
@@ -62,6 +56,12 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
 
             // 4. Update temporary currentChatHistory (with user input + bot response formatted for OpenAI)
             setCurrentChatHistory(prev => [...prev, { role: "user", content: inputText }, { role: "assistant", content: chatbotReply }]);
+
+            // Notify parent component that the chatbot has replied
+            if (onChatbotReply) {
+                console.log("Chatbot replied. Triggering onChatbotReply callback."); // Debugging, we can remove
+                onChatbotReply();
+            }
 
         } catch {
             console.error("💥 Error:", err);

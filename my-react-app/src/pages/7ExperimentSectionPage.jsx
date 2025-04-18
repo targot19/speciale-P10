@@ -6,7 +6,7 @@ import ButtonContainer from "../components/ButtonContainer"
 import ChatWindow from "../components/chat/ChatWindow"
 import lifelinesByCategory from "../data/lifelines";
 import GoogleAnswerBox from "../components/GoogleAnswerBox";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import UserAnswer from "../components/userinput/UserAnswer"
 import musicIcon from "../assets/music.png";
 import healthIcon from "../assets/health.png";
@@ -39,9 +39,14 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
     // state variable for storing whether the user has interacted with the chat
     const [hasInteractedWithChat, setHasInteractedWithChat] = useState(false);
 
-    const handleUserInteraction = () => {
+    // Reset `hasInteractedWithChat` when the question changes
+    useEffect(() => {
+        setHasInteractedWithChat(false);
+    }, [questionNumber]);
+
+
+    const handleChatbotReply = () => {
         setHasInteractedWithChat(true);
-        console.log("Setting hasInteractedWithChat to true."); // Debugging
     };
 
     // For testing purposes
@@ -64,14 +69,13 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                     <ChatWindow 
                         questionNumber={questionNumber} 
                         promptInstruction={promptInstruction}
-                        onUserInteraction={handleUserInteraction} // Pass the callback
+                        onChatbotReply={handleChatbotReply} // Pass the callback for chatbot replies
                     />
                 </div>
                 <div className="flex flex-col justify-between w-[40%]">
                     <p className="bg-[#2E3B4E] text-white p-6 text-base mb-2">
                         {question} {/* Make dynamic - question prop */}
                     </p>
-                    {console.log("hasInteractedWithChat:", hasInteractedWithChat)}  {/* Debugging */}
                     {hasInteractedWithChat && (
                         <GoogleAnswerBox
                             lifeline={lifeline}
