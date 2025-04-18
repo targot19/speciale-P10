@@ -24,7 +24,7 @@ const PerceivedTrust = ({ onNext, category }) => {
     const options = [
         { value: "Strongly disagree", label: "Strongly disagree" },
         { value: "Disagree", label: "Disagree" },
-        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
+        { value: "Neutral", label: "Neutral" },
         { value: "Agree", label: "Agree" },
         { value: "Strongly agree", label: "Strongly agree" },
     ];
@@ -56,18 +56,18 @@ const PerceivedTrust = ({ onNext, category }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="pt-0">
-          <div className="flex flex-col items-start justify-start overflow-hidden h-screen w-full">
-            <div className="flex flex-col gap-1 w-full max-w-3xl items-center overflow-y-auto"
+        <form onSubmit={handleSubmit} className="h-full flex flex-col">
+          <div className="flex flex-col items-start justify-start overflow-hidden h-full w-full">
+            <div className="flex flex-col gap-0 w-full items-center overflow-y-auto"
             style={{
-              maxHeight: "65vh",
+              maxHeight: "70vh",
               overflowX: "hidden",
             }}>
               {Object.keys(responses).map((question, index) => (
                 <div
                   key={index}
                   className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full"
-                  style={{ maxWidth: "600px" }}
+                  style={{ maxWidth: "650px" }}
                 >
                   <ConditionQuestionBox
                     question={question}
@@ -77,7 +77,7 @@ const PerceivedTrust = ({ onNext, category }) => {
                 </div>
               ))}
             </div>
-            <div className="flex justify-center w-full mt-4">
+            <div className="flex justify-center w-full mt-8">
               <NextButton type="submit" className="flex justify-center">
                 Next
               </NextButton>

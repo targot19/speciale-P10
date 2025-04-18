@@ -13,21 +13,18 @@ export default function ConditionQuestionBox({ question, options, onChange }) {
   
   return (
     <FormControl className="flex flex-col items-center justify-center w-full">
-      <FormLabel className="text-xl font-bold mb-4 text-center">{question}</FormLabel>
+      <FormLabel className="text-xl font-bold mb-2 text-center">{question}</FormLabel>
       <RadioGroup
         row
         aria-labelledby="condition-question-label"
         name={question}
-        className="flex flex-col items-center"
+        className="flex flex-row items-center justify-center gap-10"
         onChange={handleOptionChange}
       >
         {options.map((option, index) => (
-          <div key={index} className="flex flex-col items-center mx-2">
-            <FormControlLabel
-              value={option.value || option}
-              control={<Radio />}
-            />
-            <span className="text-sm text-center">{option.label}</span>
+          <div key={index} className="flex flex-col items-center justify-center">
+            <Radio value={option.value || option} />
+            <span className="text-sm text-center mt-1">{option.label}</span>
           </div>
         ))}
       </RadioGroup>
