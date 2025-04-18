@@ -11,22 +11,18 @@ const Briefing = () => {
                     <p className="mt-4">Thank you for finishing the questionnaire. Now, <b>the experiment begins!</b><br /><br />
 
                         You will have to answer <b>five questions</b> within <b>four different categories</b>,
-                        which means you will have to answer <b>20 questions</b> in total.<br /><br />
+                        which means you will have to answer <b>20 questions</b> in total.
+                        With every question, you can make the chatbot assist you in finding the answer.
+                            Additionally, you have the opportunity to view a top answer from Google for each question <i>after</i> you've prompted the chatbot <u>at least once.</u><br /><br />
 
-                        The four categories are: <b>Music, Health, Geography, and Physics</b>.
-                            With every question, you can prompt the chatbot a maximum of three times.
-                            Additionally, you have the opportunity to view the top answer from Google for each question 
-                            <i>after</i> you've prompted the chatbot <u>at least once.</u><br /><br />
-
-                        Every question has a correct yes-or-no answer,
-                            and for every answer you'll be asked to rate your confidence in your answer 
-                            and thereafter choose what your primary source was (Chatbot, Google, or Prior knowledge). 
-                            <b>After the experiment, you will receive your total score of correct answers.</b><br /><br />
+                        Every question has a correct yes-or-no answer.
+                            For every question, you'll be asked to rate how confident you are in your answer 
+                            and thereafter choose what your primary source was - Chatbot, Google, or prior knowledge. <b>After the experiment, you will receive your total score of correct answers.</b><br /><br />
                         
-                        Before proceeding to the next category, you will have to answer <b>?</b> questions 
-                            about the chatbot you've interacted with.<br /><br />
+                        Between each category, you'll have to answer <b>11</b> questions 
+                            about the chatbot you've just interacted with.<br /><br />
 
-                        We will record your session for analysing purposes. On the next page, you can start the recording.<br /><br />
+                        We will record your session for analysis purposes. On the next page, you can start the recording.<br /><br />
                         
                         <b>Good luck!</b>
                     </p>
