@@ -112,7 +112,7 @@ const UserAnswer = ({ question, questionNumber, onNext }) => {
           {/* Conditionally render the second survey */}
           {showSecondSurvey && (
             <>
-              <div className="bg-gray-200 p-3 rounded-lg shadow-md w-full">
+              <div className="bg-gray-200 p-8 rounded-lg shadow-md w-full">
                 <RadioButtonsGroup
                   question="What was your primary source?"
                   options={secondSurveyOptions}
