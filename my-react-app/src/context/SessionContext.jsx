@@ -1,10 +1,15 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import Conditions from "../pages/0Conditions";
+import { useLocation } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc, Timestamp } from "firebase/firestore";
+import { db, auth } from "../firebase/firebase"; // adjust path if needed
 
 const SessionContext = createContext();
 
 // Provider-component, som kan hente data fra denne context
 export const SessionProvider = ({ children }) => {
+    const location = useLocation();
+
     const [sessionHistory, setSessionHistory] = useState(() => {
         // Load the session history from sessionStorage on start
         const savedSession = sessionStorage.getItem("sessionHistory");
@@ -12,8 +17,11 @@ export const SessionProvider = ({ children }) => {
             sessionId: "",
             sessionEnd: "",
             conditionOrder: [],
-            surveyHistory: {},
-            chatHistory: {}
+            surveyHistory: {}, // Pre-survey
+            conditionSurveyHistory: {}, // Condition-survey
+            chatHistory: {},
+            questionAnswerHistory: {},
+            googleAnswerCountTotal: 0,
         };
     });
 
@@ -22,8 +30,36 @@ export const SessionProvider = ({ children }) => {
         sessionStorage.setItem("sessionHistory", JSON.stringify(sessionHistory));
     }, [sessionHistory]);
 
-    // Functions to perform different actions w. the session history
+    
+    // Assign conditionOrder based on URL /?sq=1–4 (only if it hasn't already been set w. buttons)
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const squareIndex = urlParams.get("sq");
 
+        const conditionMap = {
+        1: ["A", "B", "D", "C"],
+        2: ["B", "C", "A", "D"],
+        3: ["C", "D", "B", "A"],
+        4: ["D", "A", "C", "B"],
+        };
+
+        if (
+            // Make sure there hasn't already been set a conditionOrder + number matches something in condition map
+            squareIndex &&
+            sessionHistory.conditionOrder.length === 0 &&
+            conditionMap[squareIndex]
+        ) {
+            const parsedOrder = conditionMap[squareIndex];
+            setSessionHistory((prev) => ({
+                ...prev,
+                conditionOrder: parsedOrder,
+        }));
+        console.log(`✔️ Condition order set from sq=${squareIndex}:`, parsedOrder);
+        }
+    }, [location.search, sessionHistory.conditionOrder.length]);
+    
+    
+    // FUNCTIONS TO PERFORM SPECIFIC ACTIONS W. SESSION HISTORY
     const setSessionId = () => {
         const timestamp = new Date().toLocaleString("en-GB", { timeZone: "Europe/Copenhagen" }); // Date object, as string
         setSessionHistory(prev => ({
@@ -54,6 +90,7 @@ export const SessionProvider = ({ children }) => {
         
       };
 
+    // For pre-survey
     const addSurveyAnswers = (answers) => {
         setSessionHistory(prev => ({
             ...prev,
@@ -63,6 +100,20 @@ export const SessionProvider = ({ children }) => {
             }
         }));
     }; 
+
+    // For condition survey
+    const addConditionSurveyAnswers = (category, answers) => {
+        setSessionHistory(prev => ({
+            ...prev,
+            conditionSurveyHistory: {
+                ...prev.conditionSurveyHistory,
+                [category]: {
+                    ...(prev.conditionSurveyHistory?.[category] || {}),
+                    ...answers
+                }
+            }
+        }));
+    };
 
     const addChatMessage = (questionNumber, message) => {
         setSessionHistory(prev => ({
@@ -77,6 +128,41 @@ export const SessionProvider = ({ children }) => {
         }));
     };
 
+    // Add answers + confidence score + primary source
+    const addQuestionAnswer = (questionNumber, data) => {
+        setSessionHistory(prev => ({
+            ...prev,
+            questionAnswerHistory: {
+                ...prev.questionAnswerHistory,
+                [questionNumber]: {
+                    ...(prev.questionAnswerHistory?.[questionNumber] || {}),
+                    ...data,
+                    googleChecked: prev.questionAnswerHistory?.[questionNumber]?.googleChecked || false, // Default to false if not set
+                }
+            }
+        }));
+    };
+
+    const googleAnswerCountTotal = () => {
+        setSessionHistory((prev) => ({
+            ...prev,
+            googleAnswerCountTotal: (prev.googleAnswerCountTotal || 0) + 1, // Increment the count each time
+        }));
+    };
+
+    const googleAnswerCountQuestion = (questionNumber) => {
+        setSessionHistory((prev) => ({
+            ...prev,
+            questionAnswerHistory: {
+                ...prev.questionAnswerHistory,
+                [questionNumber]: {
+                    ...(prev.questionAnswerHistory?.[questionNumber] || {}),
+                    googleChecked: true, // Mark as true when Google answer is checked
+                },
+            },
+        }));
+    };
+
     const exportSessionHistory = () => {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sessionHistory, null, 2));
         const downloadAnchorNode = document.createElement("a");
@@ -85,6 +171,27 @@ export const SessionProvider = ({ children }) => {
         document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
+    };
+
+    const saveSessionToFirebase = async (videoURL = null) => {
+        const uid = auth.currentUser?.uid;
+
+        if (!uid) {
+          console.warn("User not authenticated. Session not saved.");
+          return;
+        }
+      
+        try {
+          await setDoc(doc(db, "experiment_results", uid), {
+            timestamp: Timestamp.now(),
+            videoURL,
+            ...sessionHistory, // spread session data into the document
+          });
+      
+          console.log("Session data uploaded to Firebase for UID:", uid);
+        } catch (error) {
+          console.error("Error saving session to Firebase:", error);
+        }
     };
 
     const clearSessionHistory = () => {
@@ -99,7 +206,7 @@ export const SessionProvider = ({ children }) => {
     };
 
     return (
-        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addSurveyAnswers, clearSessionHistory, exportSessionHistory }}>
+        <SessionContext.Provider value={{ sessionHistory, setSessionId, setSessionEnd, addConditionToHistory, addChatMessage, addQuestionAnswer, addSurveyAnswers, addConditionSurveyAnswers, googleAnswerCountTotal, googleAnswerCountQuestion, clearSessionHistory, saveSessionToFirebase, exportSessionHistory }}>
             {children}
         </SessionContext.Provider>
     )

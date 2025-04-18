@@ -16,8 +16,7 @@ const testHistory =
     { type: "answerCheck2" }
   ]
 
-const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrideHistory, isActive = true }) => {
-
+const ChatWindow = ({ questionNumber, promptInstruction, chatInput, setChatInput, messageHistory: overrideHistory, isActive = true, onChatbotReply }) => {
     const { sessionHistory, addChatMessage  } = useSession(); // Session-wide history. Changes to sessionHistory = automatic re-render
     const [currentChatHistory, setCurrentChatHistory] = useState([]); // Temporary history for current conversation
     const [isLoading, setIsLoading] = useState(false); // Loader, w. start value "false"
@@ -58,6 +57,12 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
             // 4. Update temporary currentChatHistory (with user input + bot response formatted for OpenAI)
             setCurrentChatHistory(prev => [...prev, { role: "user", content: inputText }, { role: "assistant", content: chatbotReply }]);
 
+            // Notify parent component that the chatbot has replied
+            if (onChatbotReply) {
+                console.log("Chatbot replied. Triggering onChatbotReply callback."); // Debugging, we can remove
+                onChatbotReply();
+            }
+
         } catch {
             console.error("💥 Error:", err);
         } finally {
@@ -68,7 +73,7 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
 
 
     return (
-        <div className="flex flex-col justify-between h-full w-[100%] p-3 pt-0 bg-[#d9d9d9] rounded-lg">
+        <div className="flex flex-col justify-between h-7/8 w-[100%] p-3 pt-0 bg-[#d9d9d9] rounded-lg">
             <ChatHistory 
                 messageHistory={messageHistory} 
                 isLoading={isLoading}
@@ -77,6 +82,8 @@ const ChatWindow = ({ questionNumber, promptInstruction, messageHistory: overrid
                 onSend={handleSendMessage} /* Pass function that handles API call + logging to session history */
                 isLoading={isLoading}
                 isActive={isActive}
+                chatInput={chatInput}
+                setChatInput={setChatInput}
             />
         </div>
     );

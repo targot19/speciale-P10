@@ -26,9 +26,8 @@ export default function ConditionQuestionBox({ question, options, onChange }) {
             <FormControlLabel
               value={option.value || option}
               control={<Radio />}
-              className="mb-2"
             />
-            <span className="text-sm">{option.label}</span>
+            <span className="text-sm text-center">{option.label}</span>
           </div>
         ))}
       </RadioGroup>

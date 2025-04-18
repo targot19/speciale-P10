@@ -1,6 +1,13 @@
 import NextButton from "../components/NextBtn"
 import ChatWindow from "../components/chat/ChatWindow"
-import { useState } from "react"
+import lifelinesByCategory from "../data/lifelines";
+import GoogleAnswerBox from "../components/GoogleAnswerBox";
+import { useState, useEffect } from "react"
+import UserAnswer from "../components/userinput/UserAnswer"
+import musicIcon from "../assets/music.png";
+import healthIcon from "../assets/health.png";
+import geographyIcon from "../assets/geography.png";
+import physicsIcon from "../assets/physics.png"
 
 // Bare for testing purposes - tænker den skal opbevares et andet sted, evt. i 
 const testHistory =
@@ -14,31 +21,80 @@ const testHistory =
   ]
 
 // prompts: topic, question, stage...
-const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, onNext }) => {
+const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, lifeline, onNext }) => {
+    const categoryIcons = {
+        health: healthIcon,
+        music: musicIcon,
+        geography: geographyIcon,
+        physics: physicsIcon,
+      };
 
-
-    //state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
+    // state variable for storing a temporary history of the current conversation, to pass to the chat along with new inputs (to create a sense of a continuous conversation).
     const [currentChatHistory, setCurrentChatHistory] = useState({});
 
-    // For testing purposes
+    // state variable for storing whether the user has interacted with the chat
+    const [hasInteractedWithChat, setHasInteractedWithChat] = useState(false);
+
+    const [chatInput, setChatInput] = useState("");
+
+    // Reset `hasInteractedWithChat` when the question changes
+    useEffect(() => {
+        setHasInteractedWithChat(false);
+    }, [questionNumber]);
+
+    const handleChatbotReply = () => {
+        setHasInteractedWithChat(true);
+    };
+
+    // Reset chat input whenever the question changes
+    useEffect(() => {
+        setChatInput(""); // Clear the input field
+    }, [question]);
 
     return (
-        <div className="w-screen h-screen flex flex-col px-6 py-2">
+        <div className="w-screen h-screen flex flex-col px-6 py-4">
             <div className="h-1/8 flex justify-between items-center">
-                <h2 className="text-3xl font-semibold">{category}</h2> {/* Make dynamic - category prop */}
+                <div className="flex gap-2 items-center justify-center">
+                    <img
+                        src={categoryIcons[category.toLowerCase()]}
+                        alt={`${category} icon`}
+                        className="w-[35px] h-[35px]"
+                    />
+                    <h2 className="text-3xl font-semibold">{category}</h2> {/* Make dynamic - category prop */}
+                </div>
                 <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
             <div className="flex justify-between gap-8 h-7/8">
-                    <div className="w-[60%]"><ChatWindow questionNumber={questionNumber} promptInstruction={promptInstruction}/></div>
-                    <div className="flex flex-col justify-between w-[40%]">
-                        <p className="bg-[#2E3B4E] text-white p-6 text-lg">
-                            {/* Make dynamic - question prop */}
-                            {question}
-                            </p>
-                        <div className="flex gap-10 items-center justify-center">
-                            <NextButton onClick={onNext}>Next</NextButton>
-                        </div>
+                <div className="w-[60%] h-full">
+                    <p
+                        className="bg-[#2E3B4E] text-white text-center p-6 text-base mb-1 cursor-pointer"
+                        onClick={() => setChatInput(question)}
+                    >
+                        {/* Make dynamic - question prop */}
+                        {question}
+                    </p>
+                    <ChatWindow 
+                    questionNumber={questionNumber} 
+                    promptInstruction={promptInstruction}
+                    chatInput={chatInput}
+                    setChatInput={setChatInput}
+                    onChatbotReply={handleChatbotReply}
+                    />
+                </div>
+                <div className="flex flex-col justify-between h-full w-[40%]">
+                    <div>
+                        {hasInteractedWithChat && (
+                            <GoogleAnswerBox
+                                lifeline={lifeline}
+                                resetTrigger={questionNumber}
+                                questionNumber={questionNumber}
+                            />
+                        )}
                     </div>
+                    <div className="flex items-center justify-center">
+                        <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
+                    </div>
+                </div>
             </div>
         </div>
     )

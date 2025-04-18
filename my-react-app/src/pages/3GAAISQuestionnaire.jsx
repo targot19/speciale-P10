@@ -21,7 +21,7 @@ const GAAISQuestionnaire = () => {
     const options = [
         { value: "Strongly agree", label: "Strongly agree" },
         { value: "Agree", label: "Agree" },
-        { value: "Neither agree nor disagree", label: "Neither agree nor disagree" },
+        { value: "Neutral", label: "Neutral" },
         { value: "Disagree", label: "Disagree" },
         { value: "Strongly disagree", label: "Strongly disagree" },
     ];
@@ -52,12 +52,12 @@ const GAAISQuestionnaire = () => {
 
     return (
         <form onSubmit={handleSubmit} className="pt-0">
-            <div className="p-4 flex flex-col items-center">
+            <div className="p-4 flex flex-col items-center overflow-hidden w-full">
             <h1 className="text-2xl font-bold mb-4">Questionnaire: Second Part</h1>
                 {Object.keys(responses).map((question, index) => (
                 <div
                     key={index}
-                    className="bg-gray-200 p-2 mb-3 rounded-lg shadow-md w-full"
+                    className="bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md"
                     style={{ maxWidth: "600px" }}
                 >
                 <RadioButtonsGroup
