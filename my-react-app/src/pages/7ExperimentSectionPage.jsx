@@ -86,13 +86,15 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                     />
                 </div>
                 <div className="flex flex-col justify-between h-full w-[40%]">
-                {hasInteractedWithChat && (
-                        <GoogleAnswerBox
-                            lifeline={lifeline}
-                            resetTrigger={questionNumber}
-                            questionNumber={questionNumber}
-                        />
-                    )}
+                    <div>
+                        {hasInteractedWithChat && (
+                            <GoogleAnswerBox
+                                lifeline={lifeline}
+                                resetTrigger={questionNumber}
+                                questionNumber={questionNumber}
+                            />
+                        )}
+                    </div>
                     <div className="flex items-center justify-center">
                         <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
                     </div>
