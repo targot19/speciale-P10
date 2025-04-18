@@ -3,6 +3,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import FormLabel from "@mui/material/FormLabel";
 
 const marks = [
   {
@@ -27,7 +28,8 @@ export default function DiscreteSliderMarks({ onChange }) {
   };
 
   return (
-    <Box sx={{ width: 450 }}>
+    <Box sx={{ width: 500 }}>
+      <FormLabel className="mb-2">How confident are you in your answer?</FormLabel>
       <Slider
         aria-label="Custom marks"
         defaultValue={50}

@@ -1,4 +1,4 @@
-import {  onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 

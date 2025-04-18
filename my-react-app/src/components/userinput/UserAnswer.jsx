@@ -88,7 +88,7 @@ const UserAnswer = ({ question, questionNumber, onNext }) => {
           {/* Conditionally render the first survey */}
           {!showSecondSurvey && (
             <>
-              <div className="bg-gray-200 p-3 rounded-lg shadow-md w-full">
+              <div className="bg-gray-200 p-8 rounded-lg shadow-md w-full">
                 <RadioButtonsGroup
                   question="Please select your answer."
                   options={options}
@@ -96,7 +96,7 @@ const UserAnswer = ({ question, questionNumber, onNext }) => {
                 />
                 {/* Conditionally render the slider for the current question */}
                 {showSlider && responses[question]?.answer && (
-                  <div className="flex justify-center items-center">
+                  <div className="flex justify-center pt-8 items-end">
                   <DiscreteSliderMarks
                     onChange={(value) => handleSliderChange(value)}
                   />
