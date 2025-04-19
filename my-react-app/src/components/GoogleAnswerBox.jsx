@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "../context/SessionContext";
 
-const GoogleAnswerBox = ({ lifeline, resetTrigger, questionNumber }) => {
+const GoogleAnswerBox = ({ lifeline, resetTrigger, questionNumber, googleShouldAnswerFalsely }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { googleAnswerCountTotal, googleAnswerCountQuestion } = useSession(); // Access the google incrementer
 
@@ -52,7 +52,7 @@ const GoogleAnswerBox = ({ lifeline, resetTrigger, questionNumber }) => {
                   fontFamily: "'Roboto', sans-serif",
                 }}
               >
-                {lifeline.text}
+                {googleShouldAnswerFalsely ? lifeline.falseText : lifeline.correctText}
               </div>
             </div>
           )

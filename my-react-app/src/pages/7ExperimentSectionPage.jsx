@@ -2,7 +2,7 @@ import NextButton from "../components/NextBtn"
 import ChatWindow from "../components/chat/ChatWindow"
 import lifelinesByCategory from "../data/lifelines";
 import GoogleAnswerBox from "../components/GoogleAnswerBox";
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import UserAnswer from "../components/userinput/UserAnswer"
 import musicIcon from "../assets/music.png";
 import healthIcon from "../assets/health.png";
@@ -21,7 +21,7 @@ const testHistory =
   ]
 
 // prompts: topic, question, stage...
-const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, lifeline, onNext }) => {
+const ExperimentSectionPage = ({ category, questionNumber, question, promptInstruction, lifeline, onNext, googleShouldAnswerFalsely, chatShouldAnswerFalsely }) => {
     const categoryIcons = {
         health: healthIcon,
         music: musicIcon,
@@ -36,6 +36,18 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
     const [hasInteractedWithChat, setHasInteractedWithChat] = useState(false);
 
     const [chatInput, setChatInput] = useState("");
+
+    // Logging the relevant info for the current quetion:
+    const hasLogged = useRef(null);
+    useEffect(() => {
+      if (hasLogged.current === questionNumber) return;
+      hasLogged.current = questionNumber;
+    
+      console.log(`Debug info for question ${questionNumber}`);
+      console.log("→ condition:", promptInstruction);
+      console.log("→ chatShouldAnswerFalsely:", chatShouldAnswerFalsely);
+      console.log("→ googleShouldAnswerFalsely:", googleShouldAnswerFalsely);
+    }, [questionNumber, promptInstruction, chatShouldAnswerFalsely, googleShouldAnswerFalsely]);
 
     // Reset `hasInteractedWithChat` when the question changes
     useEffect(() => {
@@ -88,11 +100,12 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                                 lifeline={lifeline}
                                 resetTrigger={questionNumber}
                                 questionNumber={questionNumber}
+                                googleShouldAnswerFalsely={googleShouldAnswerFalsely}
                             />
                         )}
                     </div>
                     <div className="flex items-center justify-center">
-                        <UserAnswer question={question} questionNumber={questionNumber} onNext={onNext} />
+                        <UserAnswer question={question} questionNumber={questionNumber} chatShouldAnswerFalsely={chatShouldAnswerFalsely} onNext={onNext} googleShouldAnswerFalsely={googleShouldAnswerFalsely} />
                     </div>
                 </div>
             </div>
