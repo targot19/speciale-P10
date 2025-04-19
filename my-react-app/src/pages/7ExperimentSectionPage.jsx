@@ -64,15 +64,17 @@ const ExperimentSectionPage = ({ category, questionNumber, question, promptInstr
                 </div>
                 <p className="text-lg font-medium text-gray-600">{questionNumber}/20</p> {/* Make dynamic - question number prop */}
             </div>
-            <div className="flex justify-between gap-8 h-7/8">
+            <div className="h-1/8">
+                <p
+                    className="bg-[#2E3B4E] text-white text-center font-bold p-6 text-lg md:text-lg mb-1 cursor-pointer"
+                    onClick={() => setChatInput(question)}
+                >
+                    {/* Make dynamic - question prop */}
+                    {question}
+                </p>
+            </div>
+            <div className="flex justify-between gap-8 h-6/8">
                 <div className="w-[60%] h-full">
-                    <p
-                        className="bg-[#2E3B4E] text-white text-center p-6 text-base mb-1 cursor-pointer"
-                        onClick={() => setChatInput(question)}
-                    >
-                        {/* Make dynamic - question prop */}
-                        {question}
-                    </p>
                     <ChatWindow 
                     questionNumber={questionNumber} 
                     promptInstruction={promptInstruction}

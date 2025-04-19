@@ -73,7 +73,7 @@ const ChatWindow = ({ questionNumber, promptInstruction, chatInput, setChatInput
 
 
     return (
-        <div className="flex flex-col justify-between h-7/8 w-[100%] p-3 pt-0 bg-[#d9d9d9] rounded-lg">
+        <div className="flex flex-col justify-between h-full w-[100%] p-3 pt-0 bg-[#d9d9d9] rounded-lg">
             <ChatHistory 
                 messageHistory={messageHistory} 
                 isLoading={isLoading}
