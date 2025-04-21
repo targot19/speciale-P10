@@ -18,7 +18,7 @@ const lifelinesByCategory = {
     },
     { 
       number: 5, 
-      text: "Pantera's 1992 album 'Vulgar Display of Power' includes the song 'Walk'.", 
+      text: "Pantera's 1992 album 'Vulgar Display of Power' does not include the song 'Cemetery Gates'.", 
     }    
   ],
   health: [
@@ -46,7 +46,7 @@ const lifelinesByCategory = {
   geography: [
     { 
       number: 11, 
-      text: "Turkmenistan is not the least populous 'stan' country—Tajikistan has fewer inhabitants.", 
+      text: "Kazakhstan is not the least populous 'stan' country—Tajikistan has fewer inhabitants.", 
     },
     { 
       number: 12, 
