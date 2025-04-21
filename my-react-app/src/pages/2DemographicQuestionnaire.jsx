@@ -64,7 +64,7 @@ const DemographicQuestionnaire = () => {
             </div>
             <div className="min-w-[600px] bg-gray-200 p-4 mb-4 rounded-lg shadow-md w-full max-w-md">
                 <RadioButtonsGroup
-                    question="What is your highest level of education?"
+                    question="What is your highest level of completed education?"
                     options={[
                         "Primary and lower secondary education (Grundskole)",
                         "Upper secondary / high school or vocational education (Gymnasiale og erhvervsfaglige uddannelser)",
