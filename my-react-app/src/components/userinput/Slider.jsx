@@ -35,7 +35,8 @@ export default function DiscreteSliderMarks({ onChange }) {
         defaultValue={50}
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
-        marks={marks}
+        step={5}
+        marks={true}
         min={0}
         max={100}
         onChangeCommitted={handleSliderChange} // Trigger when the slider value is set
