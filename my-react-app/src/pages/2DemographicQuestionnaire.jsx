@@ -100,7 +100,7 @@ const DemographicQuestionnaire = () => {
                 />
             </div>
                     <ButtonContainer>
-                        <BackButton to="/" />
+                        {/*<BackButton to="/" />*/}
                         <NextButton type="submit">Next</NextButton>
                     </ButtonContainer>
             </div>
