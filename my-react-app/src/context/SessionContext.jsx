@@ -137,6 +137,7 @@ export const SessionProvider = ({ children }) => {
                 [questionNumber]: {
                     ...(prev.questionAnswerHistory?.[questionNumber] || {}),
                     ...data,
+                    shouldAnswerFalsely: data.shouldAnswerFalsely,
                     googleChecked: prev.questionAnswerHistory?.[questionNumber]?.googleChecked || false, // Default to false if not set
                 }
             }

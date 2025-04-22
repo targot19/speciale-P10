@@ -5,7 +5,7 @@ import DiscreteSliderMarks from "./Slider";
 import { useState, useEffect } from "react";
 import NextButton from "../NextBtn";
 
-const UserAnswer = ({ question, questionNumber, onNext }) => {
+const UserAnswer = ({ question, questionNumber, chatShouldAnswerFalsely, googleShouldAnswerFalsely, onNext }) => {
   const { addQuestionAnswer } = useSession();
 
   // State structure to include both survey response and slider value
@@ -77,8 +77,12 @@ const UserAnswer = ({ question, questionNumber, onNext }) => {
       alert("Please choose an option.");
       return;
     }
-    console.log({ responses }); // Log final responses
-    addQuestionAnswer(questionNumber, responses); // Save responses to session history
+    console.log("Logging answer with:", {
+      ...response,
+      chatShouldAnswerFalsely,
+      googleShouldAnswerFalsely
+    }); // Log final responses
+    addQuestionAnswer(questionNumber, {...responses, chatShouldAnswerFalsely, googleShouldAnswerFalsely}); // Save responses to session history
     setShowSecondSurvey(true);
   };
 

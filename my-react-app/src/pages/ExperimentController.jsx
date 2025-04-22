@@ -23,7 +23,7 @@ const ExperimentController = () => {
     // Access chat history (for perceived trust page)
     const { sessionHistory } = useSession();
     const { chatHistory, conditionOrder } = sessionHistory;
-    console.log(conditionOrder)
+    //console.log(conditionOrder)
 
     //console.log("From sessionStorage:", sessionStorage.getItem("sessionHistory"));
 
@@ -111,8 +111,10 @@ const ExperimentController = () => {
           category={capitalizeFirstLetter(currentStep.category)}
           questionNumber={currentStep.questionIndex}
           question={currentStep.question.text}
-          promptInstruction={getPromptInstruction(currentStep.condition)}
+          promptInstruction={getPromptInstruction(currentStep.condition, currentStep.chatShouldAnswerFalsely)}
           lifeline={lifeline}
+          chatShouldAnswerFalsely={currentStep.chatShouldAnswerFalsely}
+          googleShouldAnswerFalsely={currentStep.googleShouldAnswerFalsely}
           onNext={handleNext}
         />
       );
@@ -151,12 +153,18 @@ const buildExperimentSequence = (conditionOrder, questionsByCategory, categories
     
         // 2. Add 5 questions
         questions.forEach((question, qIndex) => {
+
+          const chatShouldAnswerFalsely = Math.random() < 0.5; // 50% chance of giving a false answer
+          const googleShouldAnswerFalsely = Math.random() < 0.5;
+
           sequence.push({
             type: "question",
             category,
             condition,
             question,
-            questionIndex: catIndex * 5 + qIndex + 1
+            questionIndex: catIndex * 5 + qIndex + 1,
+            chatShouldAnswerFalsely,
+            googleShouldAnswerFalsely
           });
         });
     
@@ -164,7 +172,7 @@ const buildExperimentSequence = (conditionOrder, questionsByCategory, categories
         sequence.push({ type: "survey", category, condition });
       });
 
-      //console.log("🧱 Full Experiment Sequence:", sequence);
+      console.log("🧱 Full Experiment Sequence:", sequence);
     
       return sequence;
 
@@ -197,20 +205,33 @@ const buildShortExperimentSequence = (conditionOrder, questionsByCategory, categ
   return sequence;
 };
 
-const getPromptInstruction = (condition) => {
-    // Switch case, matching a prompt to A, B, C D.
+const getPromptInstruction = (condition, chatShouldAnswerFalsely) => {
+
+    let basePrompt;
+
+    // Switch case, matching a base-prompt to A, B, C D.
     switch (condition) {
         case "A":
-            return "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of certainty and confidence, like 'I am certain', 'I am sure', etc. Answer in only one sentence.";
+            basePrompt = "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of certainty and confidence, like 'I am certain', 'I am sure', etc. Answer in only one sentence.";
+            break;
         case "B":
-            return "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of uncertainty and doubt. Use terms like 'i think' or 'i believe it might be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
+            basePrompt = "Respond to this prompt referring to yourself as 'I' when speaking. Respond to this prompt using expressions of uncertainty and doubt. Use terms like 'i think' or 'i believe it might be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
+            break;
         case "C":
-            return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Respond to this prompt using expressions of certainty and confidence. Answer in only one sentence.";
+            basePrompt = "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Respond to this prompt using expressions of certainty and confidence. Answer in only one sentence.";
+            break;
         case "D": 
-            return "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Use terms like 'The system has found that it might be' or 'the answer may be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
+            basePrompt = "Start your response with 'the system has found that...'. Refer to yourself as 'the system' in all of your responses. Use terms like 'The system has found that it might be' or 'the answer may be' or 'it could perhaps be' in all sentences, even if you are sure. Answer in only one sentence.";
+            break;
         default:
           console.warn("⚠️ Unknown condition received:", condition);
-          return "Fallback prompt...";
+          return "";
+    }
+
+    if (chatShouldAnswerFalsely) {
+      return basePrompt + " Answer this question incorrectly."
+    } else {
+      return basePrompt
     }
 };
 
