@@ -72,7 +72,7 @@ const lifelinesByCategory = {
     },
     { 
       number: 17, 
-      text: "The Maxwell-Boltzmann distribution describes the velocity of particles in a gas at thermal equilibrium.", 
+      text: "The Maxwell-Boltzmann distribution describes the velocity of particles in a gas at thermal equilibrium - not the Planck distribution.", 
     },
     { 
       number: 18, 
