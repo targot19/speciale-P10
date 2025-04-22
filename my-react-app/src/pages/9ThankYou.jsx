@@ -32,7 +32,6 @@ const ThankYou = () => {
 
   // function to handle submission and control flow for ending experiment / saving to database / exporting files locally
   const handleEndExperiment = async () => {
-
     setSubmissionStatus("saving");
 
     try {
@@ -42,11 +41,10 @@ const ThankYou = () => {
       if (wasRecordingInterrupted) {
         console.warn("⚠️ Recording was interrupted. Skipping video upload and download.");
         blob = null;
-      } else {
+      } else if (isRecording) {
         // If still recording, stop it and get the blob
-        if (isRecording) {
-          blob = await stopRecording();
-        }
+        console.log("Stopping recording...");
+        blob = await stopRecording();
       }
 
       //if (blob && !(blob instanceof Blob)) {
@@ -60,6 +58,7 @@ const ThankYou = () => {
       if (blob) {
         try {
           // Upload screen recording to Firebase Storage, with 1 min time-limit
+          console.log("Uploading video...");
           firebaseVideoURL = await uploadRecordedVideo(blob)
 
           // Save + download a local copy of the video 

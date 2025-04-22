@@ -57,8 +57,9 @@ export const RecordingProvider = ({ children }) => {
       if (recorder) {
         recorder.stopRecording(() => {
           const blob = recorder.getBlob();
+          console.log("🎥 Recording stopped. Blob created:", blob);
+          
           const videoUrl = URL.createObjectURL(blob);
-  
           setRecordedVideoUrl(videoUrl);
           setRecordedBlob(blob); // store blob (for DB)
           setRecorder(null);
@@ -67,6 +68,7 @@ export const RecordingProvider = ({ children }) => {
           resolve(blob); // ✅ resolve with the blob
         });
       } else {
+        console.warn("No recorder found to stop.");
         resolve(null); // nothing to stop
       }
     });
@@ -100,6 +102,7 @@ export const RecordingProvider = ({ children }) => {
     const storageRef = ref(storage, `videos/${uid}/${filename}`);
   
     try {
+      console.log("Uploading video to Firebase Storage...");
       const snapshot = await uploadBytes(storageRef, blob, {
         contentType: "video/webm",
       });
