@@ -229,7 +229,7 @@ const getPromptInstruction = (condition, chatShouldAnswerFalsely) => {
     }
 
     if (chatShouldAnswerFalsely) {
-      return basePrompt + " Answer this question incorrectly."
+      return basePrompt + " Answer this question incorrectly, and be consistent with the incorrect answer."
     } else {
       return basePrompt
     }
